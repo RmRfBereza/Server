@@ -6,9 +6,10 @@ public class YControllers : MonoBehaviour
     public float dAcc = 0.1F;           // Величина отклонения для активации
     public int dS = 5;                  // Минимальное количество отклонений для активации
     
-    public Vector3 top = Vector3.zero;  // Верхняя позиция
-    public Vector3 mid = Vector3.zero;  // Стандартная позиция  
-    public Vector3 bot = Vector3.zero;  // Нижняя позиция
+    public delegate void SpaceAction();
+    public delegate void CtrlAction();
+    public static SpaceAction OnYSpace;
+    public static CtrlAction OnYCtrl;
     
     private const int size = 250;
     private float[] val = new float[size];
@@ -71,21 +72,17 @@ public class YControllers : MonoBehaviour
     {
         if (Mathf.Abs(devation) < dS)
         {
-            Vector3 hz = transform.position;
-            hz.y = mid.y;
-            transform.position = hz;
+
         }
         else if (devation < 0)
         {
-            Vector3 hz = transform.position;
-            hz.y = top.y;
-            transform.position = hz;
+            if(OnYSpace != null)
+                OnYSpace();
         }
         else 
         {
-            Vector3 hz = transform.position;
-            hz.y = bot.y;
-            transform.position = hz;
+            if(OnYCtrl != null)
+                OnYCtrl();
         }
     }
     

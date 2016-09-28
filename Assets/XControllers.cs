@@ -6,9 +6,10 @@ public class XControllers : MonoBehaviour
     public float dAcc = 0.1F;           // Величина отклонения для активации
     public int dS = 5;                  // Минимальное количество отклонений для активации
     
-    public Vector3 left = Vector3.zero;  // Левая позиция
-    public Vector3 mid = Vector3.zero;   // Стандартная позиция  
-    public Vector3 right = Vector3.zero; // Правая позиция
+    public delegate void LeftAction();
+    public delegate void RightAction();
+    public static LeftAction OnXLeft;
+    public static RightAction OnXRight;
     
     private const int size = 250;
     private float[] val = new float[size];
@@ -71,21 +72,17 @@ public class XControllers : MonoBehaviour
     {
         if (Mathf.Abs(devation) < dS)
         {
-            Vector3 hz = transform.position;
-            hz.x = mid.x;
-            transform.position = hz;
+
         }
         else if (devation > 0)
         {
-            Vector3 hz = transform.position;
-            hz.x = left.x;
-            transform.position = hz;
+            if(OnXLeft != null)
+                OnXLeft();
         }
         else 
         {
-            Vector3 hz = transform.position;
-            hz.x = right.x;
-            transform.position = hz;
+            if(OnXRight != null)
+                OnXRight();
         }
     }
     
