@@ -8,17 +8,16 @@ public class RobotMovement : MonoBehaviour {
     private const sbyte Right = 1;
     private const sbyte DefaultTrackNumber = 1;
     
-    //TODO Do we need new Vector3()?
-    private Vector3 _movement = new Vector3();
-    private Vector3 _rotation = new Vector3();
+    private Vector3 _movement;
+    private Vector3 _rotation;
 
     private Vector3 _middlePosition;
     private Vector3 _newPosition;
-    public static sbyte _currentTrack;
+    public static sbyte CurrentTrack;
 
     // Use this for initialization
     void Start () {
-        _currentTrack = DefaultTrackNumber;
+        CurrentTrack = DefaultTrackNumber;
 	}
 	
 	// Update is called once per frame
@@ -69,12 +68,12 @@ public class RobotMovement : MonoBehaviour {
 
     private void ChangeTrack(sbyte direction)
     {
-        if (direction == Left && _currentTrack != 0 || 
-            direction == Right && _currentTrack + direction < Level.tracksQuantity)
+        if (direction == Left && CurrentTrack != 0 || 
+            direction == Right && CurrentTrack + direction < Level.tracksQuantity)
         {
             _movement.Set(direction * Level.trackWidth, 0f, 0f);
             MoveInLocalCs(_movement);
-            _currentTrack += direction;
+            CurrentTrack += direction;
         }
     }
 
