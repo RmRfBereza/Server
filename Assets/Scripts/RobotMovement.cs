@@ -19,6 +19,7 @@ public class RobotMovement : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _currentTrack = DefaultTrackNumber;
+        subscribeXAction();
 	}
 	
 	// Update is called once per frame
@@ -27,8 +28,9 @@ public class RobotMovement : MonoBehaviour {
         MoveSidewaysKeyboard();
         TurnKeyboard();
         RunForward();
+        updXAction();
 	}
-
+   
     private void MoveSidewaysKeyboard()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -88,5 +90,52 @@ public class RobotMovement : MonoBehaviour {
         //_playerBody.MovePosition(_newPosition);
 
         transform.position = _newPosition;
+    }
+    
+    public float timeXAction = 0.5f;
+    private float counterXAction = -1.0f;
+    private void updXAction()
+    {
+        counterXAction = counterXAction != -1.0f ? counterXAction + Time.deltaTime : -1.0f;
+        if (counterXAction >= timeXAction)
+        {
+            OnEndXAction();
+        }
+    }
+    
+    private void OnStartXAction()
+    {
+        unsubscribeXAction();
+        counterXAction = 0.0f;
+    }
+    
+    private void OnEndXAction()
+    {
+        subscribeXAction();
+        counterXAction = -1.0f;
+    }
+    
+    private void OnXLeft()
+    {
+        OnStartXAction();
+        ChangeTrack(Left);
+    }
+
+    private void OnXRight()
+    {
+        OnStartXAction();
+        ChangeTrack(Right);
+    }
+    
+    private void subscribeXAction()
+    {
+        XControllers.OnXLeft  += OnXLeft;
+        XControllers.OnXRight += OnXRight;
+    }
+    
+    private void unsubscribeXAction()
+    {
+        XControllers.OnXLeft  -= OnXLeft;
+        XControllers.OnXRight -= OnXRight;
     }
 }
