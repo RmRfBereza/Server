@@ -22,6 +22,16 @@ public class RobotMovement : MonoBehaviour {
         subscribeXAction();
 	}
 	
+    void RL(){
+        Turn(-GeometryBasic.RightAngleDeg);
+        Debug.Log("LLLLLLLLL");
+    }
+    
+    void RR(){
+        Turn(GeometryBasic.RightAngleDeg);
+        Debug.Log("RRRRRRRRRR");
+    }
+    
 	// Update is called once per frame
 	void Update ()
     {
@@ -29,6 +39,8 @@ public class RobotMovement : MonoBehaviour {
         TurnKeyboard();
         RunForward();
         updXAction();
+        AngleControllers.OnLeftRotate  += RL;
+        AngleControllers.OnRightRotate  += RR;
 	}
    
     private void MoveSidewaysKeyboard()
