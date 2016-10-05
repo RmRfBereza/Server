@@ -13,6 +13,8 @@ public class Level : MonoBehaviour {
     public GameObject Player;
     public Camera MCamera;
 
+    private const int CameraHeight = 5;
+
     private RobotMovement _robot;
     private Vector3 _position;
     private Vector3 _rotation;
@@ -26,38 +28,49 @@ public class Level : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-	    _position = Player.transform.position;
-	    _position.y = 5;
-
-        MCamera.transform.position = _position;
-
-	    float switcher = Random.value;
-
-	    if (switcher > 0.99)
-	    {
-	        TurnPlayer(Directions.Down);
-            print("down");
-	    }
-	    else if (switcher > 0.95)
-	    {
-	        TurnPlayer(Directions.Left);
-            print("left");
-	    } else if (switcher > 0.9)
-	    {
-	        TurnPlayer(Directions.Right);
-            print("Right");
-	    }
-	    else if (switcher > 0.86)
-	    {
-	        TurnPlayer(Directions.Up);
-            print("Up");
-	    }
+	    updateCameraPosition();
 	}
 
     public void TurnPlayer(Directions direction)
     {
         _robot.SetRotation((int)direction);
-        _rotation.Set(90, (float)direction, 0f);
+        _rotation.Set(GeometryBasic.RightAngleDeg, (float)direction, 0f);
         MCamera.transform.eulerAngles = _rotation;
     }
+
+    private void updateCameraPosition()
+    {
+        _position = Player.transform.position;
+        _position.y = CameraHeight;
+
+        MCamera.transform.position = _position;
+    }
+
+#if UNITY_EDITOR
+    private void testTurning()
+    {
+        float switcher = Random.value;
+
+        if (switcher > 0.99)
+        {
+            TurnPlayer(Directions.Down);
+            print("Down");
+        }
+        else if (switcher > 0.95)
+        {
+            TurnPlayer(Directions.Left);
+            print("Left");
+        }
+        else if (switcher > 0.9)
+        {
+            TurnPlayer(Directions.Right);
+            print("Right");
+        }
+        else if (switcher > 0.86)
+        {
+            TurnPlayer(Directions.Up);
+            print("Up");
+        }
+    }
+#endif
 }
