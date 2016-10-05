@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class RobotMovement : MonoBehaviour {
@@ -10,6 +11,7 @@ public class RobotMovement : MonoBehaviour {
     
     private Vector3 _movement;
     private Vector3 _rotation;
+
 
     private Vector3 _middlePosition;
     private Vector3 _newPosition;
@@ -27,6 +29,12 @@ public class RobotMovement : MonoBehaviour {
         TurnKeyboard();
         RunForward();
 	}
+
+    public void SetRotation(int rotationY)
+    {
+        _rotation.Set(0f, rotationY, 0f);
+        transform.eulerAngles = _rotation;
+    }
 
     private void MoveSidewaysKeyboard()
     {
@@ -69,9 +77,9 @@ public class RobotMovement : MonoBehaviour {
     private void ChangeTrack(sbyte direction)
     {
         if (direction == Left && CurrentTrack != 0 || 
-            direction == Right && CurrentTrack + direction < Level.tracksQuantity)
+            direction == Right && CurrentTrack + direction < Level.TracksQuantity)
         {
-            _movement.Set(direction * Level.trackWidth, 0f, 0f);
+            _movement.Set(direction * Level.TrackWidth, 0f, 0f);
             MoveInLocalCs(_movement);
             CurrentTrack += direction;
         }
