@@ -2,32 +2,49 @@
 using UnityEngine;
 using System.Collections;
 
-public class RobotMovement : MonoBehaviour {
+public class RobotMovement : MonoBehaviour
+{
+    public static sbyte CurrentTrack;
 
-    private const float Speed = 2.5f;
+    public float Thrust;
+    public float Speed;
+    public float JumpLength;
+
+    private float _jumpHeight;
+    private float _jumpPosition;
+    private Vector3 jumpPreviousPosition;
+
+    private const sbyte JumpCoefficient = 3;
     private const sbyte Left = -1;
     private const sbyte Right = 1;
     private const sbyte DefaultTrackNumber = 1;
-    
+    private const float Tolerance = 0.0001f;
+
+    private enum States
+    {
+        Running, Jumping
+    }
+
+    private States _currentState;
+
     private Vector3 _movement;
     private Vector3 _rotation;
 
-
     private Vector3 _middlePosition;
     private Vector3 _newPosition;
-    public static sbyte CurrentTrack;
 
     // Use this for initialization
     void Start () {
         CurrentTrack = DefaultTrackNumber;
+        StartRunning();
+        SetJumpParameters();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        MoveSidewaysKeyboard();
-        TurnKeyboard();
         RunForward();
+        HandleCurrentState();
 	}
 
     public void SetRotation(int rotationY)
@@ -36,6 +53,22 @@ public class RobotMovement : MonoBehaviour {
         transform.eulerAngles = _rotation;
     }
 
+    private void HandleCurrentState()
+    {
+        switch (_currentState)
+        {
+            case States.Jumping:
+                HandleJumping();
+                break;
+            case States.Running:
+#if UNITY_EDITOR
+                HandleKeyboard();
+#endif
+                break;
+        }
+    }
+
+#if UNITY_EDITOR
     private void MoveSidewaysKeyboard()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -61,6 +94,22 @@ public class RobotMovement : MonoBehaviour {
             Turn(GeometryBasic.RightAngleDeg);
         }
     }
+
+    private void JumpKeyboard()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    private void HandleKeyboard()
+    {
+        MoveSidewaysKeyboard();
+        TurnKeyboard();
+        JumpKeyboard();
+    }
+#endif
 
     private void Turn(float rotationY)
     {
@@ -95,5 +144,44 @@ public class RobotMovement : MonoBehaviour {
         //_playerBody.MovePosition(_newPosition);
 
         transform.position = _newPosition;
+    }
+
+    private void SetJumpParameters()
+    {
+        _jumpHeight = Mathf.Pow(JumpLength, 2)/JumpCoefficient;
+    }
+
+    private void Jump()
+    {
+        _currentState = States.Jumping;
+        _jumpPosition = 0;
+        jumpPreviousPosition = transform.position;
+    }
+
+    private void HandleJumping()
+    {
+        //not using physics engine because jumping should be deterministic, avoyding physics can increase performance 
+        _jumpPosition += Math.Abs(jumpPreviousPosition.x - transform.position.x) > Tolerance
+            ? transform.position.x - jumpPreviousPosition.x
+            : transform.position.z - jumpPreviousPosition.z;
+
+        float currentJumpHeight = -Mathf.Pow((_jumpPosition - JumpLength)/2, 2) + _jumpHeight;
+
+        if (currentJumpHeight > 0)
+        {
+            _newPosition.Set(transform.position.x, currentJumpHeight, transform.position.z);
+            transform.position = _newPosition;
+        }
+        else
+        {
+            StartRunning();
+        }
+
+        jumpPreviousPosition = transform.position;
+    }
+
+    private void StartRunning()
+    {
+        _currentState = States.Running;
     }
 }

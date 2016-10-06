@@ -11,9 +11,6 @@ public class Level : MonoBehaviour {
     }
 
     public GameObject Player;
-    public Camera MCamera;
-
-    private const int CameraHeight = 5;
 
     private RobotMovement _robot;
     private Vector3 _position;
@@ -28,22 +25,13 @@ public class Level : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-	    updateCameraPosition();
+	    
 	}
 
     public void TurnPlayer(Directions direction)
     {
         _robot.SetRotation((int)direction);
         _rotation.Set(GeometryBasic.RightAngleDeg, (float)direction, 0f);
-        MCamera.transform.eulerAngles = _rotation;
-    }
-
-    private void updateCameraPosition()
-    {
-        _position = Player.transform.position;
-        _position.y = CameraHeight;
-
-        MCamera.transform.position = _position;
     }
 
 #if UNITY_EDITOR
