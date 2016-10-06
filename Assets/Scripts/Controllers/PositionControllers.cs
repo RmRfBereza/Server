@@ -12,7 +12,6 @@ public class PositionControllers : MonoBehaviour
     public Vector3 bot = Vector3.zero;  // Нижняя позиция
     public int timeYAction = 60;
     
-    
     void OnYSpace()
     {
         OnStartYAction();

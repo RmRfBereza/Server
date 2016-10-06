@@ -3,12 +3,14 @@ using System.Collections;
 
 public class AngleControllers : MonoBehaviour 
 {
-    public int dAngle = 90;
-    
     public delegate void LeftRotateAction();
     public delegate void RightRotateAction();
-    public static LeftRotateAction OnLeftRotate;
+    public delegate void UpRotateAction();
+    public delegate void DownRotateAction();
+    public static LeftRotateAction  OnLeftRotate;
     public static RightRotateAction OnRightRotate;
+    public static UpRotateAction    OnUpRotate;
+    public static DownRotateAction  OnDownRotate;
     
     private float angle = 0.0F;
     
@@ -17,43 +19,28 @@ public class AngleControllers : MonoBehaviour
         Input.gyro.enabled = true;
     }
     
-    int pos = 0;
-    int lastPos = 0;
-    
     void updateGyro()
     {
-        Quaternion stRot = transform.rotation;
-        Quaternion rotation = Quaternion.LookRotation(Input.acceleration.normalized);
-        angle += rotation.x;
-        Debug.Log("AAAA " + angle);
+        angle += -Input.gyro.rotationRateUnbiased.y;
+        Debug.Log("QQQQQQ CCCCCC " + angle);
+
         
-        int aa = (int)(angle*10);
-        while(aa > 180)
-            aa -= 180;
-        while(aa < -180)
-            aa += 180;
-        if (aa > -45 && aa < 45){
-            //lastPos = pos;
-            pos = 0;
-        } else
-        if (aa < -45 && aa > -45-90){
-            //lastPos = pos;
-            pos = 3;
-        } else
-        if (aa > 45 && aa < 45+90){
-            //lastPos = pos;
-            pos = 1;
-        } else {
-            //lastPos = pos;
-            pos = 2;
-        }
+        while(angle > 180)
+            angle -= 360;
+        while(angle < -180)
+            angle += 360;
             
-        if(pos > lastPos || (lastPos == 3 && pos == 0)){
-            OnRightRotate();
-        } else if(pos < lastPos || (lastPos == 0 && pos == 3))
+        if (angle > -45 && angle < 45){
+            OnUpRotate();
+        } else
+        if (angle < -45 && angle > -45-90){
             OnLeftRotate();
-            
-        lastPos = pos;
+        } else
+        if (angle > 45 && angle < 45+90){
+            OnRightRotate();
+        } else {
+            OnDownRotate();
+        }
     }
 
     void Update()

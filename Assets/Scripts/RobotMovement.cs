@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class RobotMovement : MonoBehaviour {
@@ -8,28 +9,41 @@ public class RobotMovement : MonoBehaviour {
     private const sbyte Right = 1;
     private const sbyte DefaultTrackNumber = 1;
     
-    //TODO Do we need new Vector3()?
-    private Vector3 _movement = new Vector3();
-    private Vector3 _rotation = new Vector3();
+   
+    private Vector3 _movement;
+    private Vector3 _rotation;
 
+    private Level level;
+    
     private Vector3 _middlePosition;
     private Vector3 _newPosition;
-    public static sbyte _currentTrack;
+    public static sbyte CurrentTrack;
 
     // Use this for initialization
     void Start () {
-        _currentTrack = DefaultTrackNumber;
+    level = GameObject.Find("Plane").GetComponent<Level>();
+        CurrentTrack = DefaultTrackNumber;
         subscribeXAction();
+        AngleControllers.OnLeftRotate  += RotateLeft;
+        AngleControllers.OnRightRotate += RotateRight;
+        AngleControllers.OnUpRotate    += RotateUp;
+        AngleControllers.OnDownRotate  += RotateDown; 
 	}
 	
-    void RL(){
-        Turn(-GeometryBasic.RightAngleDeg);
-        Debug.Log("LLLLLLLLL");
+    void RotateUp(){
+        level.TurnPlayer(Level.Directions.Up);
     }
     
-    void RR(){
-        Turn(GeometryBasic.RightAngleDeg);
-        Debug.Log("RRRRRRRRRR");
+    void RotateDown(){
+        level.TurnPlayer(Level.Directions.Down);
+    }
+    
+    void RotateLeft(){
+        level.TurnPlayer(Level.Directions.Left);
+    }
+    
+    void RotateRight(){
+        level.TurnPlayer(Level.Directions.Right);
     }
     
 	// Update is called once per frame
@@ -39,9 +53,13 @@ public class RobotMovement : MonoBehaviour {
         TurnKeyboard();
         RunForward();
         updXAction();
-        AngleControllers.OnLeftRotate  += RL;
-        AngleControllers.OnRightRotate  += RR;
 	}
+   
+    public void SetRotation(int rotationY)
+    {
+        _rotation.Set(0f, rotationY, 0f);
+        transform.eulerAngles = _rotation;
+    }
    
     private void MoveSidewaysKeyboard()
     {
@@ -83,12 +101,12 @@ public class RobotMovement : MonoBehaviour {
 
     private void ChangeTrack(sbyte direction)
     {
-        if (direction == Left && _currentTrack != 0 || 
-            direction == Right && _currentTrack + direction < Level.tracksQuantity)
+        if (direction == Left && CurrentTrack != 0 || 
+            direction == Right && CurrentTrack + direction < Level.TracksQuantity)
         {
-            _movement.Set(direction * Level.trackWidth, 0f, 0f);
+            _movement.Set(direction * Level.TrackWidth, 0f, 0f);
             MoveInLocalCs(_movement);
-            _currentTrack += direction;
+            CurrentTrack += direction;
         }
     }
 
