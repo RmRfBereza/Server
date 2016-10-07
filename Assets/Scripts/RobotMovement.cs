@@ -13,12 +13,14 @@ public class RobotMovement : MonoBehaviour
     private float _jumpHeight;
     private float _jumpPosition;
     private Vector3 jumpPreviousPosition;
+    private Animator _animator;
 
     private const sbyte JumpCoefficient = 3;
     private const sbyte Left = -1;
     private const sbyte Right = 1;
     private const sbyte DefaultTrackNumber = 1;
     private const float Tolerance = 0.0001f;
+    private const string State = "State";
 
     private enum States
     {
@@ -26,6 +28,17 @@ public class RobotMovement : MonoBehaviour
     }
 
     private States _currentState;
+    private States CurrentState {
+        get
+        {
+            return _currentState;
+        }
+        set
+        {
+            _currentState = value;
+            _animator.SetInteger(State, (int)value);
+        }
+    }
 
     private Vector3 _movement;
     private Vector3 _rotation;
@@ -34,7 +47,9 @@ public class RobotMovement : MonoBehaviour
     private Vector3 _newPosition;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
         StartRunning();
         SetJumpParameters();
@@ -55,7 +70,7 @@ public class RobotMovement : MonoBehaviour
 
     private void HandleCurrentState()
     {
-        switch (_currentState)
+        switch (CurrentState)
         {
             case States.Jumping:
                 HandleJumping();
@@ -153,7 +168,8 @@ public class RobotMovement : MonoBehaviour
 
     private void Jump()
     {
-        _currentState = States.Jumping;
+        transform.position = _newPosition;
+        CurrentState = States.Jumping;
         _jumpPosition = 0;
         jumpPreviousPosition = transform.position;
     }
@@ -169,7 +185,7 @@ public class RobotMovement : MonoBehaviour
 
         if (currentJumpHeight > 0)
         {
-            _newPosition.Set(transform.position.x, currentJumpHeight, transform.position.z);
+            _newPosition.Set(transform.position.x, currentJumpHeight + 0.9f, transform.position.z);
             transform.position = _newPosition;
         }
         else
@@ -182,6 +198,6 @@ public class RobotMovement : MonoBehaviour
 
     private void StartRunning()
     {
-        _currentState = States.Running;
+        CurrentState = States.Running;
     }
 }
