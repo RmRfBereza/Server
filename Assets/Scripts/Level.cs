@@ -11,15 +11,14 @@ public class Level : MonoBehaviour {
     }
 
     public GameObject Player;
+    public Camera MainCamera;
 
     private RobotMovement _robot;
-    private Vector3 _position;
-    private Vector3 _rotation;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    _robot = Player.GetComponent<RobotMovement>();
+        CreateMainPlayer();
 	}
 	
 	// Update is called once per frame
@@ -27,38 +26,11 @@ public class Level : MonoBehaviour {
 	{
 	    
 	}
-
-    public void TurnPlayer(Directions direction)
+    
+    public void CreateMainPlayer()
     {
-        _robot.SetRotation((int)direction);
-        _rotation.Set(GeometryBasic.RightAngleDeg, (float)direction, 0f);
+        Player = Instantiate(Player);
+        MainCamera.transform.parent = Player.transform;
+        _robot = Player.GetComponent<RobotMovement>();
     }
-
-#if UNITY_EDITOR
-    private void testTurning()
-    {
-        float switcher = Random.value;
-
-        if (switcher > 0.99)
-        {
-            TurnPlayer(Directions.Down);
-            print("Down");
-        }
-        else if (switcher > 0.95)
-        {
-            TurnPlayer(Directions.Left);
-            print("Left");
-        }
-        else if (switcher > 0.9)
-        {
-            TurnPlayer(Directions.Right);
-            print("Right");
-        }
-        else if (switcher > 0.86)
-        {
-            TurnPlayer(Directions.Up);
-            print("Up");
-        }
-    }
-#endif
 }
