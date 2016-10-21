@@ -1,3 +1,7 @@
+# ============== #
+# Unity packages #
+# ============== #
+*.unitypackage
 # =============== #
 # Unity generated #
 # =============== #
