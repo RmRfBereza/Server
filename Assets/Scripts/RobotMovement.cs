@@ -26,24 +26,16 @@ public class RobotMovement : MonoBehaviour {
         subscribeXAction();
         AngleControllers.OnLeftRotate  += RotateLeft;
         AngleControllers.OnRightRotate += RotateRight;
-        AngleControllers.OnUpRotate    += RotateUp;
-        AngleControllers.OnDownRotate  += RotateDown; 
+        //AngleControllers.OnUpRotate    += RotateUp;
+        //AngleControllers.OnDownRotate  += RotateDown; 
 	}
-	
-    void RotateUp(){
-        level.TurnPlayer(Level.Directions.Up);
-    }
-    
-    void RotateDown(){
-        level.TurnPlayer(Level.Directions.Down);
-    }
-    
+
     void RotateLeft(){
-        level.TurnPlayer(Level.Directions.Left);
+		Turn(-GeometryBasic.RightAngleDeg);
     }
     
     void RotateRight(){
-        level.TurnPlayer(Level.Directions.Right);
+		Turn(GeometryBasic.RightAngleDeg);
     }
     
 	// Update is called once per frame
