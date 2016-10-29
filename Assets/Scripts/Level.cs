@@ -149,6 +149,10 @@ public class Level : MonoBehaviour {
             {
                 RestartGame();
             }
+            else if (Input.GetKeyDown(KeyCode.M))
+            {
+                Application.LoadLevel(0);
+            }
             yield return null;
         }
     }
