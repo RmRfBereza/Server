@@ -143,11 +143,12 @@ public class Level : MonoBehaviour {
         }
     }
 
-#if UNITY_EDITOR
+
     IEnumerator testingLoop()
     {
         while(true)
         {
+#if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.C))
             {
                 NotifySecondPlayerConnected();
@@ -162,10 +163,16 @@ public class Level : MonoBehaviour {
             {
                 Application.LoadLevel(0);
             }
+#endif
+#if UNITY_ANDROID
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                print("tap");
+            }
+#endif
             yield return null;
         }
     }
-#endif
 
     /*private void DeleteMainPlayer()
     {
