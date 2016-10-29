@@ -44,18 +44,27 @@ public class Level : MonoBehaviour {
 
     public void RestartGame()
     {
-        CurrentState = States.StartingGame;
-        StartCoroutine(GameLoop());
+        if (CurrentState == States.GameOver)
+        {
+            CurrentState = States.StartingGame;
+            StartCoroutine(GameLoop());
+        }
     }
 
     public void NotifySecondPlayerConnected()
     {
-        CurrentState = States.StartingGame;
+        if (CurrentState == States.WaitingForPlayer)
+        {
+            CurrentState = States.StartingGame;
+        }
     }
 
     public void NotifyGameOver()
     {
-        CurrentState = States.GameOver;
+        if (CurrentState == States.GameIsPlaying)
+        {
+            CurrentState = States.GameOver;
+        }
     }
 
     private IEnumerator WaitForPlayer()
