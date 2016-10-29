@@ -22,9 +22,10 @@ public class RobotMovement : MonoBehaviour
     private const float Tolerance = 0.0001f;
     private const string State = "State";
 
+    //order can not be changed because of the animator
     private enum States
     {
-        Running, Jumping
+        Running=10, Jumping, Idle
     }
 
     private States _currentState;
@@ -51,16 +52,25 @@ public class RobotMovement : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
-        StartRunning();
+        SetIdle();
         SetJumpParameters();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        RunForward();
         HandleCurrentState();
-	}
+    }
+
+    public void StartRunning()
+    {
+        CurrentState = States.Running;
+    }
+
+    public void SetIdle()
+    {
+        CurrentState = States.Idle;
+    }
 
     public void SetRotation(int rotationY)
     {
@@ -73,9 +83,11 @@ public class RobotMovement : MonoBehaviour
         switch (CurrentState)
         {
             case States.Jumping:
+                RunForward();
                 HandleJumping();
                 break;
             case States.Running:
+                RunForward();
 #if UNITY_EDITOR
                 HandleKeyboard();
 #endif
@@ -194,10 +206,5 @@ public class RobotMovement : MonoBehaviour
         }
 
         jumpPreviousPosition = transform.position;
-    }
-
-    private void StartRunning()
-    {
-        CurrentState = States.Running;
     }
 }
