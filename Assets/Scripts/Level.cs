@@ -38,7 +38,9 @@ public class Level : MonoBehaviour {
 	void Start ()
 	{
         StartCoroutine(WaitForPlayer());
+#if UNITY_EDITOR
         StartCoroutine(testingLoop());
+#endif
         _secondsText = SecondsTextGO.GetComponent<Text>();
 	}
 
