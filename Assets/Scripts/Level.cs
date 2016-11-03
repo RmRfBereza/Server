@@ -169,7 +169,7 @@ public class Level : MonoBehaviour {
 #if UNITY_ANDROID
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                print("tap");NotifySecondPlayerConnected();
+                print("tap");
             }
 #endif
             yield return null;
