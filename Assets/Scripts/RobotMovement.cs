@@ -50,6 +50,7 @@ public class RobotMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+		subscribeXAction();
         _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
         SetIdle();
@@ -161,6 +162,22 @@ public class RobotMovement : MonoBehaviour
         }
     }
 
+	void subscribeXAction()
+    {
+        XController.OnXLeft  += OnXLeft;
+        XController.OnXRight += OnXRight;
+    }
+	
+	void OnXLeft()
+	{
+		ChangeTrack(Left);
+	}
+	
+	void OnXRight()
+	{
+		ChangeTrack(Right);
+	}
+	
     private void MoveInLocalCs(Vector3 movement)
     {
         GeometryBasic.RotateCs(transform.position, out _middlePosition, -gameObject.transform.eulerAngles.y);
