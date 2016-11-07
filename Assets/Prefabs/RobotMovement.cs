@@ -12,20 +12,29 @@ public class RobotMovement : MonoBehaviour
 
     private float _jumpHeight;
     private float _jumpPosition;
-    private Vector3 jumpPreviousPosition;
+    private Vector3 _jumpPreviousPosition;
+
+    private int _turnStartRotation;
+    private float _turnRotation = 0;
+    private float _turningSpeedDeg = 36f;
+    private Vector3 _turnigCenterPosition;
+    private Vector3 _turningRight;
+    private Vector3 _turningForward;
+
     private Animator _animator;
+    private Level _level;
 
     private const sbyte JumpCoefficient = 3;
     private const sbyte Left = -1;
     private const sbyte Right = 1;
-    private const sbyte DefaultTrackNumber = 1;
+    private const sbyte DefaultTrackNumber = 0;
     private const float Tolerance = 0.0001f;
     private const string State = "State";
 
     //order can not be changed because of the animator
     private enum States
     {
-        Running=10, Jumping, Idle
+        Running=10, Jumping, Idle, Turning
     }
 
     private States _currentState;
@@ -54,7 +63,9 @@ public class RobotMovement : MonoBehaviour
         CurrentTrack = DefaultTrackNumber;
         SetIdle();
         SetJumpParameters();
-	}
+
+        _level = GameObject.Find("Plane").GetComponent<Level>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -72,7 +83,7 @@ public class RobotMovement : MonoBehaviour
         CurrentState = States.Idle;
     }
 
-    public void SetRotation(int rotationY)
+    public void SetRotation(float rotationY)
     {
         _rotation.Set(0f, rotationY, 0f);
         transform.eulerAngles = _rotation;
@@ -91,6 +102,9 @@ public class RobotMovement : MonoBehaviour
 #if UNITY_EDITOR
                 HandleKeyboard();
 #endif
+                break;
+            case States.Turning:
+                HandleTurning();
                 break;
         }
     }
@@ -113,12 +127,14 @@ public class RobotMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Turn(-GeometryBasic.RightAngleDeg);
+            //Turn(-GeometryBasic.RightAngleDeg);
+            StartTurning();
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Turn(GeometryBasic.RightAngleDeg);
+            //Turn(GeometryBasic.RightAngleDeg);
+            StartTurning();
         }
     }
 
@@ -146,31 +162,17 @@ public class RobotMovement : MonoBehaviour
 
     private void RunForward()
     {
-        _movement.Set(0f, 0f, Speed * Time.deltaTime);
-        MoveInLocalCs(_movement);
+        transform.position += transform.forward*Speed*Time.deltaTime;
     }
 
     private void ChangeTrack(sbyte direction)
     {
-        if (direction == Left && CurrentTrack != 0 || 
-            direction == Right && CurrentTrack + direction < Level.TracksQuantity)
+        if (direction == Left && CurrentTrack > -1 || 
+            direction == Right && CurrentTrack < 1)
         {
-            _movement.Set(direction * Level.TrackWidth, 0f, 0f);
-            MoveInLocalCs(_movement);
+            transform.position += transform.right*direction*Level.TrackWidth;
             CurrentTrack += direction;
         }
-    }
-
-    private void MoveInLocalCs(Vector3 movement)
-    {
-        GeometryBasic.RotateCs(transform.position, out _middlePosition, -gameObject.transform.eulerAngles.y);
-        _middlePosition += movement;
-        GeometryBasic.RotateCs(_middlePosition, out _newPosition, gameObject.transform.eulerAngles.y);
-        
-        //TODO Why doesn't it work?
-        //_playerBody.MovePosition(_newPosition);
-
-        transform.position = _newPosition;
     }
 
     private void SetJumpParameters()
@@ -183,15 +185,15 @@ public class RobotMovement : MonoBehaviour
         transform.position = _newPosition;
         CurrentState = States.Jumping;
         _jumpPosition = 0;
-        jumpPreviousPosition = transform.position;
+        _jumpPreviousPosition = transform.position;
     }
 
     private void HandleJumping()
     {
         //not using physics engine because jumping should be deterministic, avoyding physics can increase performance 
-        _jumpPosition += Math.Abs(jumpPreviousPosition.x - transform.position.x) > Tolerance
-            ? transform.position.x - jumpPreviousPosition.x
-            : transform.position.z - jumpPreviousPosition.z;
+        _jumpPosition += Math.Abs(_jumpPreviousPosition.x - transform.position.x) > Tolerance
+            ? transform.position.x - _jumpPreviousPosition.x
+            : transform.position.z - _jumpPreviousPosition.z;
 
         float currentJumpHeight = -Mathf.Pow((_jumpPosition - JumpLength)/2, 2) + _jumpHeight;
 
@@ -205,6 +207,40 @@ public class RobotMovement : MonoBehaviour
             StartRunning();
         }
 
-        jumpPreviousPosition = transform.position;
+        _jumpPreviousPosition = transform.position;
+    }
+
+    public void StartTurning()
+    {
+        if (_currentState == States.Turning) return;
+        _turningForward = transform.forward;
+        _turningRight = transform.right;
+        _turnStartRotation = Mathf.FloorToInt(transform.eulerAngles.y);
+        _turnigCenterPosition = transform.position;
+        _turnigCenterPosition += transform.right * CurrentTrack * 7/*Level.TrackWidth*/;
+        _currentState = States.Turning;
+    }
+
+    private void HandleTurning()
+    {
+        _turnRotation += _turningSpeedDeg * Time.deltaTime;
+
+        transform.position = _turnigCenterPosition +
+                             _turningRight*(-1) * CurrentTrack * 7/*Level.TrackWidth*/*Mathf.Cos(CurrentTrack * _turnRotation*Mathf.Deg2Rad)
+                             + _turningForward*/*Level.TrackWidth*/7*Mathf.Sin(_turnRotation * Mathf.Deg2Rad);
+
+        SetRotation(_turnStartRotation + _turnRotation * CurrentTrack);
+
+        if (_turnRotation >= GeometryBasic.RightAngleDeg)
+        {
+            SetRotation(_turnStartRotation + CurrentTrack * GeometryBasic.RightAngleDeg);
+            _turnRotation = 0;
+            StartRunning();
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        _level.NotifyGameOver();
     }
 }

@@ -1,3 +1,13 @@
+# ============================ #
+# Standard assets and textures #
+# ============================ #
+Assets/Standard Assets/
+Assets/Art/
+Assets/Adam/
+Assets/Tree_Textures/
+Assets/Features/
+Assets/City Props Pack/
+Assets/Prefabs/BigAssets/
 # === #
 # Apk #
 # === #
@@ -10,7 +20,7 @@
 # Unity generated #
 # =============== #
 Temp/
-Obj/
+obj/
 UnityGenerated/
 Library/
 Assets/AssetStoreTools*
