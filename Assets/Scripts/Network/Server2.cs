@@ -7,19 +7,43 @@ using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
 
-/*
+
 class Server2 : MonoBehaviour
 {
 	public volatile V3 nepos = new V3(Vector3.zero);
-    public int port = 2055;
-
+    public int port = 8865;
+	public string my_ip { get; set; }
+	public int mask { get; set; }
+	
     BinaryFormatter formatter = new BinaryFormatter();
     static TcpListener listener;
     const int LIMIT = 1;
-    
+    volatile string myIp = "undefined";
+
+	
     void Start(){
-        listener = new TcpListener(port);
+		IPAddress my_ip = null;
+		IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+		foreach (IPAddress ip in host.AddressList)
+		{
+			if (ip.AddressFamily == AddressFamily.InterNetwork)
+			{
+				my_ip = ip;
+				mask = 8;
+				var firstOctet = ip.GetAddressBytes()[0];
+				for (int i = 0; i < 3; ++i)
+				{
+					if ((firstOctet & (1 << (7 - i))) == 0)
+						break;
+					mask += 8;
+				}
+				break;
+			}
+		}
+		
+        listener = new TcpListener(my_ip, port);
         listener.Start();
+		this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
 
         for(int i = 0; i < LIMIT;i++){
             Thread t = new Thread(new ThreadStart(Service));
@@ -27,8 +51,12 @@ class Server2 : MonoBehaviour
         }
     }
 
+	
+	void OnGUI () {
+		GUI.Label(new Rect(0, 50, 100, 100), my_ip);
+    }
+	
     void FixedUpdate() {
-		Debug.Log(nepos.getVec());
 		transform.position = nepos.getVec();
 	}
 	
@@ -46,25 +74,12 @@ class Server2 : MonoBehaviour
 
 				bool isOk = true;
 				while(isOk)
-				{/*
-					Mark mark = (Mark)formatter.Deserialize(s);
-					switch (mark.getType())
-					{
-					case 0:
-						case 1:
-					isOk = false;
-					break;
-					case 2:
-						V3 t = (V3)formatter.Deserialize(s);
-						V3 n = new V3(t.getVec());
-						n.y = n.z;
-						nepos = n;
-						Debug.Log("UUUUUUUUU " + t.getVec());/*
-						break;
-					default:
-					isOk = false;
-					break;
-					}
+				{
+					V3 t = (V3)formatter.Deserialize(s);
+					V3 n = new V3(t.getVec());
+					n.y = n.z;
+					n.z = 0;
+					nepos = n;
 				}
 
                 s.Close();
@@ -78,4 +93,3 @@ class Server2 : MonoBehaviour
         }
     }
 }
-    */
