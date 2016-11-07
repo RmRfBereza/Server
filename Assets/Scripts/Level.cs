@@ -69,8 +69,8 @@ public class Level : MonoBehaviour {
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
 
-        //var obj = TestTurn();
-        //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        var obj = TestTurn();
+        CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
     }
 
     public void RestartGame()

@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class XController : MonoBehaviour 
 {
-    public float dAcc = 0.1F;           // ¬еличина отклонени€ дл€ активации
-    public int dS = 5;                  // ћинимальное количество отклонений дл€ активации
+    public static float dAcc = 0.1F;           // ¬еличина отклонени€ дл€ активации
+    public static int dS = 5;                  // ћинимальное количество отклонений дл€ активации
     
     public delegate void LeftAction();
     public delegate void RightAction();
@@ -15,10 +16,13 @@ public class XController : MonoBehaviour
     private float[] val = new float[size];
     private int lastVal = 0;
     private int devation = 0;
+
+    Text text;
     
     void Start()
     {
-        for(int i=0; i < size; ++i)
+        text = GameObject.Find("SecondsText").GetComponent<Text>();
+        for (int i=0; i < size; ++i)
         {
             val[i] = 0.0F;
         }
@@ -70,19 +74,19 @@ public class XController : MonoBehaviour
     
     void updatePosition()
     {
-        if (Mathf.Abs(devation) < dS)
+        if (Mathf.Abs(devation) > dS)
         {
-
-        }
-        else if (devation > 0)
-        {
-            if(OnXLeft != null)
-                OnXLeft();
-        }
-        else 
-        {
-            if(OnXRight != null)
-                OnXRight();
+            if (devation > 0)
+            {
+                if (OnXLeft != null)
+                    OnXLeft();
+            }
+            else
+            {
+                if (OnXRight != null)
+                    OnXRight();
+            }
+            devation = 0;
         }
     }
     
@@ -91,5 +95,12 @@ public class XController : MonoBehaviour
         updateDevation();
         updatePosition();      
         updateAverage();
+        logContr();
+    }
+
+    void logContr()
+    {
+        text.text = "devation " + devation + "\nacceleration x " + 
+            Input.acceleration.x +"\acceleration y " + Input.acceleration.y;
     }
 }
