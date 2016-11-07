@@ -59,7 +59,7 @@ public class RobotMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		subscribeXAction();
+	    subscribeXAction();
         _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
         SetIdle();

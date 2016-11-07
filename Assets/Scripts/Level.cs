@@ -69,8 +69,8 @@ public class Level : MonoBehaviour {
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
 
-        //var obj = TestTurn();
-        //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        var obj = TestTurn();
+        CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
     }
 
     public void RestartGame()
@@ -100,6 +100,8 @@ public class Level : MonoBehaviour {
 
     private IEnumerator WaitForPlayer()
     {
+        CreateMainPlayer();
+
         while (CurrentState == States.WaitingForPlayer)
         {
             yield return null;
@@ -121,8 +123,6 @@ public class Level : MonoBehaviour {
         sbyte seconds = _seconds;
 
         GameOverInterfaceGO.SetActive(false);
-
-        CreateMainPlayer();
 
         while (seconds > 0)
         {

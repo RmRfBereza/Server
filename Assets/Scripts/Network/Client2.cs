@@ -14,6 +14,8 @@ class Client2 : MonoBehaviour
 	StreamReader sr = null;
 	StreamWriter sw = null;
 
+    public static string ip;
+
     Level level;
 			
 	void Start()
@@ -23,8 +25,9 @@ class Client2 : MonoBehaviour
         //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно
         Level level = GameObject.Find("Plane").GetComponent<Level>();
 
+
 		try{
-			client = new TcpClient("127.0.0.1", 2055);
+			client = new TcpClient(ip, 8865);
             s = client.GetStream();
             sr = new StreamReader(s);
             sw = new StreamWriter(s);
@@ -41,41 +44,6 @@ class Client2 : MonoBehaviour
 		V3 v = new V3(transform.position);
 		formatter.Serialize(s, v);
     }
-
-/*
-    void SendSpam(){
-        TcpClient client = null;
-        try{
-            //Debug.Log("QQQQ1111");
-            client = new TcpClient("127.0.0.1", 2055);
-            //Debug.Log("QQQQ222");
-            Stream s = client.GetStream();
-            StreamReader sr = new StreamReader(s);
-            StreamWriter sw = new StreamWriter(s);
-            sw.AutoFlush = true;
-            //Debug.Log("QQQQ3333");
-            
-            Vector3 vect = Vector3.zero;
-            //sw.WriteLine("AAA");
-            
-            V3 v = new V3(vect);
-            formatter.Serialize(s, v);
-            V3 t = (V3)formatter.Deserialize(s);
-            Vector3 temp = t.getVec();
-            Debug.Log("Server say " + temp);
-            
-            s.Close();
-        } catch (Exception e){
-            Debug.Log("GGGGGGGGGGGGGGGGGGGGGGGG " + e.Message);
-        } finally{
-            // code in finally block is guranteed 
-            // to execute irrespective of 
-            // whether any exception occurs or does 
-            // not occur in the try block
-            if (client != null)
-                client.Close();
-        } 
-    }*/
 	
 	void Stop(){
 		if (client != null)
