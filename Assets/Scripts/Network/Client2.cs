@@ -25,6 +25,7 @@ class Client2 : MonoBehaviour
         //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно
         Level level = GameObject.Find("Plane").GetComponent<Level>();
 
+        if (ip == "-1") return;
 
 		try{
 			client = new TcpClient(ip, 8865);
@@ -41,8 +42,11 @@ class Client2 : MonoBehaviour
 	}
 	
     void Update(){
-		V3 v = new V3(transform.position);
-		formatter.Serialize(s, v);
+        if (s != null)
+        {
+            V3 v = new V3(transform.position);
+            formatter.Serialize(s, v);
+        }
     }
 	
 	void Stop(){
