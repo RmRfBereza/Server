@@ -19,6 +19,12 @@ public class SceneLoader : MonoBehaviour {
     public void LoadScene(
         int sceneNumber)
     {
+        Application.LoadLevel(sceneNumber);
+    }
+
+    public void LoadSceneWithIp(
+        int sceneNumber)
+    {
         if (ipInput.text != string.Empty)
         {
             Client2.ip = ipInput.text;

@@ -57,19 +57,30 @@ public class XController : MonoBehaviour
     
     void updateDevation()
     {
-        if (isALargerB(average(), Input.acceleration.x))
+        if (Mathf.Abs(average() - Input.acceleration.x) < dAcc)
+        {
+            if (devation < 0) ++devation;
+            else --devation;
+        } else if (average() > Input.acceleration.x)
         {
             --devation;
-        }
-        else if (isALargerB(Input.acceleration.x, average()))
+        } else
         {
             ++devation;
         }
-        else 
-        {
-            if(devation < 0) ++devation;
-            else --devation;
-        }
+        //if (/*isALargerB(average(), Input.acceleration.x)*/Input.acceleration.x < average())
+        //{
+        //    --devation;
+        //}
+        //else if (/*isALargerB(Input.acceleration.x, average())*/Input.acceleration.x > average())
+        //{
+        //    ++devation;
+        //}
+        //else 
+        //{
+        //    //if(devation < 0) ++devation;
+        //    //else --devation;
+        //}
     }
     
     void updatePosition()
@@ -101,6 +112,6 @@ public class XController : MonoBehaviour
     void logContr()
     {
         text.text = "devation " + devation + "\nacceleration x " + 
-            Input.acceleration.x +"\acceleration y " + Input.acceleration.y;
+            Input.acceleration.x;
     }
 }
