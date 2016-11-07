@@ -57,7 +57,12 @@ class Server2 : MonoBehaviour
     }
 	
     void FixedUpdate() {
-		transform.position = nepos.getVec();
+        var pos = nepos.getVec();
+        var newPos = Vector3.zero;
+        print(pos);
+        newPos.x = pos.z*2/3;
+        newPos.y = -pos.x*2/3;
+        transform.position = newPos;
 	}
 	
 	void Service(){
@@ -77,8 +82,8 @@ class Server2 : MonoBehaviour
 				{
 					V3 t = (V3)formatter.Deserialize(s);
 					V3 n = new V3(t.getVec());
-					n.y = n.z;
-					n.z = 0;
+					//n.y = n.z;
+					//n.z = 0;
 					nepos = n;
 				}
 
