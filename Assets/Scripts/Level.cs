@@ -174,7 +174,6 @@ public class Level : MonoBehaviour {
         }
     }
 
-
     IEnumerator testingLoop()
     {
         while(true)

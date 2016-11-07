@@ -59,6 +59,7 @@ public class RobotMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+		subscribeXAction();
         _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
         SetIdle();
@@ -174,7 +175,33 @@ public class RobotMovement : MonoBehaviour
             CurrentTrack += direction;
         }
     }
+	void subscribeXAction()
+    {
+        XController.OnXLeft  += OnXLeft;
+        XController.OnXRight += OnXRight;
+    }
+	
+	void OnXLeft()
+	{
+		ChangeTrack(Left);
+	}
+	
+	void OnXRight()
+	{
+		ChangeTrack(Right);
+	}
+	
+    private void MoveInLocalCs(Vector3 movement)
+    {
+        GeometryBasic.RotateCs(transform.position, out _middlePosition, -gameObject.transform.eulerAngles.y);
+        _middlePosition += movement;
+        GeometryBasic.RotateCs(_middlePosition, out _newPosition, gameObject.transform.eulerAngles.y);
+        
+        //TODO Why doesn't it work?
+        //_playerBody.MovePosition(_newPosition);
 
+        transform.position = _newPosition;
+    }
     private void SetJumpParameters()
     {
         _jumpHeight = Mathf.Pow(JumpLength, 2)/JumpCoefficient;
