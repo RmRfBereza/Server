@@ -10,6 +10,7 @@ public class CreateLevel2D : MonoBehaviour {
     public GameObject TileTTurn;
     public GameObject TileStraight;
     public GameObject TileNull;
+    public GameObject TileDeadend;
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
 
     void Start()
@@ -19,6 +20,7 @@ public class CreateLevel2D : MonoBehaviour {
         SegmentPrefabsDictionary.Add("turn", TileTurn);
         SegmentPrefabsDictionary.Add("Tturn", TileTTurn);
         SegmentPrefabsDictionary.Add("intersection", TileIntersection);
+        SegmentPrefabsDictionary.Add("null", TileNull);
         jsonString = getJSONString();
         Create2DLevelFromJsonString(jsonString, SegmentSize2d, SegmentPrefabsDictionary);
     }
@@ -42,6 +44,10 @@ public class CreateLevel2D : MonoBehaviour {
             {
                 if (segmentParams.type == JSONObject.Type.NULL)
                 {
+                    var nullSegment = Instantiate(prefabDictionary["null"]);
+                    _rotation.Set(0f, 0f, 0f);
+                    nullSegment.transform.eulerAngles = _rotation;
+                    nullSegment.transform.position = _position;
                     _position.x += segmentSize;
                     continue;
                 }
