@@ -20,8 +20,12 @@ class Server2 : MonoBehaviour
     const int LIMIT = 1;
     volatile string myIp = "undefined";
 
+    private CreateLevel2D level;
 	
-    void Start(){
+    void Start()
+    {
+        level = GameObject.Find("MapManager").GetComponent<CreateLevel2D>();
+
 		IPAddress my_ip = null;
 		IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
 		foreach (IPAddress ip in host.AddressList)
@@ -51,8 +55,29 @@ class Server2 : MonoBehaviour
         }
     }
 
-	
-	void OnGUI () {
+    public void StartGame()
+    {
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+
+        //Пишем код здесь!!!!!
+
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+        //12321
+    }
+
+    void OnGUI () {
 		GUI.Label(new Rect(0, 50, 100, 100), my_ip);
     }
 	
@@ -70,7 +95,7 @@ class Server2 : MonoBehaviour
             Socket soc = listener.AcceptSocket();
             
             Debug.Log("Connected: " + soc.RemoteEndPoint);
-            
+            level.NotifySecondPlayerConnected();
             try{
                 Stream s = new NetworkStream(soc); 
                 StreamReader sr = new StreamReader(s);
