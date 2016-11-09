@@ -38,8 +38,8 @@ GameObject:
   - 95: {fileID: 95000013982319036}
   - 114: {fileID: 114000010422936018}
   - 65: {fileID: 65000011712656878}
-  - 114: {fileID: 114000014222060478}
   - 114: {fileID: 114000013325979238}
+  - 114: {fileID: 114000010026442722}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Untagged
@@ -1540,6 +1540,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010026442722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010028721030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9660b7ee3569994296d4a14771a617f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000010422936018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1563,17 +1574,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3cacabe32e83e24db420ad0e4d8b0c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000014222060478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010028721030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d007777038681942821e113192571de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &137000010186742536
