@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4469255, g: 0.49678835, b: 0.5750862, a: 1}
+  m_IndirectSpecularColor: {r: 0.4469244, g: 0.496787, b: 0.57508516, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -178,10 +178,10 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57652043}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.00034529547, w: 0.99999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.038000003}
   m_Children: []
   m_Father: {fileID: 501859340}
   m_RootOrder: 0
@@ -374,17 +374,17 @@ MonoBehaviour:
   CurrentState: 0
   isSecondPlayerConnected: 0
   IsPlayerInstanciated: 0
-  Segment: {fileID: 1000013201389432, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
+  Segment: {fileID: 0, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
   SegmentPrefabsList:
   - name: straight
-    prefab: {fileID: 1000013201389432, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
+    prefab: {fileID: 0, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
   - name: turn
-    prefab: {fileID: 1000010199670092, guid: 4278318112b90c1419bc09045e5ae5ae, type: 2}
+    prefab: {fileID: 0, guid: 4278318112b90c1419bc09045e5ae5ae, type: 2}
   - name: intersection
-    prefab: {fileID: 1000013610714616, guid: 213a0e5b21d015e4188fdc83bc563649, type: 2}
+    prefab: {fileID: 0, guid: 213a0e5b21d015e4188fdc83bc563649, type: 2}
   - name: tturn
-    prefab: {fileID: 1000011561054376, guid: 4b0f73ce954bdb44baa8461e475415ee, type: 2}
-  Player: {fileID: 1000010028721030, guid: 0eaa40750d3cc1c40b7538ed4d7b4476, type: 2}
+    prefab: {fileID: 0, guid: 4b0f73ce954bdb44baa8461e475415ee, type: 2}
+  Player: {fileID: 0, guid: 0eaa40750d3cc1c40b7538ed4d7b4476, type: 2}
   SceneCamera: {fileID: 0}
   GameOverInterfaceGO: {fileID: 620656380}
   SecondsTextGO: {fileID: 437620740}

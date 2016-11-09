@@ -14,7 +14,7 @@ class Client2 : MonoBehaviour
 	StreamReader sr = null;
 	StreamWriter sw = null;
 
-    public static string ip;
+    public static string ip = "-1";
 
     Level level;
 			
