@@ -653,6 +653,8 @@ MonoBehaviour:
   TileStraight: {fileID: 1000013286128958, guid: 3a314a383782d3b4597dc24d446e3ac7,
     type: 2}
   TileNull: {fileID: 1000011842465114, guid: 2cb3cca4e8b72424d92714efdd30a76d, type: 2}
+  TileDeadend: {fileID: 1000011260761864, guid: 5be64946ef3fe14479f469d1531a3f66,
+    type: 2}
 --- !u!4 &2128151681
 Transform:
   m_ObjectHideFlags: 0
