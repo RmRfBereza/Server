@@ -138,7 +138,7 @@ public class Level : MonoBehaviour {
 
     private IEnumerator StartGameplay()
     {
-        _robot.StartRunning();
+        _robot.StartRunningUncontrollably();
         CurrentState = States.GameIsPlaying;
         yield return null;
     }
@@ -236,7 +236,11 @@ public class Level : MonoBehaviour {
 
         obj[0].Add(new JSONObject());
         obj[0][lengthBeforeTurn].AddField("angle", 180f);
-        obj[0][lengthBeforeTurn].AddField("type", TurnSegmentName);
+        obj[0][lengthBeforeTurn].AddField("type", IntersectionSegmentName);
+
+        obj[0].Add(new JSONObject());
+        obj[0][lengthBeforeTurn + 1].AddField("angle", 0f);
+        obj[0][lengthBeforeTurn + 1].AddField("type", StraightSegmentName);
 
         int newTonnelLength = 5;
 

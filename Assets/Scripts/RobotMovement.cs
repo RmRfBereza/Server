@@ -34,7 +34,7 @@ public class RobotMovement : MonoBehaviour
     //order can not be changed because of the animator
     private enum States
     {
-        Running=10, Jumping, Idle, Turning
+        Running=10, RunningUnconrollably, Jumping, Idle, Turning
     }
 
     private States _currentState;
@@ -74,9 +74,22 @@ public class RobotMovement : MonoBehaviour
         HandleCurrentState();
     }
 
+    public void TurnOnControlls()
+    {
+        if (CurrentState == States.RunningUnconrollably)
+        {
+            CurrentState = States.Running;
+        }
+    }
+
     public void StartRunning()
     {
         CurrentState = States.Running;
+    }
+
+    public void StartRunningUncontrollably()
+    {
+        CurrentState = States.RunningUnconrollably;
     }
 
     public void SetIdle()
@@ -106,6 +119,9 @@ public class RobotMovement : MonoBehaviour
                 break;
             case States.Turning:
                 HandleTurning();
+                break;
+            case States.RunningUnconrollably:
+                RunForward();
                 break;
         }
     }
@@ -168,6 +184,7 @@ public class RobotMovement : MonoBehaviour
 
     private void ChangeTrack(sbyte direction)
     {
+        if (CurrentState != States.Running) return;
         if (direction == Left && CurrentTrack > -1 || 
             direction == Right && CurrentTrack < 1)
         {
@@ -240,6 +257,11 @@ public class RobotMovement : MonoBehaviour
     public void StartTurning()
     {
         if (_currentState == States.Turning) return;
+        if (CurrentTrack == 0)
+        {
+            StartRunningUncontrollably();
+            return;
+        }
         _turningForward = transform.forward;
         _turningRight = transform.right;
         _turnStartRotation = Mathf.FloorToInt(transform.eulerAngles.y);

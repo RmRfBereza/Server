@@ -374,17 +374,17 @@ MonoBehaviour:
   CurrentState: 0
   isSecondPlayerConnected: 0
   IsPlayerInstanciated: 0
-  Segment: {fileID: 0, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
+  Segment: {fileID: 0}
   SegmentPrefabsList:
   - name: straight
-    prefab: {fileID: 0, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
+    prefab: {fileID: 1000013201389432, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
   - name: turn
-    prefab: {fileID: 0, guid: 4278318112b90c1419bc09045e5ae5ae, type: 2}
+    prefab: {fileID: 1000010199670092, guid: 4278318112b90c1419bc09045e5ae5ae, type: 2}
   - name: intersection
-    prefab: {fileID: 0, guid: 213a0e5b21d015e4188fdc83bc563649, type: 2}
+    prefab: {fileID: 1000013610714616, guid: 213a0e5b21d015e4188fdc83bc563649, type: 2}
   - name: tturn
-    prefab: {fileID: 0, guid: 4b0f73ce954bdb44baa8461e475415ee, type: 2}
-  Player: {fileID: 0, guid: 0eaa40750d3cc1c40b7538ed4d7b4476, type: 2}
+    prefab: {fileID: 1000011561054376, guid: 4b0f73ce954bdb44baa8461e475415ee, type: 2}
+  Player: {fileID: 1000010028721030, guid: 0eaa40750d3cc1c40b7538ed4d7b4476, type: 2}
   SceneCamera: {fileID: 0}
   GameOverInterfaceGO: {fileID: 620656380}
   SecondsTextGO: {fileID: 437620740}
