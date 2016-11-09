@@ -34,7 +34,7 @@ public class RobotMovement : MonoBehaviour
     //order can not be changed because of the animator
     private enum States
     {
-        Running=10, RunningUnconrollably, Jumping, Idle, Turning
+        Running=10, RunningUnconrollably, Jumping, Idle, Turning, Dead
     }
 
     private States _currentState;
@@ -95,6 +95,11 @@ public class RobotMovement : MonoBehaviour
     public void SetIdle()
     {
         CurrentState = States.Idle;
+    }
+
+    public void SetDead()
+    {
+        CurrentState = States.Dead;
     }
 
     public void SetRotation(float rotationY)
@@ -256,7 +261,7 @@ public class RobotMovement : MonoBehaviour
 
     public void StartTurning()
     {
-        if (_currentState == States.Turning) return;
+        if (_currentState == States.Turning || _currentState == States.Dead) return;
         if (CurrentTrack == 0)
         {
             StartRunningUncontrollably();
