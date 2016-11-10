@@ -16,6 +16,7 @@ public class XControllerEpic : MonoBehaviour
 	private int last = 0;
 	private int ccc = size;
 	Text text;
+	Vector3 a = Vector3.zero;
 	
 	void Start()
 	{
@@ -48,10 +49,10 @@ public class XControllerEpic : MonoBehaviour
 	void FixedUpdate()
 	{
 		//Vector3 a = Input.gyro.attitude.eulerAngles;
-		Vector3 a = Vector3.zero;
-		a.x = Input.gyro.rotationRateUnbiased.x;
-		a.y = Input.gyro.rotationRateUnbiased.y;
-		a.z = Input.gyro.rotationRateUnbiased.z;
+		
+		a.x += Input.gyro.rotationRateUnbiased.x;
+		a.y += Input.gyro.rotationRateUnbiased.y;
+		a.z += Input.gyro.rotationRateUnbiased.z;
 		Vector3 acc = Input.acceleration;
 		Vector3 accr = acc;
 		
@@ -104,7 +105,7 @@ public class XControllerEpic : MonoBehaviour
 		position.y += velosity.y * dt;
 		position.z += velosity.z * dt;
 		
-		text.text = "" + velosity;
+		text.text = "" + a;
 		
 		Debug.Log("AAAA " + a);
 		Debug.Log("BBBB " + acc);
