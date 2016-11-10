@@ -13,6 +13,9 @@ public class CreateLevel2D : MonoBehaviour {
     public GameObject TileStraight;
     public GameObject TileNull;
     public GameObject TileDeadend;
+    public GameObject TileStart;
+    public GameObject TileFinish;
+
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private string jsonString;
 
@@ -30,6 +33,8 @@ public class CreateLevel2D : MonoBehaviour {
         SegmentPrefabsDictionary.Add("Tturn", TileTTurn);
         SegmentPrefabsDictionary.Add("intersection", TileIntersection);
         SegmentPrefabsDictionary.Add("null", TileNull);
+        SegmentPrefabsDictionary.Add("start", TileStart);
+        SegmentPrefabsDictionary.Add("finish", TileFinish);
         jsonString = getJSONString();
         //Create2DLevelFromJsonString(jsonString, SegmentSize2d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());

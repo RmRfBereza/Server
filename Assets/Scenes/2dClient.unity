@@ -982,6 +982,8 @@ MonoBehaviour:
   TileNull: {fileID: 1000011842465114, guid: 2cb3cca4e8b72424d92714efdd30a76d, type: 2}
   TileDeadend: {fileID: 1000011260761864, guid: 5be64946ef3fe14479f469d1531a3f66,
     type: 2}
+  TileStart: {fileID: 0}
+  TileFinish: {fileID: 0}
 --- !u!4 &2128151681
 Transform:
   m_ObjectHideFlags: 0
