@@ -6,9 +6,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
 
-using System.CodeDom;
-using System.CodeDom.Compiler;
-
 public class Level : MonoBehaviour {
 
     public const byte TrackWidth = 2;
@@ -18,6 +15,9 @@ public class Level : MonoBehaviour {
     public const string TurnSegmentName = "turn";
     public const string TturnSegmentName = "Tturn";
     public const string IntersectionSegmentName = "intersection";
+    public const string DeadendSegmentName = "deadend";
+    public const string StartSegmentName = "start";
+    public const string FinishSegmentName = "finish";
 
     public enum Directions
     {

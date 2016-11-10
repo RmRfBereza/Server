@@ -106,7 +106,7 @@ public class XController : MonoBehaviour
         updateDevation();
         updatePosition();      
         updateAverage();
-        logContr();
+        //logContr();
     }
 
     void logContr()
