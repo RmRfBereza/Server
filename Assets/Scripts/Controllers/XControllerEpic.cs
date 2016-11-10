@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class XControllerEpic : MonoBehaviour 
 {
+	Vector3 lacc = Vector3.zero;
 	Vector3 position = Vector3.zero;
 	Vector3 velosity = Vector3.zero;
-	public float dt = 1.0f/60.0f;
+	public float dt = 10;
 	private const int size = 250;
     private float[] valx = new float[size];
 	private float[] valy = new float[size];
@@ -44,9 +45,13 @@ public class XControllerEpic : MonoBehaviour
         return result / size;
     }
 	
-	void Update()
+	void FixedUpdate()
 	{
-		Vector3 a = Input.gyro.attitude.eulerAngles;
+		//Vector3 a = Input.gyro.attitude.eulerAngles;
+		Vector3 a = Vector3.zero;
+		a.x = Input.gyro.rotationRateUnbiased.x;
+		a.y = Input.gyro.rotationRateUnbiased.y;
+		a.z = Input.gyro.rotationRateUnbiased.z;
 		Vector3 acc = Input.acceleration;
 		Vector3 accr = acc;
 		
@@ -62,10 +67,10 @@ public class XControllerEpic : MonoBehaviour
 		accr.z = (float) ((sin(a.y) * sin(a.z)) * acc.x
 					   + ( sin(a.y) * cos(a.z)) * acc.y
 					   + ( cos(a.y) ) * acc.z);
-		*/
-
-		 //траспонированная
-		 /*
+				*/	   
+					   
+		 //С‚СЂР°СЃРїРѕРЅРёСЂРѕРІР°РЅРЅР°СЏ
+		 
 		accr.x = (float) ((cos(a.x) * cos(a.z) - sin(a.x) * cos(a.y) * sin(a.z)) * acc.x
 						+ (sin(a.x) * cos(a.z) + cos(a.x) * cos(a.y) * sin(a.z)) * acc.y
 						+ (sin(a.y) * sin(a.z)) * acc.z);
@@ -77,21 +82,23 @@ public class XControllerEpic : MonoBehaviour
 		accr.z = (float) (( sin(a.x) * sin(a.y)) * acc.x
 						+ (-cos(a.x) * sin(a.y)) * acc.y
 						+ ( cos(a.y) ) * acc.z);
-		*/
-					
+		
+
 		last = (last + 1) % size;
 		valx[last] = accr.x;
 		valy[last] = accr.y;
 		valz[last] = accr.z;
 		
-		//накопление данных в самом начале
 		ccc = ccc != 0 ? ccc -1 : ccc;
 		if(ccc > 0) return;
-
 		
-		velosity.x = (accr.x - average(valx)) * dt;
-		velosity.y = (accr.y - average(valy)) * dt;
-		velosity.z = (accr.z - average(valz)) * dt;
+		accr.x -= average(valx);
+		accr.y -= average(valy);
+		accr.z -= average(valz);
+		
+		velosity.x += (accr.x ) * dt;
+		velosity.y += (accr.y ) * dt;
+		velosity.z += (accr.z ) * dt;
 		
 		position.x += velosity.x * dt;
 		position.y += velosity.y * dt;
@@ -102,5 +109,7 @@ public class XControllerEpic : MonoBehaviour
 		Debug.Log("AAAA " + a);
 		Debug.Log("BBBB " + acc);
 		Debug.Log("CCCC " + accr);
+		
+		lacc = accr;
 	}
 }
