@@ -66,4 +66,12 @@ public class LevelSectionHandler : MonoBehaviour {
             degDrawn += segmentDeg;
         }
     }
+
+    void OnTriggerEnter()
+    {
+        if (_player != null)
+        {
+            _robot.TurnOnControlls();
+        }
+    }
 }

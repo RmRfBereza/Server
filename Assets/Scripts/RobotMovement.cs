@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class RobotMovement : MonoBehaviour
@@ -23,6 +24,7 @@ public class RobotMovement : MonoBehaviour
 
     private Animator _animator;
     private Level _level;
+    private Text _secondsText;
 
     private const sbyte JumpCoefficient = 3;
     private const sbyte Left = -1;
@@ -30,11 +32,12 @@ public class RobotMovement : MonoBehaviour
     private const sbyte DefaultTrackNumber = 0;
     private const float Tolerance = 0.0001f;
     private const string State = "State";
+    private const string NoControl = "<color=#800000ff>Warning:\nNO Control!</color>";
 
     //order can not be changed because of the animator
     private enum States
     {
-        Running=10, Jumping, Idle, Turning
+        Running=10, RunningUnconrollably, Jumping, Idle, Turning, Dead
     }
 
     private States _currentState;
@@ -59,13 +62,14 @@ public class RobotMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-	    subscribeXAction();
+        _level = GameObject.Find("Plane").GetComponent<Level>();
+        _secondsText = GameObject.Find("SecondsText").GetComponent<Text>();
+
+        subscribeXAction();
         _animator = GetComponent<Animator>();
         CurrentTrack = DefaultTrackNumber;
         SetIdle();
         SetJumpParameters();
-
-        _level = GameObject.Find("Plane").GetComponent<Level>();
     }
 	
 	// Update is called once per frame
@@ -74,14 +78,37 @@ public class RobotMovement : MonoBehaviour
         HandleCurrentState();
     }
 
+    public void TurnOnControlls()
+    {
+        if (CurrentState == States.RunningUnconrollably)
+        {
+            CurrentState = States.Running;
+            _secondsText.text = "";
+        }
+    }
+
     public void StartRunning()
     {
         CurrentState = States.Running;
+        _secondsText.text = "";
+    }
+
+    public void StartRunningUncontrollably()
+    {
+        CurrentState = States.RunningUnconrollably;
+        _secondsText.text = NoControl;
     }
 
     public void SetIdle()
     {
         CurrentState = States.Idle;
+        _secondsText.text = "";
+    }
+
+    public void SetDead()
+    {
+        CurrentState = States.Dead;
+        _secondsText.text = "";
     }
 
     public void SetRotation(float rotationY)
@@ -106,6 +133,9 @@ public class RobotMovement : MonoBehaviour
                 break;
             case States.Turning:
                 HandleTurning();
+                break;
+            case States.RunningUnconrollably:
+                RunForward();
                 break;
         }
     }
@@ -168,6 +198,7 @@ public class RobotMovement : MonoBehaviour
 
     private void ChangeTrack(sbyte direction)
     {
+        if (CurrentState != States.Running) return;
         if (direction == Left && CurrentTrack > -1 || 
             direction == Right && CurrentTrack < 1)
         {
@@ -239,7 +270,13 @@ public class RobotMovement : MonoBehaviour
 
     public void StartTurning()
     {
-        if (_currentState == States.Turning) return;
+        if (_currentState == States.Turning || _currentState == States.Dead) return;
+        _secondsText.text = NoControl;
+        if (CurrentTrack == 0)
+        {
+            StartRunningUncontrollably();
+            return;
+        }
         _turningForward = transform.forward;
         _turningRight = transform.right;
         _turnStartRotation = Mathf.FloorToInt(transform.eulerAngles.y);
