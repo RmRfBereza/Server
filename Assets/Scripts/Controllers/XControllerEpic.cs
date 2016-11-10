@@ -52,8 +52,9 @@ public class XControllerEpic : MonoBehaviour
 		
 		a.x += Input.gyro.rotationRateUnbiased.x;
 		a.y += Input.gyro.rotationRateUnbiased.y;
-		a.z += Input.gyro.rotationRateUnbiased.z;
-		Vector3 acc = Input.acceleration;
+		a.z += Input.gyro.rotationRateUnbiased.z; //!!!!!Скорость в радианах в секунду(см документацию https://docs.unity3d.com/ScriptReference/Gyroscope-rotationRateUnbiased.html)
+                                                    //, а ты прибавляешь с частотой FixedUpdate и потом ещё переводишь в радианы заново
+        Vector3 acc = Input.acceleration; //Input.gyro.userAcceleration не учитывает гравитацию, нам нужен он
 		Vector3 accr = acc;
 		
 		/*
