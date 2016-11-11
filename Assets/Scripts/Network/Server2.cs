@@ -19,7 +19,7 @@ class Server2 : MonoBehaviour
     BinaryFormatter formatter = new BinaryFormatter();
     static TcpListener listener;
     const int LIMIT = 1;
-    volatile string myIp = "undefined";
+    public static volatile string myIp = "undefined";
 
     private CreateLevel2D level;
 	
@@ -48,7 +48,7 @@ class Server2 : MonoBehaviour
 		
         listener = new TcpListener(my_ip, port);
         listener.Start();
-		this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
+		myIp = this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
 
 		Thread t = new Thread(new ThreadStart(Service));
 		t.Start();
@@ -67,7 +67,7 @@ class Server2 : MonoBehaviour
     }
 
     void OnGUI () {
-		GUI.Label(new Rect(0, 50, 100, 100), my_ip);
+		//GUI.Label(new Rect(0, 50, 100, 100), my_ip);
     }
 	
     void FixedUpdate() {
@@ -113,12 +113,12 @@ class Server2 : MonoBehaviour
 	
 	void OnWin()
 	{
-	
+	    level.NotifyGameWon();
 	}
 	
 	void OnGameover()
 	{
-	
+	    level.NotifyGameOver();
 	}
 	
 	void Update(){

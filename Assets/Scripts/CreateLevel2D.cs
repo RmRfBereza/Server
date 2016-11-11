@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ public class CreateLevel2D : MonoBehaviour {
     public const int SegmentSize2d = 12;
     public GameObject Player;
     public GameObject StarGameButton;
+    public GameObject RestarGameButton;
     public GameObject TileIntersection;
     public GameObject TileTurn;
     public GameObject TileTTurn;
@@ -16,12 +18,19 @@ public class CreateLevel2D : MonoBehaviour {
     public GameObject TileStart;
     public GameObject TileFinish;
 
+    public Text MessageText;
+
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private string jsonString;
 
+    private const string StartGameMessage = "Second player connected!\nStart the game whenever you both are ready!";
+    private const string WaitForPlayerMessage = "Tell your friend your IP and wait for him to connect. Your IP is\n";
+    private const string GameOverMessage = "Game Over!";
+    private const string YouWonMesssage = "You Won!";
+
     public enum States
     {
-        WaitingForPlayer, StartingGame, GameIsPlaying, GameOver
+        WaitingForPlayer, StartingGame, GameIsPlaying, GameOver, GameWon
     }
 
     private States CurrentState = States.WaitingForPlayer;
@@ -83,38 +92,56 @@ public class CreateLevel2D : MonoBehaviour {
         }
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
-        SetPlayerStartPosition();
+        if (CurrentState == States.GameOver || CurrentState == States.GameWon)
+        {
+            print("restart");
+            RestarGameButton.SetActive(false);
+            ActivateMessageText(false);
+            SetPlayerStartPosition();
+            CurrentState = States.GameIsPlaying;
+            StartCoroutine(GameLoop());
+        }
     }
 
     private IEnumerator WaitForPlayer()
     {
+        MessageText.text = WaitForPlayerMessage + Server2.myIp;
         while (CurrentState == States.WaitingForPlayer)
         {
             yield return null;
         }
+        Create2DLevelFromJsonString(jsonString, SegmentSize2d, SegmentPrefabsDictionary);
 
+        yield return StartCoroutine(StartGame());
         yield return StartCoroutine(GameLoop());
     }
 
     private IEnumerator GameLoop()
     {
-        yield return StartCoroutine(StartGame());
         yield return StartCoroutine(GamePlaying());
-        yield return StartCoroutine(GameOver());
+        if (CurrentState == States.GameOver)
+        {
+            yield return StartCoroutine(GameOver());
+        }
+        else
+        {
+            yield return StartCoroutine(GameWon());
+        }
     }
 
     private IEnumerator StartGame()
     {
+        MessageText.text = StartGameMessage;
         StarGameButton.SetActive(true);
         SetPlayerStartPosition();
         while (CurrentState == States.StartingGame)
         {
             yield return null;
         }
+        ActivateMessageText(false);
         StarGameButton.SetActive(false);
-        Create2DLevelFromJsonString(jsonString, SegmentSize2d, SegmentPrefabsDictionary);
         yield return null;
     }
 
@@ -142,6 +169,17 @@ public class CreateLevel2D : MonoBehaviour {
 
     private IEnumerator GameOver()
     {
+        ActivateMessageText(true);
+        MessageText.text = GameOverMessage;
+        RestarGameButton.SetActive(true);
+        yield return null;
+    }
+
+    private IEnumerator GameWon()
+    {
+        ActivateMessageText(true);
+        MessageText.text = YouWonMesssage;
+        RestarGameButton.SetActive(true);
         yield return null;
     }
 
@@ -153,12 +191,26 @@ public class CreateLevel2D : MonoBehaviour {
         }
     }
 
+    public void NotifyGameWon()
+    {
+
+        if (CurrentState == States.GameIsPlaying)
+        {
+            CurrentState = States.GameWon;
+        }
+    }
+
     public void NotifyGameStart()
     {
         if (CurrentState == States.StartingGame)
         {
             CurrentState = States.GameIsPlaying;
         }
+    }
+
+    private void ActivateMessageText(bool value)
+    {
+        MessageText.gameObject.transform.parent.gameObject.SetActive(value);
     }
 
     IEnumerator testingLoop()
@@ -181,6 +233,10 @@ public class CreateLevel2D : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.M))
             {
                 Application.LoadLevel(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                NotifyGameWon();
             }
 #endif
 #if UNITY_ANDROID
