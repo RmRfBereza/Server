@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class SceneLoader : MonoBehaviour {
     public void LoadScene(
         int sceneNumber)
     {
-        Application.LoadLevel(sceneNumber);
+        SceneManager.LoadScene(sceneNumber);
     }
 
     public void LoadSceneWithIp(
@@ -28,7 +29,7 @@ public class SceneLoader : MonoBehaviour {
         if (ipInput.text != string.Empty)
         {
             Client2.ip = ipInput.text;
-            Application.LoadLevel(sceneNumber);
+            SceneManager.LoadScene(sceneNumber);
         }
     }
 }

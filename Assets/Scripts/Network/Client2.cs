@@ -11,8 +11,6 @@ class Client2 : MonoBehaviour
     BinaryFormatter formatter = new BinaryFormatter();
 	TcpClient client = null;
 	Stream s = null;
-	StreamReader sr = null;
-	StreamWriter sw = null;
 
     public static string ip = "-1";
 
@@ -77,7 +75,7 @@ class Client2 : MonoBehaviour
 					isOk = false;
 				}; break;
 				case Mark.WAIT_VECTOR3: {
-					V3 t = (V3)formatter.Deserialize(s);
+					//V3 t = (V3)formatter.Deserialize(s);
 				}; break;
 				case Mark.WAIT_SWAP: {
 					swap = true;

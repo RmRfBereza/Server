@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -38,7 +39,7 @@ public class Level : MonoBehaviour {
     public bool isSecondPlayerConnected = false;
     public bool IsPlayerInstanciated = false;
 
-    public GameObject Segment;
+    //public GameObject Segment;
     public List<NamedPrefab> SegmentPrefabsList;
     public GameObject Player;
     public Camera SceneCamera;
@@ -54,7 +55,7 @@ public class Level : MonoBehaviour {
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private RobotMovement _robot;
     private Text _secondsText;
-    private List<GameObject> Segments;
+    //private List<GameObject> Segments;
     private Client2 _client2 = null;
 
     private Vector3 _rotation;
@@ -68,22 +69,24 @@ public class Level : MonoBehaviour {
             SegmentPrefabsDictionary[segment.name] = segment.prefab;
         }
 
-        Segments = new List<GameObject>();
+        //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = Camera.main;
+        CreateLevel.CreateLevelFromJsonString("[[null,{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,{\"angle\":180,\"type\":\"deadend\"},null,{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,{\"angle\":0,\"type\":\"deadend\"},null,{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
-	    StartCoroutine(testingLoop());
+	    //StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
 
         //var obj = TestTurn();
         //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
-        CreateLevel.CreateLevelFromJsonString("[[{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,null,{\"angle\":180,\"type\":\"deadend\"},{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,null,{\"angle\":0,\"type\":\"deadend\"},{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        
     }
 
     public void RestartGame()
     {
-        CreateMainPlayer();
-        if (CurrentState == States.GameOver || CurrentState == States.WaitingForPlayer)
+        if (CurrentState == States.GameOver || CurrentState == States.GameWon || CurrentState == States.WaitingForPlayer)
         {
+            Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            CreateMainPlayer();
             CurrentState = States.StartingGame;
             StartCoroutine(GameLoop());
         }
@@ -224,7 +227,7 @@ public class Level : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.M))
             {
-                Application.LoadLevel(0);
+                SceneManager.LoadScene(0);
             }
 #endif
 #if UNITY_ANDROID
