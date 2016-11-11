@@ -60,6 +60,7 @@ public class XControllerEpic : MonoBehaviour
 		if (!(ggg < 0) && --ggg == 0)
 			b = Input.gyro.attitude.eulerAngles;
 		if (ggg > 0) return;
+
 		
 		Vector3 a = Input.gyro.attitude.eulerAngles;
 		Vector3 cv = a - b;
