@@ -18,6 +18,7 @@ public class RobotMovement : MonoBehaviour
     private int _turnStartRotation;
     private float _turnRotation = 0;
     private float _turningSpeedDeg = 36f;
+    private byte _ticks = 0;
     private Vector3 _turnigCenterPosition;
     private Vector3 _turningRight;
     private Vector3 _turningForward;
@@ -33,6 +34,7 @@ public class RobotMovement : MonoBehaviour
     private const float Tolerance = 0.0001f;
     private const string State = "State";
     private const string NoControl = "<color=#800000ff>Warning:\nNO Control!</color>";
+    private const byte ticksBeforeChangeTrack = 15;
 
     //order can not be changed because of the animator
     private enum States
@@ -76,6 +78,11 @@ public class RobotMovement : MonoBehaviour
 	void Update ()
     {
         HandleCurrentState();
+    }
+
+    void FixedUpdate()
+    {
+        if (_ticks > 0) --_ticks;
     }
 
     public void TurnOnControlls()
@@ -198,7 +205,9 @@ public class RobotMovement : MonoBehaviour
 
     private void ChangeTrack(sbyte direction)
     {
+        if (_ticks > 0) return;
         if (CurrentState != States.Running) return;
+        _ticks = ticksBeforeChangeTrack;
         if (direction == Left && CurrentTrack > -1 || 
             direction == Right && CurrentTrack < 1)
         {
