@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class XControllerEpic : MonoBehaviour 
 {
+    public delegate void LeftAction();
+    public delegate void RightAction();
+    public static LeftAction OnXLeft;
+    public static RightAction OnXRight;
+
 	Vector3 lacc = Vector3.zero;
 	Vector3 position = Vector3.zero;
 	Vector3 velosity = Vector3.zero;
@@ -16,12 +21,13 @@ public class XControllerEpic : MonoBehaviour
 	private int last = 0;
 	private int ccc = size;
 	Text text;
-	Vector3 a = Vector3.zero;
+	Vector3 b = Vector3.zero;
 	
 	void Start()
 	{
 		text = GameObject.Find("SecondsText").GetComponent<Text>();
 		Input.gyro.enabled = true;
+		b = Input.gyro.attitude.eulerAngles;
 	}
 
 	double cos(double degrees)
@@ -46,71 +52,29 @@ public class XControllerEpic : MonoBehaviour
         return result / size;
     }
 	
+	int ggg = 20;
+	
+	int fff = 0;
 	void FixedUpdate()
-	{
-		//Vector3 a = Input.gyro.attitude.eulerAngles;
+	{		
+		if (!(ggg < 0) && --ggg == 0)
+			b = Input.gyro.attitude.eulerAngles;
+		if (ggg > 0) return;
 		
-		a.x += Input.gyro.rotationRateUnbiased.x;
-		a.y += Input.gyro.rotationRateUnbiased.y;
-		a.z += Input.gyro.rotationRateUnbiased.z;
-		Vector3 acc = Input.acceleration;
-		Vector3 accr = acc;
-		
-		/*
-		accr.x = (float) ((cos(a.x) * cos(a.z) - sin(a.x) * cos(a.y) * sin(a.z)) * acc.x
-		               + (-cos(a.x) * sin(a.z) - sin(a.x) * cos(a.y) * cos(a.z)) * acc.y
-			           + ( sin(a.x) * sin(a.y)) * acc.z);
-					   
-		accr.y = (float) ((sin(a.x) * cos(a.z) + cos(a.x) * cos(a.y) * sin(a.z)) * acc.x
-		               + (-sin(a.x) * sin(a.z) + cos(a.x) * cos(a.y) * cos(a.z)) * acc.y
-			           + (-cos(a.x) * sin(a.y)) * acc.z);
-					   
-		accr.z = (float) ((sin(a.y) * sin(a.z)) * acc.x
-					   + ( sin(a.y) * cos(a.z)) * acc.y
-					   + ( cos(a.y) ) * acc.z);
-				*/	   
-					   
-		 //траспонированная
-		 
-		accr.x = (float) ((cos(a.x) * cos(a.z) - sin(a.x) * cos(a.y) * sin(a.z)) * acc.x
-						+ (sin(a.x) * cos(a.z) + cos(a.x) * cos(a.y) * sin(a.z)) * acc.y
-						+ (sin(a.y) * sin(a.z)) * acc.z);
-		
-		accr.y = (float) ((-cos(a.x) * sin(a.z) - sin(a.x) * cos(a.y) * cos(a.z)) * acc.x
-						+ (-sin(a.x) * sin(a.z) + cos(a.x) * cos(a.y) * cos(a.z)) * acc.y
-						+ ( sin(a.y) * cos(a.z)) * acc.z);
-		
-		accr.z = (float) (( sin(a.x) * sin(a.y)) * acc.x
-						+ (-cos(a.x) * sin(a.y)) * acc.y
-						+ ( cos(a.y) ) * acc.z);
-		
+		Vector3 a = Input.gyro.attitude.eulerAngles;
+		Vector3 cv = a - b;
+		a = cv;
 
-		last = (last + 1) % size;
-		valx[last] = accr.x;
-		valy[last] = accr.y;
-		valz[last] = accr.z;
-		
-		ccc = ccc != 0 ? ccc -1 : ccc;
-		if(ccc > 0) return;
-		
-		accr.x -= average(valx);
-		accr.y -= average(valy);
-		accr.z -= average(valz);
-		
-		velosity.x += (accr.x ) * dt;
-		velosity.y += (accr.y ) * dt;
-		velosity.z += (accr.z ) * dt;
-		
-		position.x += velosity.x * dt;
-		position.y += velosity.y * dt;
-		position.z += velosity.z * dt;
+		if (a.z < 20 && a.z > -20)
+			fff = 0;
+		if (a.z > 20 && a.z < 70)
+			if (OnXLeft != null)
+				OnXLeft();
+		if (a.z < -20 && a.z > -70)
+			if (OnXRight != null)
+				OnXRight();
 		
 		text.text = "" + a;
-		
-		Debug.Log("AAAA " + a);
-		Debug.Log("BBBB " + acc);
-		Debug.Log("CCCC " + accr);
-		
-		lacc = accr;
+
 	}
 }
