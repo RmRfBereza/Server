@@ -23,11 +23,17 @@ public class CreateLevel : MonoBehaviour {
                     _position.z += segmentSize;
                     continue;
                 }
+                
                 var currentSegment = Instantiate(prefabDictionary[segmentParams["type"].str]);
 
                 _rotation.Set(0f, segmentParams["angle"].n, 0f);
                 currentSegment.transform.eulerAngles = _rotation;
                 currentSegment.transform.position = _position;
+
+                if (segmentParams["type"].str == Level.StartSegmentName) {
+                    Level.StartPosition = _position;
+                    Level.StartRotation = _rotation;
+                }
 
                 _position.z += segmentSize;
             }

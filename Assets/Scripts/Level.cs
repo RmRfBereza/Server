@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class Level : MonoBehaviour {
 
+    public static Vector3 StartPosition;
+    public static Vector3 StartRotation;
+
     public const byte TrackWidth = 2;
     public const byte TracksQuantity = 3;
 
@@ -78,8 +81,7 @@ public class Level : MonoBehaviour {
 
     public void RestartGame()
     {
-        Player.transform.position = Vector3.zero;
-        Player.transform.eulerAngles = Vector3.zero;
+        CreateMainPlayer();
         if (CurrentState == States.GameOver || CurrentState == States.WaitingForPlayer)
         {
             CurrentState = States.StartingGame;
@@ -198,11 +200,11 @@ public class Level : MonoBehaviour {
             SceneCamera.transform.parent = Player.transform;
             _robot = Player.GetComponent<RobotMovement>();
             IsPlayerInstanciated = true;
-        } else
-        {
-            Player.transform.position = Vector3.zero;
-            Player.transform.eulerAngles = Vector3.zero;
         }
+        
+        Player.transform.position = StartPosition;
+        Player.transform.eulerAngles = StartRotation;
+        
     }
 
     IEnumerator testingLoop()
