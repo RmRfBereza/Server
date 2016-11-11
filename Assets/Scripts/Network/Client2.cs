@@ -25,8 +25,13 @@ class Client2 : MonoBehaviour
         //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно
         level = GameObject.Find("Plane").GetComponent<Level>();
 
-        if (ip == "-1") return;
-
+        if (ip == "-1")
+		{		
+			level.RestartGame();
+			Thread.Sleep(1000);
+			GetComponent<XControllerEpic>().ooo();
+			return;
+		}
 		Thread t = new Thread(new ThreadStart(Client));
 		t.Start();
 	}
@@ -131,7 +136,10 @@ class Client2 : MonoBehaviour
 		if (inGame) 
 		{
 			inGame = false;
+			
 			level.RestartGame();
+			Thread.Sleep(1000);
+			GetComponent<XControllerEpic>().ooo();
 		}
 		pos = new V3(transform.position);
     }
