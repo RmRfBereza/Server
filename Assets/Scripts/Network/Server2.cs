@@ -14,6 +14,7 @@ class Server2 : MonoBehaviour
     public int port = 8865;
 	public string my_ip { get; set; }
 	public int mask { get; set; }
+	Stream s;
 	
     BinaryFormatter formatter = new BinaryFormatter();
     static TcpListener listener;
@@ -49,32 +50,20 @@ class Server2 : MonoBehaviour
         listener.Start();
 		this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
 
-        for(int i = 0; i < LIMIT;i++){
-            Thread t = new Thread(new ThreadStart(Service));
-            t.Start();
-        }
+		Thread t = new Thread(new ThreadStart(Service));
+		t.Start();
     }
 
+	public volatile bool isNeedStart = false;
     public void StartGame()
     {
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-
-        //Пишем код здесь!!!!!
-
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
-        //12321
+        isNeedStart = true;
+    }
+	
+	public volatile bool isNeedRestart = false;
+    public void RestartGame()
+    {
+        isNeedRestart = true;
     }
 
     void OnGUI () {
@@ -84,7 +73,7 @@ class Server2 : MonoBehaviour
     void FixedUpdate() {
         var pos = nepos.getVec();
         var newPos = Vector3.zero;
-        print(pos);
+        //print(pos);
         newPos.x = pos.z*2/3;
         newPos.y = -pos.x*2/3;
         transform.position = newPos;
@@ -97,19 +86,15 @@ class Server2 : MonoBehaviour
             Debug.Log("Connected: " + soc.RemoteEndPoint);
             level.NotifySecondPlayerConnected();
             try{
-                Stream s = new NetworkStream(soc); 
-                StreamReader sr = new StreamReader(s);
-                StreamWriter sw = new StreamWriter(s);
-                sw.AutoFlush = true;
+                s = new NetworkStream(soc); 
 
 				bool isOk = true;
 				while(isOk)
 				{
-					V3 t = (V3)formatter.Deserialize(s);
-					V3 n = new V3(t.getVec());
-					//n.y = n.z;
-					//n.z = 0;
-					nepos = n;
+					sWrite();
+					formatter.Serialize(s, new Mark(Mark.WAIT_SWAP));
+					Debug.Log("222");
+					isOk = sRead();
 				}
 
                 s.Close();
@@ -122,4 +107,81 @@ class Server2 : MonoBehaviour
             soc.Close();
         }
     }
+	
+	volatile bool isWin = false;
+	volatile bool isGameover = false;
+	
+	void OnWin()
+	{
+	
+	}
+	
+	void OnGameover()
+	{
+	
+	}
+	
+	void Update(){
+		if(isWin)
+		{
+			isWin = false;
+			OnWin();
+		}
+		if(isGameover)
+		{
+			isGameover = false;
+			OnGameover();
+		}
+	}
+	
+	bool sRead()
+	{
+		bool isOk = true;
+		bool swap = false;
+		while(!swap)
+		{
+			Mark mark = (Mark)formatter.Deserialize(s);
+			switch (mark.getType())
+			{
+				case Mark.WAIT_HZ:
+				case Mark.WAIT_EXIT:{
+					isOk = false;
+				}; break;
+				case Mark.WAIT_VECTOR3: {
+					V3 t = (V3)formatter.Deserialize(s);
+					V3 n = new V3(t.getVec());
+					//n.y = n.z;
+					//n.z = 0;
+					nepos = n;
+				}; break;
+				case Mark.WAIT_SWAP: {
+					swap = true;
+				}; break;
+				case Mark.WAIT_WIN: {
+					isWin = true;
+				}; break;
+				case Mark.WAIT_GAMEOVER: {
+					isGameover = true;
+				}; break;
+				default:{
+					Debug.Log("Incorrect mark type = " + mark.getType());
+				}; break;
+			}
+		}
+		return isOk;
+	}
+	
+	void sWrite()
+	{
+		if (isNeedStart)
+		{
+			formatter.Serialize(s, new Mark(Mark.WAIT_START));
+			isNeedStart = false;
+		}
+		if (isNeedRestart)
+		{
+			formatter.Serialize(s, new Mark(Mark.WAIT_RESTART));
+			isNeedRestart = false;
+		}
+	}
 }

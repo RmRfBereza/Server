@@ -10,11 +10,21 @@ using System.Configuration;
 [Serializable]
 class Mark
 {
-	public static int WAIT_HZ		= 0;
-	public static int WAIT_EXIT		= 1;
-	public static int WAIT_VECTOR3 	= 2;
+	public const int WAIT_HZ		= 0;
+	public const int WAIT_EXIT		= 1;
+	public const int WAIT_SWAP		= 2;
+	public const int WAIT_VECTOR3 	= 3;
+	public const int WAIT_START     = 4;
+	public const int WAIT_RESTART   = 5;
+	public const int WAIT_WIN       = 6;
+	public const int WAIT_GAMEOVER   = 7;
 	
 	private int type = WAIT_HZ;
+	
+	public Mark(int _type)
+	{
+		type = _type;
+	}
 	
 	public int getType()
 	{
