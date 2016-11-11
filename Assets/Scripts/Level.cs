@@ -36,7 +36,7 @@ public class Level : MonoBehaviour {
     public bool IsPlayerInstanciated = false;
 
     public GameObject Segment;
-    public List<NamedPrefabs> SegmentPrefabsList;
+    public List<NamedPrefab> SegmentPrefabsList;
     public GameObject Player;
     public Camera SceneCamera;
 
@@ -261,7 +261,7 @@ public class Level : MonoBehaviour {
     }
 
     [Serializable]
-    public struct NamedPrefabs
+    public struct NamedPrefab
     {
         public string name;
         public GameObject prefab;

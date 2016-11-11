@@ -35,6 +35,7 @@ public class CreateLevel2D : MonoBehaviour {
         SegmentPrefabsDictionary.Add("null", TileNull);
         SegmentPrefabsDictionary.Add("start", TileStart);
         SegmentPrefabsDictionary.Add("finish", TileFinish);
+        SegmentPrefabsDictionary.Add("deadend", TileDeadend);
         jsonString = getJSONString();
         //Create2DLevelFromJsonString(jsonString, SegmentSize2d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
@@ -43,7 +44,9 @@ public class CreateLevel2D : MonoBehaviour {
 
     private string getJSONString()
     {
-        return "[[{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}]";
+        //return "[[{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}],[null,null,null,{\"angle\":90,\"type\":\"straight\"}]";
+        //return "[[{\"angle\":270,\"type\":\"start\"},{\"angle\":180,\"type\":\"turn\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":90,\"type\":\"turn\"}]]";
+        return "[[{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[{\"angle\":0,\"type\":\"null\"},{\"angle\":0,\"type\":\"null\"},{\"angle\":180,\"type\":\"deadend\"},{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":90,\"type\":\"Tturn\"}],[{\"angle\":0,\"type\":\"null\"},{\"angle\":0,\"type\":\"null\"},{\"angle\":0,\"type\":\"deadend\"},{\"angle\":0,\"type\":\"deadend\"}]]";
     }
 
     public void Create2DLevelFromJsonString(string jsonString, int segmentSize, Dictionary<string, GameObject> prefabDictionary)
