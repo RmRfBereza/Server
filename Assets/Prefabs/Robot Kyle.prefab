@@ -34,14 +34,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012467489410}
-  - 54: {fileID: 54000010025788214}
   - 95: {fileID: 95000013982319036}
   - 114: {fileID: 114000010422936018}
   - 65: {fileID: 65000011712656878}
-  - 114: {fileID: 114000013325979238}
   - 114: {fileID: 114000010026442722}
   - 114: {fileID: 114000013345359018}
   - 114: {fileID: 114000012598760764}
+  - 54: {fileID: 54000010001237042}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Untagged
@@ -1498,7 +1497,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012005600448}
   m_RootOrder: 0
---- !u!54 &54000010025788214
+--- !u!54 &54000010001237042
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1512,7 +1511,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &65000011712656878
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1569,17 +1568,6 @@ MonoBehaviour:
   Speed: 5
   JumpLength: 3
 --- !u!114 &114000012598760764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010028721030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3cacabe32e83e24db420ad0e4d8b0c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000013325979238
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class XControllerEpic : MonoBehaviour 
 {
-	Vector3 lacc = Vector3.zero;
+	//Vector3 lacc = Vector3.zero;
 	Vector3 position = Vector3.zero;
 	Vector3 velosity = Vector3.zero;
 	public float dt = 10;
@@ -15,12 +15,12 @@ public class XControllerEpic : MonoBehaviour
 	private float[] valz = new float[size];
 	private int last = 0;
 	private int ccc = size;
-	Text text;
+	//Text text;
 	Vector3 a = Vector3.zero;
 	
 	void Start()
 	{
-		text = GameObject.Find("SecondsText").GetComponent<Text>();
+		//text = GameObject.Find("SecondsText").GetComponent<Text>();
 		Input.gyro.enabled = true;
 	}
 
@@ -112,6 +112,6 @@ public class XControllerEpic : MonoBehaviour
 		Debug.Log("BBBB " + acc);
 		Debug.Log("CCCC " + accr);
 		
-		lacc = accr;
+		//lacc = accr;
 	}
 }
