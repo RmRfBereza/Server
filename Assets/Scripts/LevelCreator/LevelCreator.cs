@@ -44,10 +44,9 @@ public class LevelCreator : MonoBehaviour {
             for (int j = 0; j < Columns; ++j)
             {
                 var handler = cells[i, j].GetComponent<LevelCellButtonHandler>();
-                if (handler.name == "null")
+                if (handler.Name == "null")
                 {
                     obj[i].Add(new JSONObject(JSONObject.Type.NULL));
-                    
                 }
                 else
                 {

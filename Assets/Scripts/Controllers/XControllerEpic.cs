@@ -106,7 +106,7 @@ public class XControllerEpic : MonoBehaviour
 		position.y += velosity.y * dt;
 		position.z += velosity.z * dt;
 		
-		text.text = "" + a;
+		//text.text = "" + a;
 		
 		Debug.Log("AAAA " + a);
 		Debug.Log("BBBB " + acc);

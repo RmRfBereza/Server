@@ -102,7 +102,7 @@ public class RobotMovement : MonoBehaviour
     public void SetIdle()
     {
         CurrentState = States.Idle;
-        _secondsText.text = "";
+        //_secondsText.text = "";
     }
 
     public void SetDead()
@@ -305,6 +305,7 @@ public class RobotMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+        CurrentState = States.Dead;
         _level.NotifyGameOver();
     }
 }

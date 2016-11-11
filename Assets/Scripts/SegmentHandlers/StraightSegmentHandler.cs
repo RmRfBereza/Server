@@ -10,9 +10,12 @@ public class StraightSegmentHandler : LevelSectionHandler {
     private const float DoubleObsticleOffset = 1.3f;
     private const float SingleObsticleOffset = 2.0f;
 
+    void Awake()
+    {
+        FindLevel();
+    }
     // Use this for initialization
     void Start () {
-        FindLevel();
         //CreateRandomObsticles();
 	}
 	

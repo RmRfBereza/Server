@@ -40,6 +40,8 @@ GameObject:
   - 65: {fileID: 65000011712656878}
   - 114: {fileID: 114000013325979238}
   - 114: {fileID: 114000010026442722}
+  - 114: {fileID: 114000013345359018}
+  - 114: {fileID: 114000012598760764}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Untagged
@@ -1546,11 +1548,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010028721030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9660b7ee3569994296d4a14771a617f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dt: 10
 --- !u!114 &114000010422936018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1565,6 +1568,17 @@ MonoBehaviour:
   Thrust: 5
   Speed: 5
   JumpLength: 3
+--- !u!114 &114000012598760764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010028721030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cacabe32e83e24db420ad0e4d8b0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013325979238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1574,6 +1588,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3cacabe32e83e24db420ad0e4d8b0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013345359018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010028721030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d007777038681942821e113192571de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &137000010186742536

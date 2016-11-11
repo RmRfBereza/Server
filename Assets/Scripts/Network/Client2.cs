@@ -97,13 +97,13 @@ class Client2 : MonoBehaviour
 	}
 	
 	volatile bool needSendWin = false;
-	void SendWin()
+	public void SendWin()
 	{
 		needSendWin = true;
 	}
 	
 	volatile bool needSendGameover = false;
-	void SendGameover()
+	public void SendGameover()
 	{
 		needSendGameover = true;
 	}
@@ -133,7 +133,7 @@ class Client2 : MonoBehaviour
 		if (inGame) 
 		{
 			inGame = false;
-			level.NotifySecondPlayerConnected();
+			level.RestartGame();
 		}
 		pos = new V3(transform.position);
     }

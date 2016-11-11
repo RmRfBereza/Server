@@ -26,7 +26,7 @@ public class Level : MonoBehaviour {
 
     public enum States
     {
-        WaitingForPlayer, StartingGame, GameIsPlaying, GameOver
+        WaitingForPlayer, StartingGame, GameIsPlaying, GameOver, GameWon
     }
 
     public States CurrentState = States.WaitingForPlayer;
@@ -46,11 +46,13 @@ public class Level : MonoBehaviour {
     private const sbyte secondsBeforeStart = 3;
     private const string goText = "GO!";
     private const string gameOverText = "Game Over!";
+    private const string gameWonText = "You're free";
 
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private RobotMovement _robot;
     private Text _secondsText;
     private List<GameObject> Segments;
+    private Client2 _client2 = null;
 
     private Vector3 _rotation;
     private Vector3 _position;
@@ -69,13 +71,16 @@ public class Level : MonoBehaviour {
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
 
-        var obj = TestTurn();
-        CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        //var obj = TestTurn();
+        //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        CreateLevel.CreateLevelFromJsonString("[[{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,null,{\"angle\":180,\"type\":\"deadend\"},{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,null,{\"angle\":0,\"type\":\"deadend\"},{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
     }
 
     public void RestartGame()
     {
-        if (CurrentState == States.GameOver)
+        Player.transform.position = Vector3.zero;
+        Player.transform.eulerAngles = Vector3.zero;
+        if (CurrentState == States.GameOver || CurrentState == States.WaitingForPlayer)
         {
             CurrentState = States.StartingGame;
             StartCoroutine(GameLoop());
@@ -98,6 +103,14 @@ public class Level : MonoBehaviour {
         }
     }
 
+    public void NotifyGameWon()
+    {
+        if (CurrentState == States.GameIsPlaying)
+        {
+            CurrentState = States.GameWon;
+        }
+    }
+
     private IEnumerator WaitForPlayer()
     {
         CreateMainPlayer();
@@ -115,7 +128,14 @@ public class Level : MonoBehaviour {
         yield return StartCoroutine(StartCountDown(secondsBeforeStart));
         yield return StartCoroutine(StartGameplay());
         yield return StartCoroutine(Play());
-        yield return StartCoroutine(GameOver());
+        if (CurrentState == States.GameOver)
+        {
+            yield return StartCoroutine(GameOver(gameOverText, false));
+        }
+        else
+        {
+            yield return StartCoroutine(GameOver(gameWonText, true));
+        }
     }
 
     private IEnumerator StartCountDown(sbyte _seconds)
@@ -151,11 +171,22 @@ public class Level : MonoBehaviour {
         }
     }
 
-    private IEnumerator GameOver()
+    private IEnumerator GameOver(string message, bool won)
     {
+        if (_client2 == null) _client2 = Player.GetComponent<Client2>();
         GameOverInterfaceGO.SetActive(true);
-        _secondsText.text = gameOverText;
+        print(message);
+        _secondsText.text = message;
         _robot.SetIdle();
+        if (won)
+        {
+            _client2.SendWin();
+        }
+        else
+        {
+            _client2.SendGameover();
+        }
+        
         yield return null;
     }
 
