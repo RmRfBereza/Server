@@ -73,7 +73,7 @@ public class Level : MonoBehaviour {
         if (SceneCamera == null) SceneCamera = Camera.main;
         CreateLevel.CreateLevelFromJsonString("[[null,{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,{\"angle\":180,\"type\":\"deadend\"},null,{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,{\"angle\":0,\"type\":\"deadend\"},null,{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
-	    //StartCoroutine(testingLoop());
+	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
 
         //var obj = TestTurn();
@@ -206,7 +206,7 @@ public class Level : MonoBehaviour {
         
         Player.transform.position = StartPosition;
         Player.transform.eulerAngles = StartRotation;
-        
+        RobotMovement.CurrentTrack = 0;
     }
 
     IEnumerator testingLoop()
@@ -237,8 +237,8 @@ public class Level : MonoBehaviour {
 
             if (Math.Abs(Input.acceleration.y) > 0)
             {
-                NotifySecondPlayerConnected();
-		RestartGame();
+                //NotifySecondPlayerConnected();
+		        //RestartGame();
             }
 #endif
             yield return null;

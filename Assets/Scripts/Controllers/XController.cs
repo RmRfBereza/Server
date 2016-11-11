@@ -151,7 +151,7 @@ public class XController : MonoBehaviour
         updateDevation(Input.gyro.userAcceleration.x);
         updatePosition();      
         updateAverage(Input.gyro.userAcceleration.x);
-        logContr(Input.gyro.userAcceleration.x);
+        //logContr(Input.gyro.userAcceleration.x);
     }
 
     void logContr(float x)
