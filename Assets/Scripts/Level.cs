@@ -78,7 +78,6 @@ public class Level : MonoBehaviour {
 
         //var obj = TestTurn();
         //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
-        
     }
 
     public void RestartGame()
