@@ -28,8 +28,6 @@ class Client2 : MonoBehaviour
         if (ip == "-1")
 		{		
 			level.RestartGame();
-			Thread.Sleep(1000);
-			GetComponent<XControllerEpic>().ooo();
 			return;
 		}
 		Thread t = new Thread(new ThreadStart(Client));
@@ -136,10 +134,7 @@ class Client2 : MonoBehaviour
 		if (inGame) 
 		{
 			inGame = false;
-			
 			level.RestartGame();
-			Thread.Sleep(1000);
-			GetComponent<XControllerEpic>().ooo();
 		}
 		pos = new V3(transform.position);
     }

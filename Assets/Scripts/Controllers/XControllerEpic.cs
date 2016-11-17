@@ -10,73 +10,38 @@ public class XControllerEpic : MonoBehaviour
     public static LeftAction OnXLeft;
     public static RightAction OnXRight;
 
-	Vector3 lacc = Vector3.zero;
-	Vector3 position = Vector3.zero;
-	Vector3 velosity = Vector3.zero;
-	public float dt = 10;
-	private const int size = 250;
-    private float[] valx = new float[size];
-	private float[] valy = new float[size];
-	private float[] valz = new float[size];
-	private int last = 0;
-	private int ccc = size;
-	Text text;
-	Vector3 b = Vector3.zero;
+	private Text text;
+	public float dAngle = 15.0f;
 	
 	void Start()
 	{
 		text = GameObject.Find("SecondsText").GetComponent<Text>();
 		Input.gyro.enabled = true;
-		b = Input.gyro.attitude.eulerAngles;
 	}
 
-	double cos(double degrees)
-	{
-		double angle = Math.PI * degrees / 180.0;
-		return Math.Cos(angle);
-	}
-	
-	double sin(double degrees)
-	{
-		double angle = Math.PI * degrees / 180.0;
-		return Math.Sin(angle);
-	}
-	
-	float average(float[] val)
-    {
-        float result = 0.0F;
-        for(int i=0; i < size; ++i)
-        {
-            result += val[i];
-        }
-        return result / size;
-    }
-	
-	int ggg = 20;
-	
-	public void ooo()
-	{
-		b = Input.gyro.attitude.eulerAngles;
-		Debug.Log("AAAAAAAAAAAAAAAA");
-	}
-	
-	int fff = 0;
 	void FixedUpdate()
 	{			
 		Vector3 a = Input.gyro.attitude.eulerAngles;
-		Vector3 cv = a - b;
-		a = cv;
-		a.z -= 90;
-		if (a.z < 20 && a.z > -20)
-			fff = 0;
-		if (a.z > 20 && a.z < 70)
+		
+		float ay = a.y > 180 ? a.y - 180 : a.y;
+		float magic = (ay - 90.0f) /1.5f;
+		float angle = a.z > 180 ? a.z - 180 : a.z;
+		angle = angle + magic;
+		
+		
+		if (angle > 0 && angle < 90 - dAngle)
+		{
 			if (OnXLeft != null)
 				OnXLeft();
-		if (a.z < -20 && a.z > -70)
+			text.text = "\n\n\nRight\n" + angle;
+		} else
+		if (angle > 90 + dAngle && angle < 180)
+		{
 			if (OnXRight != null)
 				OnXRight();
-		
-		text.text = "" + a;
+			text.text = "\n\n\nLeft\n" + angle;
+		} else
+			text.text = "\n\n\n" + angle;
 
 	}
 }
