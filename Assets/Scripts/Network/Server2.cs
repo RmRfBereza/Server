@@ -14,10 +14,12 @@ class Server2 : MonoBehaviour
     public int port = 8865;
 	public string my_ip { get; set; }
 	public int mask { get; set; }
-	Stream s;
-	
+	Stream stream = null;
+    Socket socket = null;
+    Thread thread = null;
+
     BinaryFormatter formatter = new BinaryFormatter();
-    static TcpListener listener;
+    static TcpListener listener;    
     const int LIMIT = 1;
     public static volatile string myIp = "undefined";
 
@@ -50,8 +52,8 @@ class Server2 : MonoBehaviour
         listener.Start();
 		myIp = this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
 
-		Thread t = new Thread(new ThreadStart(Service));
-		t.Start();
+		thread = new Thread(new ThreadStart(Service));
+		thread.Start();
     }
 
 	public volatile bool isNeedStart = false;
@@ -81,30 +83,30 @@ class Server2 : MonoBehaviour
 	
 	void Service(){
         while(true){
-            Socket soc = listener.AcceptSocket();
+            socket = listener.AcceptSocket();
             
-            Debug.Log("Connected: " + soc.RemoteEndPoint);
+            Debug.Log("Connected: " + socket.RemoteEndPoint);
             level.NotifySecondPlayerConnected();
             try{
-                s = new NetworkStream(soc); 
+                stream = new NetworkStream(socket); 
 
 				bool isOk = true;
 				while(isOk)
 				{
 					sWrite();
-					formatter.Serialize(s, new Mark(Mark.WAIT_SWAP));
+					formatter.Serialize(stream, new Mark(Mark.WAIT_SWAP));
 					Debug.Log("222");
 					isOk = sRead();
 				}
 
-                s.Close();
+                stream.Close();
             } catch(Exception e){
                 Debug.Log(e.Message);
             }
 
-            Debug.Log("Disconnected: " + soc.RemoteEndPoint);
+            Debug.Log("Disconnected: " + socket.RemoteEndPoint);
 
-            soc.Close();
+            socket.Close();
         }
     }
 	
@@ -140,7 +142,7 @@ class Server2 : MonoBehaviour
 		bool swap = false;
 		while(!swap)
 		{
-			Mark mark = (Mark)formatter.Deserialize(s);
+			Mark mark = (Mark)formatter.Deserialize(stream);
 			switch (mark.getType())
 			{
 				case Mark.WAIT_HZ:
@@ -148,7 +150,7 @@ class Server2 : MonoBehaviour
 					isOk = false;
 				}; break;
 				case Mark.WAIT_VECTOR3: {
-					V3 t = (V3)formatter.Deserialize(s);
+					V3 t = (V3)formatter.Deserialize(stream);
 					V3 n = new V3(t.getVec());
 					//n.y = n.z;
 					//n.z = 0;
@@ -175,13 +177,28 @@ class Server2 : MonoBehaviour
 	{
 		if (isNeedStart)
 		{
-			formatter.Serialize(s, new Mark(Mark.WAIT_START));
+			formatter.Serialize(stream, new Mark(Mark.WAIT_START));
 			isNeedStart = false;
 		}
 		if (isNeedRestart)
 		{
-			formatter.Serialize(s, new Mark(Mark.WAIT_RESTART));
+			formatter.Serialize(stream, new Mark(Mark.WAIT_RESTART));
 			isNeedRestart = false;
 		}
 	}
+
+    void OnDestroy() {        
+        if (socket != null)
+        {
+            socket.Close();
+        }
+        if (stream != null)
+        {
+            stream.Close();
+        }
+        if (thread != null)
+        {
+            thread.Interrupt();
+        }
+    }
 }

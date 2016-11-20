@@ -10,7 +10,8 @@ class Client2 : MonoBehaviour
 {
     BinaryFormatter formatter = new BinaryFormatter();
 	TcpClient client = null;
-	Stream s = null;
+	Stream stream = null;
+    Thread thread = null;
 
     public static string ip = "-1";
 
@@ -30,15 +31,15 @@ class Client2 : MonoBehaviour
 			level.RestartGame();
 			return;
 		}
-		Thread t = new Thread(new ThreadStart(Client));
-		t.Start();
+		thread = new Thread(new ThreadStart(Client));
+		thread.Start();
 	}
 	
 	void Client()
 	{
 		try{
 			client = new TcpClient(ip, 8865);
-            s = client.GetStream();
+            stream = client.GetStream();
 
             //сообщаем о готовости
 			bool isOk = true;
@@ -55,7 +56,7 @@ class Client2 : MonoBehaviour
 				}
 				
 				sWrite();
-				formatter.Serialize(s, new Mark(Mark.WAIT_SWAP));
+				formatter.Serialize(stream, new Mark(Mark.WAIT_SWAP));
 				
 				isNeedSend = false;
 			}
@@ -70,7 +71,7 @@ class Client2 : MonoBehaviour
 		bool swap = false;
 		while(!swap)
 		{
-			Mark mark = (Mark)formatter.Deserialize(s);
+			Mark mark = (Mark)formatter.Deserialize(stream);
 			switch (mark.getType())
 			{
 				case Mark.WAIT_HZ:
@@ -111,19 +112,19 @@ class Client2 : MonoBehaviour
 	
 	void sWrite()
 	{
-		formatter.Serialize(s, new Mark(Mark.WAIT_VECTOR3));
-		formatter.Serialize(s, pos);
+		formatter.Serialize(stream, new Mark(Mark.WAIT_VECTOR3));
+		formatter.Serialize(stream, pos);
 		
 		if(needSendWin)
 		{
 			needSendWin = false;
-			formatter.Serialize(s, new Mark(Mark.WAIT_WIN));
+			formatter.Serialize(stream, new Mark(Mark.WAIT_WIN));
 		}
 			
 		if(needSendGameover)
 		{
 			needSendGameover = false;
-			formatter.Serialize(s, new Mark(Mark.WAIT_GAMEOVER));
+			formatter.Serialize(stream, new Mark(Mark.WAIT_GAMEOVER));
 		}
 	}
 	
@@ -143,4 +144,5 @@ class Client2 : MonoBehaviour
 		if (client != null)
 			client.Close();
 	}
+
 }
