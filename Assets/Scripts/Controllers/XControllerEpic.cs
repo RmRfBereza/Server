@@ -12,36 +12,34 @@ public class XControllerEpic : MonoBehaviour
 
 	private Text text;
 	public float dAngle = 15.0f;
+	GameObject camera;
 	
 	void Start()
 	{
+		camera = GameObject.Find("VrCamera");
 		text = GameObject.Find("SecondsText").GetComponent<Text>();
 		Input.gyro.enabled = true;
 	}
 
 	void FixedUpdate()
-	{			
-		Vector3 a = Input.gyro.attitude.eulerAngles;
-		
-		float ay = a.y > 180 ? a.y - 180 : a.y;
-		float magic = (ay - 90.0f) /1.5f;
-		float angle = a.z > 180 ? a.z - 180 : a.z;
-		angle = angle + magic;
-		
-		
-		if (angle > 0 && angle < 90 - dAngle)
+	{	
+		//text.text = "" + camera.transform.rotation.eulerAngles;
+		Vector3 a = camera.transform.rotation.eulerAngles;
+		float angle = a.z;
+
+		if (angle > 0 + dAngle && angle < 90)
 		{
 			if (OnXLeft != null)
 				OnXLeft();
-			text.text = "\n\n\nRight\n" + angle;
+			//text.text = "\n\n\nLeft\n" + angle;
 		} else
-		if (angle > 90 + dAngle && angle < 180)
+		if (angle < 360 - dAngle && angle > 270)
 		{
 			if (OnXRight != null)
 				OnXRight();
-			text.text = "\n\n\nLeft\n" + angle;
-		} else
-			text.text = "\n\n\n" + angle;
+			//text.text = "\n\n\nRight\n" + angle;
+		}// else
+			//text.text = "\n\n\n" + angle;
 
 	}
 }
