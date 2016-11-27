@@ -23,7 +23,7 @@ public class CreateLevel : MonoBehaviour {
                     _position.z += segmentSize;
                     continue;
                 }
-                
+                print(segmentParams["type"].str);
                 var currentSegment = Instantiate(prefabDictionary[segmentParams["type"].str]);
 
                 _rotation.Set(0f, segmentParams["angle"].n, 0f);
@@ -32,6 +32,7 @@ public class CreateLevel : MonoBehaviour {
 
                 if (segmentParams["type"].str == Level.StartSegmentName) {
                     Level.StartPosition = _position;
+                    _rotation.y += 90;
                     Level.StartRotation = _rotation;
                 }
 

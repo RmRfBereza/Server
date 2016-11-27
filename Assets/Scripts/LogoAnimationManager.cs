@@ -15,7 +15,7 @@ public class LogoAnimationManager : MonoBehaviour {
             GameObject.Find("LogoImageDynamic").SetActive(false);
         }
 
-        Animator anim = GetComponent<Animator>();
+        //Animator anim = GetComponent<Animator>();
         //anim.SetBool("FirstTime", _firstTime);
         _firstTime = false;
     }

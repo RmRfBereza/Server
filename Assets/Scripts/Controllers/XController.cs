@@ -26,8 +26,21 @@ public class XController : MonoBehaviour
         {
             val[i] = 0.0F;
         }
+        Input.gyro.enabled = true;
     }
-    
+
+    double cos(float degrees)
+    {
+        float angle = degrees * Mathf.Deg2Rad;
+        return Mathf.Cos(angle);
+    }
+
+    double sin(float degrees)
+    {
+        float angle = degrees * Mathf.Deg2Rad;
+        return Mathf.Sin(angle);
+    }
+
     float average()
     {
         float result = 0.0F;
@@ -49,19 +62,19 @@ public class XController : MonoBehaviour
     }
     
     
-    void updateAverage()
+    void updateAverage(float x)
     {
-        val[lastVal] = Input.acceleration.x;
+        val[lastVal] = x;
         updLastVal();
     }
     
-    void updateDevation()
+    void updateDevation(float x)
     {
-        if (Mathf.Abs(average() - Input.acceleration.x) < dAcc)
+        if (Mathf.Abs(average() - x) < dAcc)
         {
             if (devation < 0) ++devation;
             else --devation;
-        } else if (average() > Input.acceleration.x)
+        } else if (average() > x)
         {
             --devation;
         } else
@@ -103,15 +116,47 @@ public class XController : MonoBehaviour
     
     void Update()
     {
-        updateDevation();
+        Vector3 a = Input.gyro.attitude.eulerAngles; 
+        Vector3 acc = Input.gyro.userAcceleration;
+        Vector3 accr = acc;
+
+        /*
+		accr.x = (float) ((cos(a.x) * cos(a.z) - sin(a.x) * cos(a.y) * sin(a.z)) * acc.x
+		               + (-cos(a.x) * sin(a.z) - sin(a.x) * cos(a.y) * cos(a.z)) * acc.y
+			           + ( sin(a.x) * sin(a.y)) * acc.z);
+					   
+		accr.y = (float) ((sin(a.x) * cos(a.z) + cos(a.x) * cos(a.y) * sin(a.z)) * acc.x
+		               + (-sin(a.x) * sin(a.z) + cos(a.x) * cos(a.y) * cos(a.z)) * acc.y
+			           + (-cos(a.x) * sin(a.y)) * acc.z);
+					   
+		accr.z = (float) ((sin(a.y) * sin(a.z)) * acc.x
+					   + ( sin(a.y) * cos(a.z)) * acc.y
+					   + ( cos(a.y) ) * acc.z);
+				*/
+
+        //траспонированная
+
+        accr.x = (float)((cos(a.x) * cos(a.z) - sin(a.x) * cos(a.y) * sin(a.z)) * acc.x
+                        + (sin(a.x) * cos(a.z) + cos(a.x) * cos(a.y) * sin(a.z)) * acc.y
+                        + (sin(a.y) * sin(a.z)) * acc.z);
+
+        accr.y = (float)((-cos(a.x) * sin(a.z) - sin(a.x) * cos(a.y) * cos(a.z)) * acc.x
+                        + (-sin(a.x) * sin(a.z) + cos(a.x) * cos(a.y) * cos(a.z)) * acc.y
+                        + (sin(a.y) * cos(a.z)) * acc.z);
+
+        accr.z = (float)((sin(a.x) * sin(a.y)) * acc.x
+                        + (-cos(a.x) * sin(a.y)) * acc.y
+                        + (cos(a.y)) * acc.z);
+
+        updateDevation(Input.gyro.userAcceleration.x);
         updatePosition();      
-        updateAverage();
-        //logContr();
+        updateAverage(Input.gyro.userAcceleration.x);
+        logContr(Input.gyro.userAcceleration.x);
     }
 
-    void logContr()
+    void logContr(float x)
     {
         text.text = "devation " + devation + "\nacceleration x " + 
-            Input.acceleration.x;
+           x;
     }
 }
