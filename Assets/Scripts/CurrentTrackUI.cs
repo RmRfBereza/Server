@@ -23,6 +23,6 @@ public class CurrentTrackUI : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
-	    Text.text = "Current track: " + RobotMovement.CurrentTrack;
+	    //Text.text = "Current track: " + RobotMovement.CurrentTrack;
 	}
 }

@@ -85,7 +85,8 @@ public class Level : MonoBehaviour {
         if (CurrentState == States.GameOver || CurrentState == States.GameWon || CurrentState == States.WaitingForPlayer)
         {
             Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            CreateMainPlayer();
+            //CreateMainPlayer();
+            CreateMainPlayerGaze();
             CurrentState = States.StartingGame;
             StartCoroutine(GameLoop());
         }
@@ -117,7 +118,8 @@ public class Level : MonoBehaviour {
 
     private IEnumerator WaitForPlayer()
     {
-        CreateMainPlayer();
+        //CreateMainPlayer();
+        CreateMainPlayerGaze();
 
         while (CurrentState == States.WaitingForPlayer)
         {
@@ -206,7 +208,21 @@ public class Level : MonoBehaviour {
         
         Player.transform.position = StartPosition;
         Player.transform.eulerAngles = StartRotation;
-        RobotMovement.CurrentTrack = 0;
+        //RobotMovement.CurrentTrack = 0;
+    }
+
+    private void CreateMainPlayerGaze()
+    {
+        if (!IsPlayerInstanciated)
+        {
+            Player = Instantiate(Player);
+            SceneCamera.gameObject.AddComponent<GazeCameraHandler>();
+            _robot = Player.GetComponent<RobotMovement>();
+            IsPlayerInstanciated = true;
+        }
+
+        Player.transform.position = StartPosition;
+        Player.transform.eulerAngles = StartRotation;
     }
 
     IEnumerator testingLoop()

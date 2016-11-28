@@ -5,7 +5,7 @@ using System.Collections;
 
 public class RobotMovement : MonoBehaviour
 {
-    public static sbyte CurrentTrack;
+    //public static sbyte CurrentTrack;
 
     public float Thrust;
     public float Speed;
@@ -30,7 +30,7 @@ public class RobotMovement : MonoBehaviour
     private const sbyte JumpCoefficient = 3;
     private const sbyte Left = -1;
     private const sbyte Right = 1;
-    private const sbyte DefaultTrackNumber = 0;
+    //private const sbyte DefaultTrackNumber = 0;
     private const float Tolerance = 0.0001f;
     private const string State = "State";
     private const string NoControl = "<color=#800000ff>Warning:\nNO Control!</color>";
@@ -69,7 +69,7 @@ public class RobotMovement : MonoBehaviour
 
         subscribeXAction();
         _animator = GetComponent<Animator>();
-        CurrentTrack = DefaultTrackNumber;
+        //CurrentTrack = DefaultTrackNumber;
         SetIdle();
         SetJumpParameters();
     }
@@ -133,22 +133,32 @@ public class RobotMovement : MonoBehaviour
                 HandleJumping();
                 break;
             case States.Running:
+                TurnWithCamera();
                 RunForward();
 #if UNITY_EDITOR
                 HandleKeyboard();
 #endif
                 break;
             case States.Turning:
-                HandleTurning();
+                TurnWithCamera();
+                RunForward();
+                //HandleTurning();
                 break;
             case States.RunningUnconrollably:
+                TurnWithCamera();
                 RunForward();
                 break;
         }
     }
 
+    private void TurnWithCamera()
+    {
+        _rotation.Set(0, Camera.main.gameObject.transform.eulerAngles.y, 0);
+        transform.eulerAngles = _rotation;
+    }
+
 #if UNITY_EDITOR
-    private void MoveSidewaysKeyboard()
+    /*private void MoveSidewaysKeyboard()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -174,7 +184,7 @@ public class RobotMovement : MonoBehaviour
             //Turn(GeometryBasic.RightAngleDeg);
             StartTurning();
         }
-    }
+    }*/
 
     private void JumpKeyboard()
     {
@@ -186,8 +196,8 @@ public class RobotMovement : MonoBehaviour
 
     private void HandleKeyboard()
     {
-        MoveSidewaysKeyboard();
-        TurnKeyboard();
+        //MoveSidewaysKeyboard();
+        //TurnKeyboard();
         JumpKeyboard();
     }
 #endif
@@ -203,7 +213,7 @@ public class RobotMovement : MonoBehaviour
         transform.position += transform.forward*Speed*Time.deltaTime;
     }
 
-    private void ChangeTrack(sbyte direction)
+    /*private void ChangeTrack(sbyte direction)
     {
         if (_ticks > 0) return;
         if (CurrentState != States.Running) return;
@@ -214,7 +224,7 @@ public class RobotMovement : MonoBehaviour
             transform.position += transform.right*direction*Level.TrackWidth;
             CurrentTrack += direction;
         }
-    }
+    }*/
 	void subscribeXAction()
     {
         XController.OnXLeft  += OnXLeft;
@@ -223,12 +233,12 @@ public class RobotMovement : MonoBehaviour
 	
 	void OnXLeft()
 	{
-		ChangeTrack(Left);
+		//ChangeTrack(Left);
 	}
 	
 	void OnXRight()
 	{
-		ChangeTrack(Right);
+		//ChangeTrack(Right);
 	}
 	
     private void MoveInLocalCs(Vector3 movement)
@@ -277,7 +287,7 @@ public class RobotMovement : MonoBehaviour
         _jumpPreviousPosition = transform.position;
     }
 
-    public void StartTurning()
+    /*public void StartTurning()
     {
         if (_currentState == States.Turning || _currentState == States.Dead) return;
         _secondsText.text = NoControl;
@@ -290,7 +300,7 @@ public class RobotMovement : MonoBehaviour
         _turningRight = transform.right;
         _turnStartRotation = Mathf.FloorToInt(transform.eulerAngles.y);
         _turnigCenterPosition = transform.position;
-        _turnigCenterPosition += transform.right * CurrentTrack * 7/*Level.TrackWidth*/;
+        _turnigCenterPosition += transform.right * CurrentTrack * 7;
         _currentState = States.Turning;
     }
 
@@ -299,8 +309,8 @@ public class RobotMovement : MonoBehaviour
         _turnRotation += _turningSpeedDeg * Time.deltaTime;
 
         transform.position = _turnigCenterPosition +
-                             _turningRight*(-1) * CurrentTrack * 7/*Level.TrackWidth*/*Mathf.Cos(CurrentTrack * _turnRotation*Mathf.Deg2Rad)
-                             + _turningForward*/*Level.TrackWidth*/7*Mathf.Sin(_turnRotation * Mathf.Deg2Rad);
+                             _turningRight*(-1) * CurrentTrack * 7*Mathf.Cos(CurrentTrack * _turnRotation*Mathf.Deg2Rad)
+                             + _turningForward*7*Mathf.Sin(_turnRotation * Mathf.Deg2Rad);
 
         SetRotation(_turnStartRotation + _turnRotation * CurrentTrack);
 
@@ -310,7 +320,7 @@ public class RobotMovement : MonoBehaviour
             _turnRotation = 0;
             StartRunning();
         }
-    }
+    }*/
 
     void OnCollisionEnter(Collision col)
     {

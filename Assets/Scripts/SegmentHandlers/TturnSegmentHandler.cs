@@ -24,7 +24,7 @@ public class TturnSegmentHandler : LevelSectionHandler
     {
         if (_player != null)
         {
-            _robot.StartTurning();
+            //_robot.StartTurning();
         }
     }
 }

@@ -13,6 +13,7 @@ class Client2 : MonoBehaviour
 	Stream s = null;
 
     public static string ip = "-1";
+    public const string ipSkip = "s";
 
     Level level;
 	private volatile bool isNeedSend = true;
@@ -25,6 +26,11 @@ class Client2 : MonoBehaviour
         //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно
         level = GameObject.Find("Plane").GetComponent<Level>();
 
+        if (ip == "s")
+        {
+            level.RestartGame();
+            return;
+        }
         if (ip == "-1") return;
 
 		Thread t = new Thread(new ThreadStart(Client));

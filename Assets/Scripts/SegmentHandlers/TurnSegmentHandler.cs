@@ -20,7 +20,7 @@ public class TurnSegmentHandler : LevelSectionHandler
     {
         if (_player != null)
         {
-            _robot.StartTurning();
+            //_robot.StartTurning();
         }
     }
 }
