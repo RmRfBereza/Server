@@ -16,7 +16,7 @@ public class StraightSegmentHandler : LevelSectionHandler {
     }
     // Use this for initialization
     void Start () {
-        //CreateRandomObsticles();
+        CreateRandomObsticles();
 	}
 	
 	// Update is called once per frame

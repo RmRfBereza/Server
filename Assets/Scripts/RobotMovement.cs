@@ -217,8 +217,8 @@ public class RobotMovement : MonoBehaviour
     }
 	void subscribeXAction()
     {
-        XController.OnXLeft  += OnXLeft;
-        XController.OnXRight += OnXRight;
+        XControllerEpic.OnXLeft  += OnXLeft;
+        XControllerEpic.OnXRight += OnXRight;
     }
 	
 	void OnXLeft()
