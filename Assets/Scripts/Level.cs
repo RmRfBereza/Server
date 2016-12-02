@@ -206,7 +206,8 @@ public class Level : MonoBehaviour {
         
         Player.transform.position = StartPosition;
         Player.transform.eulerAngles = StartRotation;
-        
+        RobotMovement.CurrentTrack = 0;
+
     }
 
     IEnumerator testingLoop()
