@@ -14,6 +14,7 @@ public class Level : MonoBehaviour {
 
     public const byte TrackWidth = 2;
     public const byte TracksQuantity = 3;
+    public const int DeadlyLayer = 8;
 
     public const string StraightSegmentName = "straight";
     public const string TurnSegmentName = "turn";

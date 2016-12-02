@@ -142,17 +142,26 @@ public class RobotMovement : MonoBehaviour
             case States.Turning:
                 TurnWithCamera();
                 RunForward();
+#if UNITY_EDITOR
+                HandleKeyboard();
+#endif
                 //HandleTurning();
                 break;
             case States.RunningUnconrollably:
                 TurnWithCamera();
                 RunForward();
+#if UNITY_EDITOR
+                HandleKeyboard();
+#endif
                 break;
         }
     }
 
     private void TurnWithCamera()
     {
+#if UNITY_EDITOR
+        return;
+#endif
         _rotation.Set(0, Camera.main.gameObject.transform.eulerAngles.y, 0);
         transform.eulerAngles = _rotation;
     }
@@ -194,11 +203,29 @@ public class RobotMovement : MonoBehaviour
         }
     }
 
+    private void TurnKeyboardGaze()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            print("Turning right");
+            SetRotation(transform.eulerAngles.y - 1);
+            Camera.main.transform.eulerAngles = transform.eulerAngles;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            print("Turning left");
+            SetRotation(transform.eulerAngles.y + 1);
+            Camera.main.transform.eulerAngles = transform.eulerAngles;
+        }
+    }
+
     private void HandleKeyboard()
     {
         //MoveSidewaysKeyboard();
         //TurnKeyboard();
         JumpKeyboard();
+        TurnKeyboardGaze();
     }
 #endif
 
@@ -324,7 +351,11 @@ public class RobotMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        CurrentState = States.Dead;
-        _level.NotifyGameOver();
+        if (col.gameObject.layer == Level.DeadlyLayer)
+        {
+            CurrentState = States.Dead;
+            _level.NotifyGameOver();
+        }
+        
     }
 }

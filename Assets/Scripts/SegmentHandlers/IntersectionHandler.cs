@@ -7,14 +7,14 @@ public class IntersectionHandler : LevelSectionHandler {
 	void Start ()
 	{
 	    FindLevel();
-        DrawMapping(3, 1);
-        DrawMapping(1, 1);
-        DrawMapping(-3, 1);
-        DrawMapping(-1, 1);
-        DrawMapping(3, -1);
-        DrawMapping(1, -1);
-        DrawMapping(-3, -1);
-        DrawMapping(-1, -1);
+        //DrawMapping(3, 1);
+        //DrawMapping(1, 1);
+        //DrawMapping(-3, 1);
+        //DrawMapping(-1, 1);
+        //DrawMapping(3, -1);
+        //DrawMapping(1, -1);
+        //DrawMapping(-3, -1);
+        //DrawMapping(-1, -1);
     }
 	
 	// Update is called once per frame
