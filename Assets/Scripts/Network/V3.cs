@@ -22,8 +22,8 @@ class V3
     public void setVec(Vector3 vec)
     {
         x = vec.x;
-	y = vec.y;
-	z = vec.z;
+        y = vec.y;
+        z = vec.z;
     }
 
     public Vector3 getVec()

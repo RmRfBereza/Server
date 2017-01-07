@@ -61,6 +61,9 @@ public class RobotMovement : MonoBehaviour
     private Vector3 _middlePosition;
     private Vector3 _newPosition;
 
+	private Client2 client;
+	private string rid;
+	
     // Use this for initialization
     void Start ()
     {
@@ -72,12 +75,16 @@ public class RobotMovement : MonoBehaviour
         //CurrentTrack = DefaultTrackNumber;
         SetIdle();
         SetJumpParameters();
+		
+		client = GameObject.Find("Client2").GetComponent<Client2>();
+		rid = client.addToSend(new SyncData("player", new V3(transform.position), new Qt(transform.rotation)));
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         HandleCurrentState();
+		client.setToSend(rid, new SyncData("player", new V3(transform.position), new Qt(transform.rotation)));
     }
 
     void FixedUpdate()

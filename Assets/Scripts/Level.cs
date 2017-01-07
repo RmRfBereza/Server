@@ -65,6 +65,7 @@ public class Level : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+		_client2 = GameObject.Find("Client2").GetComponent<Client2>();
         foreach (var segment in SegmentPrefabsList)
         {
             SegmentPrefabsDictionary[segment.name] = segment.prefab;
@@ -72,7 +73,8 @@ public class Level : MonoBehaviour {
 
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = Camera.main;
-        CreateLevel.CreateLevelFromJsonString("[[null,{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,{\"angle\":180,\"type\":\"deadend\"},null,{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,{\"angle\":0,\"type\":\"deadend\"},null,{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+		//FIXME: next line need fix
+        //CreateLevel.CreateLevelFromJsonString("[[null,{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,{\"angle\":180,\"type\":\"deadend\"},null,{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,{\"angle\":0,\"type\":\"deadend\"},null,{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();

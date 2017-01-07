@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class CreateLevel2D : MonoBehaviour {
 
+	private Server2 server = null;
     public const int SegmentSize2d = 12;
     public GameObject Player;
     public GameObject StarGameButton;
@@ -38,6 +39,8 @@ public class CreateLevel2D : MonoBehaviour {
 
     void Start()
     {
+		server = GameObject.Find("Server2").GetComponent<Server2>();
+	
         SegmentPrefabsDictionary.Add("straight", TileStraight);
         SegmentPrefabsDictionary.Add("turn", TileTurn);
         SegmentPrefabsDictionary.Add("Tturn", TileTTurn);
@@ -207,6 +210,7 @@ public class CreateLevel2D : MonoBehaviour {
         if (CurrentState == States.StartingGame)
         {
             CurrentState = States.GameIsPlaying;
+			server.StartGame();
         }
     }
 
