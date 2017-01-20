@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4469247, g: 0.49678743, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692445, g: 0.49678695, b: 0.57508504, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -374,7 +374,6 @@ MonoBehaviour:
   CurrentState: 0
   isSecondPlayerConnected: 0
   IsPlayerInstanciated: 0
-  Segment: {fileID: 0}
   SegmentPrefabsList:
   - name: straight
     prefab: {fileID: 1000013201389432, guid: 3c5214f363946c848bd64509a761ca12, type: 2}
@@ -1320,12 +1319,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 959308587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -768656878, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 921c16739bf70e04e877dc268f041810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EventMask:
-    serializedVersion: 2
-    m_Bits: 4294967289
+  skyboxMaterials:
+  - {fileID: 2100000, guid: d4cd6577352fd4946994aa7e3e3609e4, type: 2}
+  - {fileID: 2100000, guid: 3777c2609a2482a48a60ef07326b3646, type: 2}
+  - {fileID: 2100000, guid: 45393aeb3a23e41448c136a05980c848, type: 2}
+  - {fileID: 2100000, guid: 096be19f838addd45821efc82508c187, type: 2}
+  - {fileID: 2100000, guid: 67a9a41a1795d5f43b0596c1e2094a0b, type: 2}
+  - {fileID: 2100000, guid: 9aa4b22013dfe644fb71d395e6ffb330, type: 2}
 --- !u!1 &982300791
 GameObject:
   m_ObjectHideFlags: 0
