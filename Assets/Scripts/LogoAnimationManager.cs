@@ -9,15 +9,15 @@ public class LogoAnimationManager : MonoBehaviour {
     {
         if (_firstTime)
         {
-            GameObject.Find("LogoImageStatic").SetActive(false);
+            //GameObject.Find("LogoImageStatic").SetActive(false);
         } else
         {
-            GameObject.Find("LogoImageDynamic").SetActive(false);
+            //GameObject.Find("LogoImageDynamic").SetActive(false);
         }
 
         //Animator anim = GetComponent<Animator>();
         //anim.SetBool("FirstTime", _firstTime);
-        _firstTime = false;
+        //_firstTime = false;
     }
 
 	// Use this for initialization
