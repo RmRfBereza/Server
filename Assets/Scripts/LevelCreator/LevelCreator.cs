@@ -37,6 +37,21 @@ public class LevelCreator : MonoBehaviour {
 
     public void CreateLevelFromCurrentState()
     {
+        print(CreateLevel());
+    }
+
+    public void AddLevelSingle()
+    {
+        LevelManager.getInstance().addLevelSingle(CreateLevel());
+    }
+
+    public void AddLevelMulti()
+    {
+        LevelManager.getInstance().addLevelMulti(CreateLevel());
+    }
+
+    private string CreateLevel()
+    {
         JSONObject obj = new JSONObject(JSONObject.Type.ARRAY);
         for (int i = 0; i < Rows; ++i)
         {
@@ -57,7 +72,6 @@ public class LevelCreator : MonoBehaviour {
             }
         }
 
-        print(obj.ToString().Replace("\"", "\\\""));
-        
+        return obj.ToString().Replace("\"", "\\\"");
     }
 }
