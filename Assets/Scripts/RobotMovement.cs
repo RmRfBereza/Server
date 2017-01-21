@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class RobotMovement : MonoBehaviour
 {
@@ -154,6 +155,31 @@ public class RobotMovement : MonoBehaviour
                 HandleKeyboard();
 #endif
                 break;
+            case States.Idle:
+                CheckRestart();
+                break;
+            case States.Dead:
+                CheckRestart();
+                CheckQuit();
+                break;
+        }
+    }
+
+    private void CheckQuit()
+    {
+        if (Config.isSingle)
+        {
+            var angle = Camera.main.gameObject.transform.eulerAngles.x;
+            if (angle > 70 && angle < 100) SceneManager.LoadScene(0);
+        }
+    }
+
+    private void CheckRestart()
+    {
+        if (Config.isSingle)
+        {
+            var angle = Camera.main.gameObject.transform.eulerAngles.x;
+            if (angle < -70 && angle > -100) _level.RunNextLevel();
         }
     }
 

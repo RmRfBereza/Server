@@ -42,6 +42,7 @@ public class Level : MonoBehaviour {
 
     //public GameObject Segment;
     public List<NamedPrefab> SegmentPrefabsList;
+    public List<GameObject> SegmentList;
     public GameObject Player;
     public Camera SceneCamera;
 
@@ -52,6 +53,8 @@ public class Level : MonoBehaviour {
     private const string goText = "GO!";
     private const string gameOverText = "Game Over!";
     private const string gameWonText = "You're free";
+    private const string singlePlayerPromptStart = "Look up to start";
+    private const string singlePlayerPromptQuit = "Look down to quit";
 
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private RobotMovement _robot;
@@ -72,11 +75,11 @@ public class Level : MonoBehaviour {
 
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = Camera.main;
-        CreateLevel.CreateLevelFromJsonString("[[null,{\"angle\":270,\"type\":\"start\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":180,\"type\":\"turn\"}],[null,{\"angle\":180,\"type\":\"deadend\"},null,{\"angle\":90,\"type\":\"straight\"}],[{\"angle\":270,\"type\":\"finish\"},{\"angle\":0,\"type\":\"intersection\"},{\"angle\":0,\"type\":\"straight\"},{\"angle\":90,\"type\":\"tturn\"}],[null,{\"angle\":0,\"type\":\"deadend\"},null,{\"angle\":0,\"type\":\"deadend\"}]]", CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
-
+        if (Config.isSingle) _secondsText.text = singlePlayerPromptStart;
         //var obj = TestTurn();
         //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
     }
@@ -90,6 +93,25 @@ public class Level : MonoBehaviour {
             CreateMainPlayerGaze();
             CurrentState = States.StartingGame;
             StartCoroutine(GameLoop());
+        }
+    }
+
+    public void RunNextLevel()
+    {
+        if (LevelManager.getInstance().incrementAndCheckLevel())
+        {
+            foreach (var segment in SegmentList)
+            {
+                Destroy(segment);
+            }
+            SegmentList.Clear();
+
+            SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+
+            RestartGame();
+        } else
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -181,10 +203,20 @@ public class Level : MonoBehaviour {
     private IEnumerator GameOver(string message, bool won)
     {
         if (_client2 == null) _client2 = Player.GetComponent<Client2>();
+#if UNITY_EDITOR
         GameOverInterfaceGO.SetActive(true);
+#endif
         print(message);
         _secondsText.text = message;
-        _robot.SetIdle();
+        _robot.SetDead();
+
+        if (Config.isSingle)
+        {
+            _secondsText.text += '\n' + singlePlayerPromptStart + '\n' + singlePlayerPromptQuit;
+
+            yield return null;
+        }
+
         if (won)
         {
             _client2.SendWin();

@@ -6,10 +6,14 @@ public class CreateLevel : MonoBehaviour {
 
     public const int SegmentSize3d = 18;
 
-    public static void CreateLevelFromJsonString(string jsonString, int segmentSize, Dictionary<string, GameObject> prefabDictionary)
+    public static List<GameObject> CreateLevelFromJsonString(string jsonString, int segmentSize, Dictionary<string, GameObject> prefabDictionary)
     {
+        List<GameObject> levelSegments = new List<GameObject>();
+
         Vector3 _position = Vector3.zero;
         Vector3 _rotation = Vector3.zero;
+
+        print(jsonString);
 
         var levelMapping = new JSONObject(jsonString);
 
@@ -23,10 +27,13 @@ public class CreateLevel : MonoBehaviour {
                     _position.z += segmentSize;
                     continue;
                 }
+                print(segmentParams);
                 print(segmentParams["type"].str);
                 var currentSegment = Instantiate(prefabDictionary[segmentParams["type"].str]);
 
-                _rotation.Set(0f, segmentParams["angle"].n, 0f);
+                levelSegments.Add(currentSegment);
+
+                _rotation.Set(0f, -segmentParams["angle"].n, 0f);
                 currentSegment.transform.eulerAngles = _rotation;
                 currentSegment.transform.position = _position;
 
@@ -40,5 +47,7 @@ public class CreateLevel : MonoBehaviour {
             }
             _position.x += segmentSize;
         }
+
+        return levelSegments;
     }
 }

@@ -21,6 +21,12 @@ class Client2 : MonoBehaviour
 			
 	void Start()
     {
+        if (Config.isSingle)
+        {
+            this.enabled = false;
+            return;
+        }
+
         //Этот скрипт прикреплён к префабу робота, но он не активен.
 
         //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно

@@ -71,7 +71,17 @@ public class LevelCreator : MonoBehaviour {
                 }
             }
         }
-
-        return obj.ToString().Replace("\"", "\\\"");
+        
+        var strings =  obj.ToString().Split('"');
+        string result = strings[0];
+        for (int i = 1; i < strings.Length; ++i)
+        {
+            if (i % 2 != 0)
+            {
+                result += "\\\\";
+            }
+            result += "\"" + strings[i];
+        }
+        return result;
     }
 }

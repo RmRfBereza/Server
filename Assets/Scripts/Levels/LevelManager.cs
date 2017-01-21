@@ -75,7 +75,9 @@ public class LevelManager {
 
     private void readLevels(string filename)
     {
-        var levelsText = Resources.Load(filename) as TextAsset;
+        Debug.Log(filename);
+        var levelsText = Resources.Load(filename.Split('.')[0]) as TextAsset;
+        Debug.Log(levelsText);
         Levels = levelsText.text.Split('\n');
     }
 
