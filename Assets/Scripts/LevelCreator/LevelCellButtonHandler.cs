@@ -59,7 +59,7 @@ public class LevelCellButtonHandler : MonoBehaviour, IPointerEnterHandler, IPoin
     public void Rotate()
     {
         _rotation = image.transform.eulerAngles;
-        _rotation.z += 90;
+        _rotation.z -= 90;
         image.transform.eulerAngles = _rotation;
         rotation = Mathf.RoundToInt(_rotation.z)%360;
     }
