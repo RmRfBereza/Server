@@ -104,7 +104,7 @@ public class RobotMovement : MonoBehaviour
     public void StartRunningUncontrollably()
     {
         CurrentState = States.RunningUnconrollably;
-        _secondsText.text = NoControl;
+        //_secondsText.text = NoControl;
     }
 
     public void SetIdle()
@@ -188,7 +188,7 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            _secondsText.text = angle.ToString();
+            //_secondsText.text = angle.ToString();
             if (angle < 320 && angle > 310) _level.CurrentState = Level.States.StartingGame;
         }
     }
