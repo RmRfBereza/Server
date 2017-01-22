@@ -10,12 +10,12 @@ public class LevelSectionHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+
 	}
 
     protected void FindLevel()
@@ -67,11 +67,5 @@ public class LevelSectionHandler : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter()
-    {
-        if (_player != null)
-        {
-            _robot.TurnOnControlls();
-        }
-    }
+
 }

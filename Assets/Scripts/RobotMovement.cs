@@ -116,7 +116,7 @@ public class RobotMovement : MonoBehaviour
     public void SetDead()
     {
         CurrentState = States.Dead;
-        _secondsText.text = "";
+        //_secondsText.text = "";
     }
 
     public void SetRotation(float rotationY)
@@ -156,7 +156,7 @@ public class RobotMovement : MonoBehaviour
 #endif
                 break;
             case States.Idle:
-                CheckRestart();
+                CheckStart();
                 break;
             case States.Dead:
                 CheckRestart();
@@ -170,7 +170,7 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle > 70 && angle < 100) SceneManager.LoadScene(0);
+            if (angle > 40 && angle < 50) SceneManager.LoadScene(0);
         }
     }
 
@@ -179,7 +179,17 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle < -70 && angle > -100) _level.RunNextLevel();
+            if (angle < 320 && angle > 310) _level.RunNextLevel();
+        }
+    }
+
+    private void CheckStart()
+    {
+        if (Config.isSingle)
+        {
+            var angle = Camera.main.gameObject.transform.eulerAngles.x;
+            _secondsText.text = angle.ToString();
+            if (angle < 320 && angle > 310) _level.CurrentState = Level.States.StartingGame;
         }
     }
 

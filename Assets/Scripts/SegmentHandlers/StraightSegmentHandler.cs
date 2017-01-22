@@ -57,4 +57,12 @@ public class StraightSegmentHandler : LevelSectionHandler {
         obstInst.transform.position += obstInst.transform.forward * pos * ObsticleOffsetZ;
         obstInst.transform.position += obstInst.transform.right * SingleObsticleOffset * Mathf.Round(Random.Range(-1, 2));
     }
+
+    void OnTriggerEnter()
+    {
+        if (_player != null)
+        {
+            _robot.TurnOnControlls();
+        }
+    }
 }

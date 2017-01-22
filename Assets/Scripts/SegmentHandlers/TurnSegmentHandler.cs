@@ -16,11 +16,19 @@ public class TurnSegmentHandler : LevelSectionHandler
 	    SetPlayer();
     }
 
+    //void OnTriggerEnter()
+    //{
+    //    if (_player != null)
+    //    {
+    //        //_robot.StartTurning();
+    //    }
+    //}
+
     void OnTriggerEnter()
     {
         if (_player != null)
         {
-            //_robot.StartTurning();
+            _robot.TurnOnControlls();
         }
     }
 }

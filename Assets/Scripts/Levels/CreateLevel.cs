@@ -39,7 +39,7 @@ public class CreateLevel : MonoBehaviour {
 
                 if (segmentParams["type"].str == Level.StartSegmentName) {
                     Level.StartPosition = _position;
-                    _rotation.y += 90;
+                    _rotation.y += 90 + 180;
                     Level.StartRotation = _rotation;
                 }
 
