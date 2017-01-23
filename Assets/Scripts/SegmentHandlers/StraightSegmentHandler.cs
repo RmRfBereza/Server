@@ -31,11 +31,13 @@ public class StraightSegmentHandler : LevelSectionHandler {
             var rand = Random.Range(-1, 2);
             if (rand > 0)
             {
-                CreateRandomDoubleObsticle(i);
+                //CreateRandomDoubleObsticle(i);
+                CreateRandomSingeObsticle(i);
             }
             else
             {
                 CreateRandomSingeObsticle(i);
+                //CreateRandomDoubleObsticle(i);
             }
         }
     }

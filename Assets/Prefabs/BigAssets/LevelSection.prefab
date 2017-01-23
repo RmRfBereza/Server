@@ -1360,14 +1360,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013201389432}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -14.588173, y: 17.65683, z: -23.72658}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4528538556768932}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000010548164100
 Transform:
   m_ObjectHideFlags: 1
@@ -5547,9 +5547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MappingSegment: {fileID: 0}
   SingleObsticles:
-  - {fileID: 1000012608205550, guid: 4d3652c187c759e449accea2c15296bf, type: 2}
+  - {fileID: 1721910000556972, guid: 0ca859ab973ca67478ea6608b7c7a651, type: 2}
   DoubleObsticles:
-  - {fileID: 1000012608205550, guid: 4d3652c187c759e449accea2c15296bf, type: 2}
+  - {fileID: 1337717026013758, guid: 4b08dd6786600294c8d4c58a93dca8cd, type: 2}
 --- !u!114 &114000013991329198
 MonoBehaviour:
   m_ObjectHideFlags: 1
