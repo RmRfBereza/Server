@@ -5549,7 +5549,7 @@ MonoBehaviour:
   SingleObsticles:
   - {fileID: 1721910000556972, guid: 0ca859ab973ca67478ea6608b7c7a651, type: 2}
   DoubleObsticles:
-  - {fileID: 1337717026013758, guid: 4b08dd6786600294c8d4c58a93dca8cd, type: 2}
+  - {fileID: 1363912368615106, guid: 4490c600d6bbefb468d4f9d5cf13e46a, type: 2}
 --- !u!114 &114000013991329198
 MonoBehaviour:
   m_ObjectHideFlags: 1

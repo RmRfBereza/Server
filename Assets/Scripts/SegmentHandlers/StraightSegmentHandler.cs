@@ -7,7 +7,7 @@ public class StraightSegmentHandler : LevelSectionHandler {
     public GameObject[] DoubleObsticles;
 
     private const int ObsticleOffsetZ = 4;
-    private const float DoubleObsticleOffset = 1.3f;
+    private const float DoubleObsticleOffset = 2.0f;
     private const float SingleObsticleOffset = 2.0f;
 
     void Awake()
@@ -36,8 +36,8 @@ public class StraightSegmentHandler : LevelSectionHandler {
             }
             else
             {
-                CreateRandomSingeObsticle(i);
-                //CreateRandomDoubleObsticle(i);
+                //CreateRandomSingeObsticle(i);
+                CreateRandomDoubleObsticle(i);
             }
         }
     }
@@ -48,7 +48,7 @@ public class StraightSegmentHandler : LevelSectionHandler {
 
         var obstInst = Instantiate(obsticle, gameObject.transform, false) as GameObject;
         obstInst.transform.position += obstInst.transform.forward * pos * ObsticleOffsetZ;
-        obstInst.transform.position += obstInst.transform.right * (-1 + Mathf.RoundToInt(Random.Range(0, 2)) * 2) * DoubleObsticleOffset;
+        obstInst.transform.position += obstInst.transform.right *  Mathf.RoundToInt(Random.Range(-1, 2)) * DoubleObsticleOffset;
     }
 
     private void CreateRandomSingeObsticle(sbyte pos)
