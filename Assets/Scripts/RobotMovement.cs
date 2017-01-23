@@ -170,7 +170,7 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle > 40 && angle < 50) SceneManager.LoadScene(0);
+            if (angle > 60 && angle < 70) SceneManager.LoadScene(0);
         }
     }
 

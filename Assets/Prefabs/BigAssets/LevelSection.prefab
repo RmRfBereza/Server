@@ -1367,7 +1367,7 @@ Transform:
   - {fileID: 4528538556768932}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000010548164100
 Transform:
   m_ObjectHideFlags: 1
@@ -5547,9 +5547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MappingSegment: {fileID: 0}
   SingleObsticles:
-  - {fileID: 1000012608205550, guid: 4d3652c187c759e449accea2c15296bf, type: 2}
+  - {fileID: 1721910000556972, guid: 0ca859ab973ca67478ea6608b7c7a651, type: 2}
   DoubleObsticles:
-  - {fileID: 1000012608205550, guid: 4d3652c187c759e449accea2c15296bf, type: 2}
+  - {fileID: 1363912368615106, guid: 4490c600d6bbefb468d4f9d5cf13e46a, type: 2}
 --- !u!114 &114000013991329198
 MonoBehaviour:
   m_ObjectHideFlags: 1
