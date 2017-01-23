@@ -2,10 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class SceneLoader : MonoBehaviour {
 
     public InputField ipInput;
+    public GameObject Preloader;
+    public Thread th;
 
 	// Use this for initialization
 	void Start () {
@@ -17,10 +20,16 @@ public class SceneLoader : MonoBehaviour {
 	
 	}
 
+    public void CreatePreloader()
+    {
+        Instantiate(Preloader);
+    }
+
     public void LoadScene(
         int sceneNumber)
     {
-        SceneManager.LoadScene(sceneNumber);
+        Instantiate(Preloader);
+        SceneManager.LoadSceneAsync(sceneNumber);
     }
 
     public void LoadSceneWithIp(
@@ -31,15 +40,17 @@ public class SceneLoader : MonoBehaviour {
 
         if (ipInput.text != string.Empty)
         {
+            Instantiate(Preloader);
             Client2.ip = ipInput.text;
-            SceneManager.LoadScene(sceneNumber);
+            SceneManager.LoadSceneAsync(sceneNumber);
         }
     }
 
     public void LoadSceneSinglePlayer(int sceneNumber)
     {
+        Instantiate(Preloader);
         LevelManager.getInstance().prepareForSingle();
         Config.isSingle = true;
-        SceneManager.LoadScene(sceneNumber);
+        SceneManager.LoadSceneAsync(sceneNumber);
     }
 }
