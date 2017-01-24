@@ -65,6 +65,8 @@ public class Level : MonoBehaviour {
     private Vector3 _rotation;
     private Vector3 _position;
 
+    private bool _hasWon = true;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -98,7 +100,11 @@ public class Level : MonoBehaviour {
 
     public void RunNextLevel()
     {
-        if (LevelManager.getInstance().incrementAndCheckLevel())
+        if (!_hasWon)
+        {
+            RestartGame();
+        }
+        else if (LevelManager.getInstance().incrementAndCheckLevel())
         {
             foreach (var segment in SegmentList)
             {
@@ -209,6 +215,8 @@ public class Level : MonoBehaviour {
         print(message);
         _secondsText.text = message;
         _robot.SetDead();
+
+        _hasWon = won;
 
         if (Config.isSingle)
         {

@@ -195,9 +195,6 @@ public class RobotMovement : MonoBehaviour
 
     private void TurnWithCamera()
     {
-#if UNITY_EDITOR
-        return;
-#endif
         _rotation.Set(0, Camera.main.gameObject.transform.eulerAngles.y, 0);
         transform.eulerAngles = _rotation;
     }
