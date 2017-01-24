@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4929378759544322}
   - component: {fileID: 33557591366210496}
   - component: {fileID: 23999215964059884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trashcan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4325705342998756}
   - component: {fileID: 33051581508578914}
   - component: {fileID: 23064904427666036}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trashcan (no bag)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4267642302498064}
   - component: {fileID: 65364749150028358}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
