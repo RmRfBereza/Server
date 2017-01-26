@@ -100,24 +100,30 @@ public class Level : MonoBehaviour {
 
     public void RunNextLevel()
     {
-        if (!_hasWon)
+        if (CurrentState == States.GameOver || CurrentState == States.GameWon ||
+            CurrentState == States.WaitingForPlayer)
         {
-            RestartGame();
-        }
-        else if (LevelManager.getInstance().incrementAndCheckLevel())
-        {
-            foreach (var segment in SegmentList)
+            if (!_hasWon)
             {
-                Destroy(segment);
+                RestartGame();
             }
-            SegmentList.Clear();
+            else if (LevelManager.getInstance().incrementAndCheckLevel())
+            {
+                foreach (var segment in SegmentList)
+                {
+                    Destroy(segment);
+                }
+                SegmentList.Clear();
 
-            SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+                SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(),
+                    CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
 
-            RestartGame();
-        } else
-        {
-            SceneManager.LoadScene(0);
+                RestartGame();
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
