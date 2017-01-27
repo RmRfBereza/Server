@@ -44,7 +44,7 @@ public class Level : MonoBehaviour {
     public List<NamedPrefab> SegmentPrefabsList;
     public List<GameObject> SegmentList;
     public GameObject Player;
-    public Camera SceneCamera;
+    public /*Camera*/GameObject SceneCamera;
 
     public GameObject GameOverInterfaceGO;
     public GameObject SecondsTextGO;
@@ -53,8 +53,10 @@ public class Level : MonoBehaviour {
     private const string goText = "GO!";
     private const string gameOverText = "Game Over!";
     private const string gameWonText = "You're free";
-    private const string singlePlayerPromptStart = "Look up to start";
-    private const string singlePlayerPromptQuit = "Look down to quit";
+    private const string singlePlayerPromptStart = "Locate the path\nLook up to start";
+    private const string singlePlayerPromptQuit = "Look up to quit";
+    private const string singlePlayerPromptContinue = "Look down to continue";
+    private const string singlePlayerPromptRestart = "Look down to restart";
 
     private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private RobotMovement _robot;
@@ -76,12 +78,13 @@ public class Level : MonoBehaviour {
         }
 
         //Segments = new List<GameObject>();
-        if (SceneCamera == null) SceneCamera = Camera.main;
+        if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
         SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
-        if (Config.isSingle) _secondsText.text = singlePlayerPromptStart;
+        if (Config.isSingle)
+            _secondsText.text = singlePlayerPromptStart;
         //var obj = TestTurn();
         //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
     }
@@ -92,6 +95,15 @@ public class Level : MonoBehaviour {
         {
             Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             //CreateMainPlayer();
+            if (Config.isSingle)
+            {
+                CurrentState = States.WaitingForPlayer;
+
+                _secondsText.text = singlePlayerPromptStart;
+                StartCoroutine(WaitForPlayer());
+                _robot.SetIdle();
+                return;
+            }
             CreateMainPlayerGaze();
             CurrentState = States.StartingGame;
             StartCoroutine(GameLoop());
@@ -226,7 +238,9 @@ public class Level : MonoBehaviour {
 
         if (Config.isSingle)
         {
-            _secondsText.text += '\n' + singlePlayerPromptStart + '\n' + singlePlayerPromptQuit;
+
+            _secondsText.text += '\n' + singlePlayerPromptQuit + '\n';
+            _secondsText.text += won ? singlePlayerPromptContinue : singlePlayerPromptRestart;
 
             yield return null;
         }
@@ -363,5 +377,10 @@ public class Level : MonoBehaviour {
     {
         public string name;
         public GameObject prefab;
+    }
+
+    void Update()
+    {
+        //print("Camera angles " + SceneCamera.transform.eulerAngles);
     }
 }

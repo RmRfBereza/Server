@@ -127,6 +127,7 @@ public class RobotMovement : MonoBehaviour
 
     private void HandleCurrentState()
     {
+        print(CurrentState);
         switch (CurrentState)
         {
             case States.Jumping:
@@ -170,7 +171,7 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle > 60 && angle < 70) SceneManager.LoadScene(0);
+            if (angle < 320 && angle > 310) SceneManager.LoadScene(0);
         }
     }
 
@@ -179,7 +180,7 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle < 320 && angle > 310) _level.RunNextLevel();
+            if (angle > 60 && angle < 70) _level.RunNextLevel();
         }
     }
 
