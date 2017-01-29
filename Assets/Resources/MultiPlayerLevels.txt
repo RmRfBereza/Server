@@ -1,1 +1,1 @@
-[[null,{\\"angle":-90,\\"type":\\"start"},{\\"angle":0,\\"type":\\"turn"}],[{\\"angle":-90,\\"type":\\"finish"},{\\"angle":0,\\"type":\\"straight"},{\\"angle":-90,\\"type":\\"turn"}]]
+[[{\\"angle":-90,\\"type":\\"start"},{\\"angle":180,\\"type":\\"turn"}],[{\\"angle":-90,\\"type":\\"finish"},{\\"angle":90,\\"type":\\"turn"}]]
