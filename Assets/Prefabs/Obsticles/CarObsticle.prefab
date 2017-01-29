@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4559542618640706}
   - component: {fileID: 33367397772381576}
   - component: {fileID: 23604263526633698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tire_Rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4216445713267048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: vert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4885827389913654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CarObsticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4333952326285034}
   - component: {fileID: 33948112135036416}
   - component: {fileID: 23445749964161634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4626512378903518}
   - component: {fileID: 33272112743855584}
   - component: {fileID: 23082988438127908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tire_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4395638880828278}
   - component: {fileID: 111188873407993372}
   - component: {fileID: 65403426715345432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Car_TAXI_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
