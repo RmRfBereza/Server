@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33000014038597498}
   - component: {fileID: 64000011699966548}
   - component: {fileID: 23000011399156098}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WallPlaneB (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 33000010533949728}
   - component: {fileID: 64000012134284658}
   - component: {fileID: 23000013787517598}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WallPlaneB (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 23783670549971700}
   - component: {fileID: 64092872620245914}
   - component: {fileID: 111822126194697840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_A_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1655,7 +1655,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013140277788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -39.767048, y: 474.2884, z: 76.07764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4894233870845132}
@@ -1747,8 +1747,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010622863736}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: -3.1, z: 3.5100117}
-  m_LocalScale: {x: 0.60000116, y: 1, z: 1.800004}
+  m_LocalPosition: {x: 0, y: -3.05, z: 3.5100117}
+  m_LocalScale: {x: 0.6097778, y: 1, z: 1.7989737}
   m_Children: []
   m_Father: {fileID: 4000011687284694}
   m_RootOrder: 4
@@ -1934,8 +1934,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234975287472600}
   m_LocalRotation: {x: 0.000000029802319, y: 0.7071068, z: 0.70710677, w: 0}
-  m_LocalPosition: {x: -9.199997, y: -4, z: -8.299988}
-  m_LocalScale: {x: 2.008983, y: 3.400002, z: 1}
+  m_LocalPosition: {x: -9.19, y: -4, z: -8.1}
+  m_LocalScale: {x: 1.8051251, y: 3.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4894233870845132}
   m_RootOrder: 4
@@ -5502,7 +5502,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010622863736}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5530,7 +5530,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012416103266}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

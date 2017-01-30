@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 33000011283912872}
   - component: {fileID: 64000011453222346}
   - component: {fileID: 23000013067708522}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WallPlaneB (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 33000012006835594}
   - component: {fileID: 64000012259604718}
   - component: {fileID: 23000012426139080}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WallPlaneB (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2608,7 +2608,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011408168216}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.3547387, y: 450.16745, z: 38.31794}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4824823775211270}
@@ -3263,8 +3263,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730902068983752}
   m_LocalRotation: {x: -0.5, y: 0.50000006, z: 0.5, w: 0.50000006}
-  m_LocalPosition: {x: 8.100008, y: -4, z: -10.160003}
-  m_LocalScale: {x: 2.0089788, y: 3.400003, z: 1}
+  m_LocalPosition: {x: 8.11, y: -4, z: -8}
+  m_LocalScale: {x: 1.6, y: 3.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4824823775211270}
   m_RootOrder: 23
@@ -7750,7 +7750,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011770374958}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -7778,7 +7778,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013012123028}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
