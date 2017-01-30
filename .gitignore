@@ -39,7 +39,9 @@ ExportedObj/
 *.sln
 *.user
 *.unityproj
-*.booproj
+*.booproj*
+*.tmp
+*.pdb
 
 # ============ #
 # OS generated #
@@ -52,3 +54,11 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+# ============================ #
+# Unity3D generated meta files #
+# ============================ #
+*.pidb.meta
+# ======================================= #
+# Unity3D generated File On Crash Reports #
+# ======================================= #
+sysinfo.txt
