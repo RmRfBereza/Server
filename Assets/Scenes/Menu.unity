@@ -703,6 +703,11 @@ Prefab:
       propertyPath: m_Name
       value: 2dClientButton
       objectReference: {fileID: 0}
+    - target: {fileID: 114376077388909224, guid: c0cbf995cae47ea418790821cc4c560d,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0cbf995cae47ea418790821cc4c560d, type: 2}
   m_IsPrefabParent: 0
