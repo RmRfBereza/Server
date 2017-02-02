@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class skyboxes : MonoBehaviour
+public class SkyboxManager : MonoBehaviour
 {
     public Material[] skyboxMaterials;
     // Use this for initialization
