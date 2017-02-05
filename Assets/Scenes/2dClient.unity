@@ -1444,16 +1444,16 @@ MonoBehaviour:
   Player: {fileID: 1173576347}
   StarGameButton: {fileID: 756572081}
   RestarGameButton: {fileID: 1822848613}
-  TileIntersection: {fileID: 1000011988033070, guid: 47209fae9b162f14ab23ca87b1c79ce4,
+  TileIntersection: {fileID: 1286613401654480, guid: 1a6bc638009cbe4489cb86e876b61f40,
     type: 2}
-  TileTurn: {fileID: 1000012739029010, guid: f857b59cbeebfb147828f1093fcb36d3, type: 2}
-  TileTTurn: {fileID: 1000013748765356, guid: b5f0f804f70af184790fa82ebea71a08, type: 2}
-  TileStraight: {fileID: 1000013286128958, guid: 3a314a383782d3b4597dc24d446e3ac7,
+  TileTurn: {fileID: 1445530064583900, guid: 9d72ea9c9632948409193f23210c162c, type: 2}
+  TileTTurn: {fileID: 1662980659546114, guid: 565a715c47f644a42b26597b83bef0e2, type: 2}
+  TileStraight: {fileID: 1526585147957374, guid: afe1d4ceba388b442ba21cad6b435490,
     type: 2}
   TileNull: {fileID: 1000011842465114, guid: 2cb3cca4e8b72424d92714efdd30a76d, type: 2}
-  TileDeadend: {fileID: 1000011260761864, guid: 5be64946ef3fe14479f469d1531a3f66,
+  TileDeadend: {fileID: 1376591219442432, guid: ac5215144e183ca4d8cd4bd6b6df72a3,
     type: 2}
-  TileStart: {fileID: 1000012123944732, guid: 49b97599f9f55c24aaee2880a9baa335, type: 2}
+  TileStart: {fileID: 1659375467151242, guid: 040c95b9d8a088648b1bf8818ca76fa6, type: 2}
   TileFinish: {fileID: 1000013167391318, guid: df8b9912c286ff94c92401d2b034e7fd, type: 2}
   MessageText: {fileID: 787199996}
 --- !u!4 &2128151681
