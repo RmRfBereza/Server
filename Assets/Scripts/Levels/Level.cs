@@ -41,10 +41,11 @@ public class Level : MonoBehaviour {
     public bool IsPlayerInstanciated = false;
 
     //public GameObject Segment;
-    public List<NamedPrefab> SegmentPrefabsList;
     public List<GameObject> SegmentList;
     public GameObject Player;
     public /*Camera*/GameObject SceneCamera;
+
+    public GameObject SegmentStorage;
 
     public GameObject GameOverInterfaceGO;
     public GameObject SecondsTextGO;
@@ -58,11 +59,12 @@ public class Level : MonoBehaviour {
     private const string singlePlayerPromptContinue = "Look down to continue";
     private const string singlePlayerPromptRestart = "Look down to restart";
 
-    private Dictionary<string, GameObject> SegmentPrefabsDictionary = new Dictionary<string, GameObject>();
     private RobotMovement _robot;
     private Text _secondsText;
     //private List<GameObject> Segments;
     private Client2 _client2 = null;
+
+    private Segment3dStorageHandler _storage;
 
     private Vector3 _rotation;
     private Vector3 _position;
@@ -71,22 +73,26 @@ public class Level : MonoBehaviour {
 
 	// Use this for initialization
 	void Start ()
-    {
-        foreach (var segment in SegmentPrefabsList)
-        {
-            SegmentPrefabsDictionary[segment.name] = segment.prefab;
-        }
-
+	{
+	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
-        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
-        StartCoroutine(WaitForPlayer());
+        //SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary);
+        PrepareLevel();
+	    StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
         if (Config.isSingle)
             _secondsText.text = singlePlayerPromptStart;
         //var obj = TestTurn();
         //CreateLevel.CreateLevelFromJsonString(obj.ToString(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+    }
+
+    private void PrepareLevel()
+    {
+        var start = GameObject.FindGameObjectWithTag("Start");
+        StartPosition = start.transform.position;
+        StartRotation = start.transform.eulerAngles;
     }
 
     public void RestartGame()
@@ -119,7 +125,11 @@ public class Level : MonoBehaviour {
             {
                 RestartGame();
             }
-            else if (LevelManager.getInstance().incrementAndCheckLevel())
+            else
+            {
+                GameObject.Find("LevelCommons").GetComponent<LevelCommonsHandler>().LoadNextLevel();
+            }
+            /*else if (LevelManager.getInstance().incrementAndCheckLevel())
             {
                 foreach (var segment in SegmentList)
                 {
@@ -128,14 +138,14 @@ public class Level : MonoBehaviour {
                 SegmentList.Clear();
 
                 SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(),
-                    CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+                    CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary);
 
                 RestartGame();
             }
             else
             {
                 SceneManager.LoadScene(0);
-            }
+            }*/
         }
     }
 
@@ -370,13 +380,6 @@ public class Level : MonoBehaviour {
             obj[j + 1][lengthBeforeTurn].AddField("type", StraightSegmentName);
         }
         return obj;
-    }
-
-    [Serializable]
-    public struct NamedPrefab
-    {
-        public string name;
-        public GameObject prefab;
     }
 
     void Update()

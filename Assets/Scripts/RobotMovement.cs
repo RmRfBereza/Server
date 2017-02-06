@@ -40,7 +40,7 @@ public class RobotMovement : MonoBehaviour
     //order can not be changed because of the animator
     private enum States
     {
-        Running=10, RunningUnconrollably, Jumping, Idle, Turning, Dead
+        Running=10, RunningUnconrollably, Jumping, Idle, Turning, Dead, Blank
     }
 
     private States _currentState;
@@ -127,7 +127,6 @@ public class RobotMovement : MonoBehaviour
 
     private void HandleCurrentState()
     {
-        print(CurrentState);
         switch (CurrentState)
         {
             case States.Jumping:
@@ -180,7 +179,11 @@ public class RobotMovement : MonoBehaviour
         if (Config.isSingle)
         {
             var angle = Camera.main.gameObject.transform.eulerAngles.x;
-            if (angle > 60 && angle < 70) _level.RunNextLevel();
+            if (angle > 60 && angle < 70)
+            {
+                _currentState = States.Blank;
+                _level.RunNextLevel();
+            }
         }
     }
 

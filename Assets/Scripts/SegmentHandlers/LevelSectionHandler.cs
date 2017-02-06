@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelSectionHandler : MonoBehaviour {
+public abstract class LevelSectionHandler : MonoBehaviour {
 
     public GameObject MappingSegment;
     protected GameObject _player = null;
     protected RobotMovement _robot = null;
     protected Level _level;
 
-	// Use this for initialization
+    protected const int ObsticleOffsetZ = 4;
+    protected const float DoubleObsticleOffset = 1.0f;
+    protected const float SingleObsticleOffset = 2.0f;
+
+    // Use this for initialization
 	void Start () {
 
 	}
@@ -20,20 +24,43 @@ public class LevelSectionHandler : MonoBehaviour {
 
     protected void FindLevel()
     {
-        _level = GameObject.Find("Plane").GetComponent<Level>();
+        var plane = GameObject.FindGameObjectWithTag("Plane");
+        if(plane != null) plane.GetComponent<Level>();
     }
 
     protected void SetPlayer()
     {
         if (_player == null)
         {
-            if (_level.IsPlayerInstanciated)
+            if (_level != null && _level.IsPlayerInstanciated)
             {
                 _player = _level.Player;
                 _robot = _player.GetComponent<RobotMovement>();
             }
         }
     }
+
+    public void CreateRandomObsticles()
+    {
+        if (_level == null) return;
+        for (sbyte i = -1; i <= 1; i += 2)
+        {
+            var rand = Random.Range(-1, 2);
+            if (rand > 0)
+            {
+                //CreateRandomDoubleObsticle(i);
+                CreateRandomSingleObsticle(i);
+            }
+            else
+            {
+                //CreateRandomSingleObsticle(i);
+                CreateRandomDoubleObsticle(i);
+            }
+        }
+    }
+
+    public abstract void CreateRandomSingleObsticle(sbyte pos);
+    public abstract void CreateRandomDoubleObsticle(sbyte pos);
 
     protected void DrawMapping(int offsetX, int offsetY)
     {

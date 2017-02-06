@@ -6,7 +6,7 @@ public class CreateLevel : MonoBehaviour {
 
     public const int SegmentSize3d = 18;
 
-    public static List<GameObject> CreateLevelFromJsonString(string jsonString, int segmentSize, Dictionary<string, GameObject> prefabDictionary)
+    public static List<GameObject> CreateLevelFromJsonString(string jsonString, int segmentSize, Dictionary<string, GameObject> prefabDictionary, Transform parentOpt = null)
     {
         List<GameObject> levelSegments = new List<GameObject>();
 
@@ -30,6 +30,7 @@ public class CreateLevel : MonoBehaviour {
                 print(segmentParams);
                 print(segmentParams["type"].str);
                 var currentSegment = Instantiate(prefabDictionary[segmentParams["type"].str]);
+                if (parentOpt != null) currentSegment.transform.parent = parentOpt;
 
                 levelSegments.Add(currentSegment);
 

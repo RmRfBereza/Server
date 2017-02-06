@@ -3,13 +3,6 @@ using System.Collections;
 
 public class StraightSegmentHandler : LevelSectionHandler {
 
-    public GameObject[] SingleObsticles;
-    public GameObject[] DoubleObsticles;
-
-    private const int ObsticleOffsetZ = 4;
-    private const float DoubleObsticleOffset = 1.0f;
-    private const float SingleObsticleOffset = 2.0f;
-
     void Awake()
     {
         FindLevel();
@@ -24,38 +17,20 @@ public class StraightSegmentHandler : LevelSectionHandler {
         SetPlayer();
     }
 
-    public void CreateRandomObsticles()
+    public override void CreateRandomDoubleObsticle(sbyte pos)
     {
-        for (sbyte i = -1; i <= 1; i += 2)
-        {
-            var rand = Random.Range(-1, 2);
-            if (rand > 0)
-            {
-                //CreateRandomDoubleObsticle(i);
-                CreateRandomSingeObsticle(i);
-            }
-            else
-            {
-                //CreateRandomSingeObsticle(i);
-                CreateRandomDoubleObsticle(i);
-            }
-        }
-    }
+        var obsticle = Storage.getInstance().DoubleObsticles[Mathf.RoundToInt(Random.Range(0, Storage.getInstance().DoubleObsticles.Length - 1))];
 
-    private void CreateRandomDoubleObsticle(sbyte pos)
-    {
-        var obsticle = DoubleObsticles[Mathf.RoundToInt(Random.Range(0, DoubleObsticles.Length - 1))];
-
-        var obstInst = Instantiate(obsticle, gameObject.transform, false) as GameObject;
+        var obstInst = Instantiate(obsticle, gameObject.transform, false);
         obstInst.transform.position += obstInst.transform.forward * pos * ObsticleOffsetZ;
         obstInst.transform.position += obstInst.transform.right *  (-1 +2*Mathf.RoundToInt(Random.Range(0, 2))) * DoubleObsticleOffset;
     }
 
-    private void CreateRandomSingeObsticle(sbyte pos)
+    public override void CreateRandomSingleObsticle(sbyte pos)
     {
-        var obsticle = SingleObsticles[Mathf.RoundToInt(Random.Range(0, DoubleObsticles.Length - 1))];
+        var obsticle = Storage.getInstance().SingleObsticles[Mathf.RoundToInt(Random.Range(0, Storage.getInstance().SingleObsticles.Length - 1))];
 
-        var obstInst = Instantiate(obsticle, gameObject.transform, false) as GameObject;
+        var obstInst = Instantiate(obsticle, gameObject.transform, false);
         obstInst.transform.position += obstInst.transform.forward * pos * ObsticleOffsetZ;
         obstInst.transform.position += obstInst.transform.right * SingleObsticleOffset * Mathf.Round(Random.Range(-1, 2));
     }

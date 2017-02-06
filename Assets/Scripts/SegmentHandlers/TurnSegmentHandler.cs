@@ -24,6 +24,16 @@ public class TurnSegmentHandler : LevelSectionHandler
     //    }
     //}
 
+    public override void CreateRandomDoubleObsticle(sbyte pos)
+    {
+
+    }
+
+    public override void CreateRandomSingleObsticle(sbyte pos)
+    {
+
+    }
+
     void OnTriggerEnter()
     {
         if (_player != null)

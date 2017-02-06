@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class LevelCellButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Level.NamedPrefab[] CellsToChoseFrom;
+    public Segment3dStorageHandler.NamedPrefab[] CellsToChoseFrom;
 
     public string Name;
     public int rotation;

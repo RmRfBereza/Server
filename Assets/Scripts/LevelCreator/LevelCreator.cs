@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelCreator : MonoBehaviour {
 
     public GameObject Cell;
+    public GameObject SegmentStorage;
 
     public int Rows;
     public int Columns;
@@ -11,10 +12,13 @@ public class LevelCreator : MonoBehaviour {
     private GameObject content;
     private GameObject[,] cells;
 
+    private Segment3dStorageHandler _storage;
+
 	// Use this for initialization
 	void Start () {
         content = GameObject.Find("Content");
         CreateCells();
+	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
 	}
 	
 	// Update is called once per frame
@@ -37,20 +41,42 @@ public class LevelCreator : MonoBehaviour {
 
     public void CreateLevelFromCurrentState()
     {
-        print(CreateLevel());
+        print(CreateJsonLevel());
     }
 
     public void AddLevelSingle()
     {
-        LevelManager.getInstance().addLevelSingle(CreateLevel());
+        LevelManager.getInstance().addLevelSingle(CreateJsonLevel());
     }
 
     public void AddLevelMulti()
     {
-        LevelManager.getInstance().addLevelMulti(CreateLevel());
+        LevelManager.getInstance().addLevelMulti(CreateJsonLevel());
     }
 
-    private string CreateLevel()
+    public void Create3d()
+    {
+        var level = new GameObject("Level");
+        CreateLevel.CreateLevelFromJsonString(CreateJsonLevel(), CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary, level.transform);
+        print("The Level created in hierachy. Save it by making it a prefab.");
+    }
+
+    public void TransformSinglePlayerLevelsTo3D()
+    {
+        LevelManager.getInstance().prepareForSingle();
+
+        int i = 1;
+        while (LevelManager.getInstance().hasNextLevel())
+        {
+            var level = new GameObject("Level" + i++);
+            level.tag = "Level";
+            //level.transform.Translate(Vector3.up * 30 * i);
+            CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getAndIncrementLevel(),
+                CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary, level.transform);
+        }
+    }
+
+    private string CreateJsonLevel()
     {
         JSONObject obj = new JSONObject(JSONObject.Type.ARRAY);
         for (int i = 0; i < Rows; ++i)
