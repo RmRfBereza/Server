@@ -18,6 +18,7 @@ class Client2 : MonoBehaviour
     Level level;
 	private volatile bool isNeedSend = true;
 	private bool inGame = false;
+	Thread t;
 			
 	void Start()
     {
@@ -39,8 +40,12 @@ class Client2 : MonoBehaviour
         }
         if (ip == "-1") return;
 
-		Thread t = new Thread(new ThreadStart(Client));
+		t = new Thread(new ThreadStart(Client));
 		t.Start();
+	}
+	
+	void OnDestroy(){
+		t.Interrupt();
 	}
 	
 	void Client()
@@ -70,7 +75,10 @@ class Client2 : MonoBehaviour
 			}
 		} catch (Exception e){
             Debug.Log(e);
-        }
+        } finally {
+			if (client != null)
+				client.Close();
+		}
 	}
 	
 	bool sRead()
