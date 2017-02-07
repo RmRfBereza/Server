@@ -31,9 +31,9 @@ class Client2 : MonoBehaviour
             return;
         }
 
-        //Этот скрипт прикреплён к префабу робота, но он не активен.
+        //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
-        //Лучше прямую ссылку задаать через editor, но так проще прикреплять, это временно
+        //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ editor, пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         level = GameObject.Find("Plane").GetComponent<Level>();
 
         if (ip == "s")
@@ -67,7 +67,7 @@ class Client2 : MonoBehaviour
 			client = new TcpClient(ip, 8865);
             s = client.GetStream();
 
-            //сообщаем о готовости
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			bool isOk = true;
 			while(isOk)
 			{
@@ -91,6 +91,7 @@ class Client2 : MonoBehaviour
         } finally {
 			if (client != null)
 				client.Close();
+		    SceneManager.LoadScene(0);
 		}
 	}
 	
@@ -117,7 +118,7 @@ class Client2 : MonoBehaviour
 					inGame = true;
 				}; break;
 				case Mark.WAIT_RESTART: {
-					inGame = true; //Хз, может не будет работать (см update)
+					inGame = true; //пїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ update)
 				}; break;
 				default: {
 					Debug.Log("Incorrect mark type = " + mark.getType());
