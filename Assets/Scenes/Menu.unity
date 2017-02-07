@@ -1340,7 +1340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter ip...
+  m_Text: Enter code...
 --- !u!222 &2003254844
 CanvasRenderer:
   m_ObjectHideFlags: 0

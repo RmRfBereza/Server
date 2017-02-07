@@ -25,7 +25,7 @@ public class CreateLevel2D : MonoBehaviour {
     private string jsonString;
 
     private const string StartGameMessage = "Second player connected!\nStart the game whenever you both are ready!";
-    private const string WaitForPlayerMessage = "Tell your friend your IP and wait for him to connect. Your IP is\n";
+    private const string WaitForPlayerMessage = "Tell your friend your code and wait for him to connect. Your code is\n";
     private const string GameOverMessage = "Game Over!";
     private const string YouWonMesssage = "You Won!";
 
