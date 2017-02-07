@@ -4,7 +4,9 @@ using System.Text;
 using System.Threading;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Net;
 using System.Net.Sockets;
+using UnityEngine.SceneManagement;
 
 class Client2 : MonoBehaviour
 {
@@ -14,6 +16,7 @@ class Client2 : MonoBehaviour
 
     public static string ip = "-1";
     public const string ipSkip = "s";
+	public static bool enableBase64 = true;
 
     Level level;
 	private volatile bool isNeedSend = true;
@@ -51,6 +54,16 @@ class Client2 : MonoBehaviour
 	void Client()
 	{
 		try{
+			if (enableBase64)
+			{
+				var base64EncodedBytes = System.Convert.FromBase64String(ip + "==");
+				var ipaddres = new IPAddress(base64EncodedBytes);
+				ip = ipaddres.ToString();
+				Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				Debug.Log(ipaddres.ToString());
+				Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			}
+			
 			client = new TcpClient(ip, 8865);
             s = client.GetStream();
 

@@ -20,7 +20,8 @@ class Server2 : MonoBehaviour
     static TcpListener listener;
     const int LIMIT = 1;
     public static volatile string myIp = "undefined";
-
+	public static bool enableBase64 = true;
+	
     private CreateLevel2D level;
 	Thread thr = null;
 	
@@ -49,8 +50,17 @@ class Server2 : MonoBehaviour
 		
         listener = new TcpListener(my_ip, port);
         listener.Start();
-		myIp = this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
-
+		if (!enableBase64)
+		{
+			myIp = this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
+		}
+		else
+		{
+			Byte[] bytes = ((IPEndPoint)listener.LocalEndpoint).Address.GetAddressBytes();
+			myIp = this.my_ip = System.Convert.ToBase64String(bytes);
+			myIp = this.my_ip = myIp.Trim(new char[]{'='});
+		}
+		
 		thr = new Thread(new ThreadStart(Service));
 		thr.Start();
     }
