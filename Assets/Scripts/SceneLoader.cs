@@ -35,7 +35,6 @@ public class SceneLoader : MonoBehaviour {
     public void LoadSceneWithIp(
         int sceneNumber)
     {
-        LevelManager.getInstance().prepareForMulti();
         Config.isSingle = false;
 
         if (ipInput.text != string.Empty)
@@ -49,7 +48,6 @@ public class SceneLoader : MonoBehaviour {
     public void LoadSceneSinglePlayer(int sceneNumber)
     {
         Instantiate(Preloader);
-        LevelManager.getInstance().prepareForSingle();
         Config.isSingle = true;
         SceneManager.LoadSceneAsync(sceneNumber);
     }

@@ -79,7 +79,7 @@ public class Level : MonoBehaviour {
 
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
-        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
@@ -127,7 +127,7 @@ public class Level : MonoBehaviour {
                 }
                 SegmentList.Clear();
 
-                SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(),
+                SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(),
                     CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
 
                 RestartGame();
