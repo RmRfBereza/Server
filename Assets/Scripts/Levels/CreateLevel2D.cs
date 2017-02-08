@@ -40,7 +40,7 @@ public class CreateLevel2D : MonoBehaviour {
     {
         SegmentPrefabsDictionary.Add("straight", TileStraight);
         SegmentPrefabsDictionary.Add("turn", TileTurn);
-        SegmentPrefabsDictionary.Add("Tturn", TileTTurn);
+        SegmentPrefabsDictionary.Add("tturn", TileTTurn);
         SegmentPrefabsDictionary.Add("intersection", TileIntersection);
         SegmentPrefabsDictionary.Add("null", TileNull);
         SegmentPrefabsDictionary.Add("start", TileStart);
