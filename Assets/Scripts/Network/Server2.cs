@@ -108,7 +108,7 @@ class Server2 : MonoBehaviour
 				{
 					sWrite();
 					formatter.Serialize(s, new Mark(Mark.WAIT_SWAP));
-					Debug.Log("222");
+					//Debug.Log("222");
 					isOk = sRead();
 				}
 

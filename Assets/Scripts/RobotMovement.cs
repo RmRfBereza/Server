@@ -127,7 +127,7 @@ public class RobotMovement : MonoBehaviour
 
     private void HandleCurrentState()
     {
-        print(CurrentState);
+        //print(CurrentState);
         switch (CurrentState)
         {
             case States.Jumping:
