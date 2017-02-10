@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.VR.WSA.Persistence;
 
 public abstract class LevelSectionHandler : MonoBehaviour {
 
@@ -9,8 +10,6 @@ public abstract class LevelSectionHandler : MonoBehaviour {
     protected Level _level;
 
     protected const int ObsticleOffsetZ = 4;
-    protected const float DoubleObsticleOffset = 1.0f;
-    protected const float SingleObsticleOffset = 2.0f;
 
     // Use this for initialization
 	void Start () {
@@ -40,27 +39,17 @@ public abstract class LevelSectionHandler : MonoBehaviour {
         }
     }
 
-    public void CreateRandomObsticles()
-    {
-        if (_level == null) return;
-        for (sbyte i = -1; i <= 1; i += 2)
-        {
-            var rand = Random.Range(-1, 2);
-            if (rand > 0)
-            {
-                //CreateRandomDoubleObsticle(i);
-                CreateRandomSingleObsticle(i);
-            }
-            else
-            {
-                //CreateRandomSingleObsticle(i);
-                CreateRandomDoubleObsticle(i);
-            }
-        }
-    }
+    public abstract void CreateRandomObsticles();
 
-    public abstract void CreateRandomSingleObsticle(sbyte pos);
-    public abstract void CreateRandomDoubleObsticle(sbyte pos);
+    public void CreateObsticle(Vector3 position, Vector3 rotation, Vector3 variationAxis)
+    {
+        var obsticleMeta = Storage.getInstance().getRandomObsticleMeta();
+
+        var obsticle = Instantiate(obsticleMeta.getPrefab(), gameObject.transform, false);
+
+        obsticle.transform.position += position + variationAxis * obsticleMeta.getPositionInLine();
+        obsticle.transform.eulerAngles += rotation;
+    }
 
     protected void DrawMapping(int offsetX, int offsetY)
     {
@@ -93,6 +82,4 @@ public abstract class LevelSectionHandler : MonoBehaviour {
             degDrawn += segmentDeg;
         }
     }
-
-
 }

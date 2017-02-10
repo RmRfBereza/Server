@@ -7,6 +7,7 @@ public class TurnSegmentHandler : LevelSectionHandler
 	// Use this for initialization
 	void Start () {
 	    FindLevel();
+	    CreateRandomObsticles();
         //DrawMapping(3, 1);
         //DrawMapping(1, 1);
     }
@@ -16,6 +17,12 @@ public class TurnSegmentHandler : LevelSectionHandler
 	    SetPlayer();
     }
 
+    public override void CreateRandomObsticles()
+    {
+        CreateObsticle(transform.forward * ObsticleOffsetZ, Vector3.zero, transform.right);
+        CreateObsticle(transform.right * -ObsticleOffsetZ, new Vector3(0,90,0), transform.forward);
+    }
+
     //void OnTriggerEnter()
     //{
     //    if (_player != null)
@@ -23,16 +30,6 @@ public class TurnSegmentHandler : LevelSectionHandler
     //        //_robot.StartTurning();
     //    }
     //}
-
-    public override void CreateRandomDoubleObsticle(sbyte pos)
-    {
-
-    }
-
-    public override void CreateRandomSingleObsticle(sbyte pos)
-    {
-
-    }
 
     void OnTriggerEnter()
     {

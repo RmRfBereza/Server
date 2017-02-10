@@ -23,12 +23,7 @@ public class IntersectionHandler : LevelSectionHandler {
 	    SetPlayer();
 	}
 
-    public override void CreateRandomDoubleObsticle(sbyte pos)
-    {
-
-    }
-
-    public override void CreateRandomSingleObsticle(sbyte pos)
+    public override void CreateRandomObsticles()
     {
 
     }
