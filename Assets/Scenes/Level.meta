@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: c8e699c508a6bc943828bfa49f88686f
 folderAsset: yes
+<<<<<<< HEAD
 timeCreated: 1485720823
+=======
+timeCreated: 1486724206
+>>>>>>> 12d064d... add Level Scenes
 licenseType: Free
 DefaultImporter:
   userData: 
