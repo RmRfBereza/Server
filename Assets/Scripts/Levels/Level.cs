@@ -77,9 +77,8 @@ public class Level : MonoBehaviour {
 	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
-        //SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(), CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary);
-        PrepareLevel();
-	    StartCoroutine(WaitForPlayer());
+        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();
         if (Config.isSingle)
@@ -137,8 +136,8 @@ public class Level : MonoBehaviour {
                 }
                 SegmentList.Clear();
 
-                SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevel(),
-                    CreateLevel.SegmentSize3d, _storage.SegmentPrefabsDictionary);
+                SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(),
+                    CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
 
                 RestartGame();
             }

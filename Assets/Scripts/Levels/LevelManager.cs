@@ -8,7 +8,7 @@ public class LevelManager {
 
     private static LevelManager instance = null;
 
-    private string[] Levels;
+    private string[] Levels = null;
     private int currentLevel;
 
     public static LevelManager getInstance()
@@ -32,6 +32,22 @@ public class LevelManager {
     public bool hasNextLevel()
     {
         return currentLevel + 1 < Levels.Length;
+    }
+
+    public string getLevelAndInitIfNecessary()
+    {
+        if (Levels == null)
+        {
+            if (Config.isSingle)
+            {
+                prepareForSingle();
+            }
+            else
+            {
+                prepareForMulti();
+            }
+        }
+        return Levels[currentLevel];
     }
 
     public string getLevel()
