@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.VR.WSA.Persistence;
 
 public abstract class LevelSectionHandler : MonoBehaviour {
 
@@ -8,6 +7,8 @@ public abstract class LevelSectionHandler : MonoBehaviour {
     protected GameObject _player = null;
     protected RobotMovement _robot = null;
     protected Level _level;
+
+    protected Transform All;
 
     protected const int ObsticleOffsetZ = 4;
 

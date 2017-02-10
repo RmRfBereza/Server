@@ -22,14 +22,18 @@ class Client2 : MonoBehaviour
 	private volatile bool isNeedSend = true;
 	private bool inGame = false;
 	Thread t;
-			
-	void Start()
+
+    void Awake()
     {
         if (Config.isSingle)
         {
-            this.enabled = false;
-            return;
+            enabled = false;
         }
+    }
+
+	void Start()
+    {
+        if (Config.isSingle) return;
 
         //���� ������ ��������� � ������� ������, �� �� �� �������.
 

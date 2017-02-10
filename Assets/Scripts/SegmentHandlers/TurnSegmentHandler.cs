@@ -6,6 +6,7 @@ public class TurnSegmentHandler : LevelSectionHandler
 
 	// Use this for initialization
 	void Start () {
+	    All = transform.Find("All");
 	    FindLevel();
 	    CreateRandomObsticles();
         //DrawMapping(3, 1);
@@ -19,8 +20,8 @@ public class TurnSegmentHandler : LevelSectionHandler
 
     public override void CreateRandomObsticles()
     {
-        CreateObsticle(transform.forward * ObsticleOffsetZ, Vector3.zero, transform.right);
-        CreateObsticle(transform.right * -ObsticleOffsetZ, new Vector3(0,90,0), transform.forward);
+        CreateObsticle(All.forward * ObsticleOffsetZ, Vector3.zero, All.right);
+        CreateObsticle(All.right * -ObsticleOffsetZ, new Vector3(0,90,0), All.forward);
     }
 
     //void OnTriggerEnter()

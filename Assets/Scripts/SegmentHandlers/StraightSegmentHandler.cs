@@ -5,6 +5,7 @@ public class StraightSegmentHandler : LevelSectionHandler {
 
     void Awake()
     {
+        All = transform.Find("All");
         FindLevel();
     }
     // Use this for initialization
@@ -19,8 +20,8 @@ public class StraightSegmentHandler : LevelSectionHandler {
 
     public override void CreateRandomObsticles()
     {
-        CreateObsticle(transform.forward * ObsticleOffsetZ, Vector3.zero, transform.right);
-        CreateObsticle(transform.forward * ObsticleOffsetZ * -1, Vector3.zero, transform.right);
+        CreateObsticle(All.forward * ObsticleOffsetZ, Vector3.zero, All.right);
+        CreateObsticle(All.forward * ObsticleOffsetZ * -1, Vector3.zero, All.right);
     }
 
     void OnTriggerEnter()

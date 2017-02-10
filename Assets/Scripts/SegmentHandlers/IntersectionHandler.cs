@@ -6,6 +6,7 @@ public class IntersectionHandler : LevelSectionHandler {
 	// Use this for initialization
 	void Start ()
 	{
+	    All = transform.Find("All");
 	    FindLevel();
         //DrawMapping(3, 1);
         //DrawMapping(1, 1);
