@@ -22,6 +22,7 @@ class Server2 : MonoBehaviour
     public static volatile string myIp = "undefined";
 
     private CreateLevel2D level;
+	Thread thr = null;
 	
     void Start()
     {
@@ -50,10 +51,14 @@ class Server2 : MonoBehaviour
         listener.Start();
 		myIp = this.my_ip = IPAddress.Parse(((IPEndPoint)listener.LocalEndpoint).Address.ToString()).ToString();
 
-		Thread t = new Thread(new ThreadStart(Service));
-		t.Start();
+		thr = new Thread(new ThreadStart(Service));
+		thr.Start();
     }
 
+	void OnDestroy(){
+		thr.Interrupt();
+	}
+	
 	public volatile bool isNeedStart = false;
     public void StartGame()
     {
