@@ -75,7 +75,7 @@ class Client2 : MonoBehaviour
 			bool isOk = true;
 			while(isOk)
 			{
-				Debug.Log("111");
+				//Debug.Log("111");
 				isOk = sRead();
 				
 				int counter = 10;
