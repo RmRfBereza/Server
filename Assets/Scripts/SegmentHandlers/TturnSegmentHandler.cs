@@ -9,6 +9,7 @@ public class TturnSegmentHandler : LevelSectionHandler
     {
         All = transform.Find("All");
         FindLevel();
+        CreateRandomObsticles();
         //DrawMapping(-3, 1);
         //DrawMapping(-1, 1);
         //DrawMapping(-3, -1);
@@ -25,6 +26,7 @@ public class TturnSegmentHandler : LevelSectionHandler
     {
         CreateObsticle(All.forward * ObsticleOffsetZ, Vector3.zero, All.right);
         CreateObsticle(All.forward * ObsticleOffsetZ * -1, Vector3.zero, All.right);
+        CreateObsticle(All.right * -ObsticleOffsetZ, new Vector3(0,90,0), All.forward);
     }
 
     void OnTriggerEnter()

@@ -8,6 +8,7 @@ public class IntersectionHandler : LevelSectionHandler {
 	{
 	    All = transform.Find("All");
 	    FindLevel();
+	    CreateRandomObsticles();
         //DrawMapping(3, 1);
         //DrawMapping(1, 1);
         //DrawMapping(-3, 1);
@@ -26,7 +27,10 @@ public class IntersectionHandler : LevelSectionHandler {
 
     public override void CreateRandomObsticles()
     {
-
+        CreateObsticle(All.forward * ObsticleOffsetZ, Vector3.zero, All.right);
+        CreateObsticle(All.forward * -ObsticleOffsetZ, Vector3.zero, All.right);
+        CreateObsticle(All.right * ObsticleOffsetZ, new Vector3(0,90,0), All.forward);
+        CreateObsticle(All.right * -ObsticleOffsetZ, new Vector3(0,90,0), All.forward);
     }
 
     void OnTriggerEnter()

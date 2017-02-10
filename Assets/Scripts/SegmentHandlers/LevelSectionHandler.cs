@@ -73,8 +73,8 @@ public abstract class LevelSectionHandler : MonoBehaviour {
 
         while (degDrawn < GeometryBasic.RightAngleDeg)
         {
-            segmentPostion += transform.right * (radius) * Mathf.Cos(degDrawn * Mathf.Deg2Rad) * directionX;
-            segmentPostion += transform.forward * (-radius) * Mathf.Sin(degDrawn * Mathf.Deg2Rad) * directionY;
+            segmentPostion += transform.right * radius * Mathf.Cos(degDrawn * Mathf.Deg2Rad) * directionX;
+            segmentPostion += transform.forward * -radius * Mathf.Sin(degDrawn * Mathf.Deg2Rad) * directionY;
             var curentMappingSegment = Instantiate(MappingSegment, transform, false) as GameObject;
             curentMappingSegment.transform.position = segmentPostion;
             rotation.y = degDrawn * directionX * directionY + transform.eulerAngles.y;
