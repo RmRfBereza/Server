@@ -77,7 +77,7 @@ public class Level : MonoBehaviour {
 	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
-        SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
+        //SegmentList = CreateLevel.CreateLevelFromJsonString(LevelManager.getInstance().getLevelAndInitIfNecessary(), CreateLevel.SegmentSize3d, SegmentPrefabsDictionary);
         StartCoroutine(WaitForPlayer());
 	    StartCoroutine(testingLoop());
         _secondsText = SecondsTextGO.GetComponent<Text>();

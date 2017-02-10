@@ -21,6 +21,7 @@ class Client2 : MonoBehaviour
     Level level;
 
     private volatile bool isNeedSend = true;
+    private volatile bool isNeedExit = false;
     private bool inGame = false;
     Thread t;
 
@@ -53,6 +54,7 @@ class Client2 : MonoBehaviour
     }
     
     void OnDestroy(){
+        if (Config.isSingle) return;
         t.Interrupt();
     }
     
