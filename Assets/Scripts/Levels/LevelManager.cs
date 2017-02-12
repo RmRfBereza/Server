@@ -36,6 +36,11 @@ public class LevelManager {
 
     public string getLevelAndInitIfNecessary()
     {
+        return getLevelAtAndInitIfNecessary(currentLevel);
+    }
+
+    public string getLevelAtAndInitIfNecessary(int index)
+    {
         if (Levels == null)
         {
             if (Config.isSingle)
@@ -47,7 +52,7 @@ public class LevelManager {
                 prepareForMulti();
             }
         }
-        return Levels[currentLevel];
+        return Levels[index];
     }
 
     public string getLevel()
