@@ -1,0 +1,7 @@
+{
+    "InitState":    "Main",
+    "MenuObjects": ["3dClientButton","2dClientButton", "SinglePlayerButton", "MultiPlayerButton", "InputField", "BackToMultiButton", "SubmitButton", "BackToMenuButton"],
+    "Main":        [false,            false,            true,                 true,                false,        false,               false,          false            ],
+    "Multi":       [true,             true,             false,                false,               false,        false,               false,          true             ],
+    "Submit":      [false,            false,            false,                false,               true,         true,                true,           false            ]
+}
