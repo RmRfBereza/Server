@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33255276158977418}
   - component: {fileID: 23106871377397662}
   - component: {fileID: 65931992682906018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Van_damage_level_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4412271971989634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CarObsticle4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -34,18 +34,7 @@ class Server2 : MonoBehaviour
         foreach (IPAddress ip in host.AddressList)
         {
             if (ip.AddressFamily == AddressFamily.InterNetwork)
-            {
                 my_ip = ip;
-                mask = 8;
-                var firstOctet = ip.GetAddressBytes()[0];
-                for (int i = 0; i < 3; ++i)
-                {
-                    if ((firstOctet & (1 << (7 - i))) == 0)
-                        break;
-                    mask += 8;
-                }
-                break;
-            }
         }
         
         listener = new TcpListener(my_ip, port);

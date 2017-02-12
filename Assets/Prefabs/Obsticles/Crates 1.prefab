@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23630877015897480}
   - component: {fileID: 64070202168258920}
   - component: {fileID: 54310837005032518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crate (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23756722480128322}
   - component: {fileID: 64272600985354848}
   - component: {fileID: 54842965307931254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crate (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4458584935938528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crates 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 23377438355076180}
   - component: {fileID: 64557946108005510}
   - component: {fileID: 54229453652733710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

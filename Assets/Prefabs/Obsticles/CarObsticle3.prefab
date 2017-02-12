@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4564546145287908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CarObsticle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33683486424667132}
   - component: {fileID: 23001883090281950}
   - component: {fileID: 65362321433244744}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: car_damage_level6
   m_TagString: Untagged
   m_Icon: {fileID: 0}

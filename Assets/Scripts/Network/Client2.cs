@@ -19,28 +19,24 @@ class Client2 : MonoBehaviour
     public static bool enableBase64 = true;
 
     Level level;
-
     private volatile bool isNeedSend = true;
     private volatile bool isNeedExit = false;
     private bool inGame = false;
     Thread t;
-
-    void Awake()
+            
+    void Start()
     {
         if (Config.isSingle)
         {
             enabled = false;
+            return;
         }
-    }
-
-    void Start()
-    {
-        if (Config.isSingle) return;
 
         //���� ������ ��������� � ������� ������, �� �� �� �������.
 
         //����� ������ ������ ������� ����� editor, �� ��� ����� �����������, ��� ��������
         level = GameObject.FindGameObjectWithTag("Plane").GetComponent<Level>();
+
 
         if (ip == "s")
         {
