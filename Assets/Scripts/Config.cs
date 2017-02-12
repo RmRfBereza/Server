@@ -7,4 +7,5 @@ public static class Config {
     public const string MultiPlayerLevelsFileName = "MultiPlayerLevels.txt";
 
     public static bool isSingle = false;
+    public static string ErrorMessage = "";
 }
