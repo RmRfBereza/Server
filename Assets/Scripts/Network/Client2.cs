@@ -40,7 +40,7 @@ class Client2 : MonoBehaviour
         //���� ������ ��������� � ������� ������, �� �� �� �������.
 
         //����� ������ ������ ������� ����� editor, �� ��� ����� �����������, ��� ��������
-        level = GameObject.Find("Plane").GetComponent<Level>();
+        level = GameObject.FindGameObjectWithTag("Plane").GetComponent<Level>();
 
         if (ip == "s")
         {

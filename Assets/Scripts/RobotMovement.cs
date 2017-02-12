@@ -65,7 +65,7 @@ public class RobotMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        _level = GameObject.Find("Plane").GetComponent<Level>();
+        _level = GameObject.FindGameObjectWithTag("Plane").GetComponent<Level>();
         _secondsText = GameObject.Find("SecondsText").GetComponent<Text>();
 
         subscribeXAction();
