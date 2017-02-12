@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 81846707715416002}
   - component: {fileID: 114692651225853180}
   - component: {fileID: 114394186539231784}
+  - component: {fileID: 114607346358270384}
   m_Layer: 0
   m_Name: VrCamera
   m_TagString: MainCamera
@@ -1475,6 +1476,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!114 &114607346358270384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838152554151950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921c16739bf70e04e877dc268f041810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMaterials:
+  - {fileID: 2100000, guid: a2126534b3a11b34e977105bd9e3cc03, type: 2}
+  - {fileID: 2100000, guid: da976b1a4f7ebb949b0f71341e4f1821, type: 2}
+  - {fileID: 2100000, guid: 53412155bc1016547b1a77b2333c0380, type: 2}
+  - {fileID: 2100000, guid: 9ba05f538ee36044da5cd2a4f14a8b18, type: 2}
+  - {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
+  - {fileID: 2100000, guid: 931987be26c9646429c56f8a4692bb81, type: 2}
+  - {fileID: 2100000, guid: d4d16ca3d56fb7142a32d49bbd323836, type: 2}
 --- !u!114 &114630986331751032
 MonoBehaviour:
   m_ObjectHideFlags: 1
