@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 95000013982319036}
   - component: {fileID: 114000010422936018}
   - component: {fileID: 65000011712656878}
-  - component: {fileID: 114000012598760764}
   - component: {fileID: 54000010001237042}
   - component: {fileID: 136154195555669412}
   m_Layer: 0
@@ -1554,17 +1553,6 @@ MonoBehaviour:
   Thrust: 5
   Speed: 5
   JumpLength: 3
---- !u!114 &114000012598760764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010028721030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3cacabe32e83e24db420ad0e4d8b0c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136154195555669412
 CapsuleCollider:
   m_ObjectHideFlags: 1

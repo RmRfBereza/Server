@@ -288,6 +288,7 @@ public class Level : MonoBehaviour {
         if (!IsPlayerInstanciated)
         {
             Player = Instantiate(Player);
+            if (!Config.isSingle) Player.AddComponent<Client2>();
             SceneCamera.gameObject.AddComponent<GazeCameraHandler>();
             _robot = Player.GetComponent<RobotMovement>();
             IsPlayerInstanciated = true;
