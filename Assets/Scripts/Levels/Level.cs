@@ -74,6 +74,7 @@ public class Level : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+	    PrepareLevel();
 	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;
@@ -89,9 +90,10 @@ public class Level : MonoBehaviour {
 
     private void PrepareLevel()
     {
-        var start = GameObject.FindGameObjectWithTag("Start");
-        StartPosition = start.transform.position;
-        StartRotation = start.transform.eulerAngles;
+        var start = GameObject.FindGameObjectWithTag("Start").transform;
+        var all = start.transform.Find("All");
+        StartPosition = start.position;
+        StartRotation = start.eulerAngles + all.eulerAngles;
     }
 
     public void RestartGame()
