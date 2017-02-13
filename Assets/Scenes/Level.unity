@@ -3195,6 +3195,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967290
       objectReference: {fileID: 0}
+    - target: {fileID: 4792579416505722, guid: 23a379a8476b1fc40b1486b1b231dd76, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23a379a8476b1fc40b1486b1b231dd76, type: 2}
   m_IsPrefabParent: 0
