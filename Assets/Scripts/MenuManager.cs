@@ -39,7 +39,8 @@ public class MenuManager : MonoBehaviour
 	// Use this for initialization
 	void Start() {
 	    FillMenuObjects();
-	    SetState(_menuStates[InitStateName].str);
+	    SetInitState();
+	    SetState(Config.GetAndResetInitState());
 	}
 	
 	// Update is called once per frame
@@ -70,5 +71,10 @@ public class MenuManager : MonoBehaviour
             _menuObjects[i] = menuObject;
             ++i;
         }
+    }
+
+    private void SetInitState()
+    {
+        Config.DefaultState = _menuStates[InitStateName].str;
     }
 }

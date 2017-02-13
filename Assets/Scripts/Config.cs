@@ -7,5 +7,33 @@ public static class Config {
     public const string MultiPlayerLevelsFileName = "MultiPlayerLevels.txt";
 
     public static bool isSingle = false;
-    public static string ErrorMessage = "";
+
+    private static string _defaultState;
+
+    public static string DefaultState
+    {
+        get { return _defaultState; }
+        set
+        {
+            _defaultState = value;
+            if (InitState == null) InitState = value;
+        }
+    }
+
+    public static string ErrorMessage { get; private set; }
+
+    private static string InitState = null;
+
+    public static void SetErrorMessage(string message)
+    {
+        InitState = "Error";
+        ErrorMessage = message;
+    }
+
+    public static string GetAndResetInitState()
+    {
+        string state = InitState;
+        InitState = _defaultState;
+        return state;
+    }
 }

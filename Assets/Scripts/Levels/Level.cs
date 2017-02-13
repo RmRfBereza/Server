@@ -74,6 +74,9 @@ public class Level : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+	    Config.SetErrorMessage("hi");
+	    SceneManager.LoadScene(0);
+
 	    _storage = Instantiate(SegmentStorage).GetComponent<Segment3dStorageHandler>();
         //Segments = new List<GameObject>();
         if (SceneCamera == null) SceneCamera = GameObject.Find("VrCamera")/*Camera.main*/;

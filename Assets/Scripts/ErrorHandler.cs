@@ -8,7 +8,7 @@ public class ErrorHandler : MonoBehaviour
     public Text ErrorText;
 
 	// Use this for initialization
-	void Start ()
+	void OnEnable()
 	{
 	    ErrorText.text = "Error: " + Config.ErrorMessage;
 	}

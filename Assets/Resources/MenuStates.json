@@ -1,7 +1,8 @@
 {
     "InitState":    "Main",
-    "MenuObjects": ["3dClientButton","2dClientButton", "SinglePlayerButton", "MultiPlayerButton", "InputField", "BackToMultiButton", "SubmitButton", "BackToMenuButton"],
-    "Main":        [false,            false,            true,                 true,                false,        false,               false,          false            ],
-    "Multi":       [true,             true,             false,                false,               false,        false,               false,          true             ],
-    "Submit":      [false,            false,            false,                false,               true,         true,                true,           false            ]
+    "MenuObjects": ["3dClientButton","2dClientButton", "SinglePlayerButton", "MultiPlayerButton", "InputField", "BackToMultiButton", "SubmitButton", "BackToMenuButton", "ErrorText", "BackFromErrorButton"],
+    "Main":        [false,            false,            true,                 true,                false,        false,               false,          false,              false,       false               ],
+    "Multi":       [true,             true,             false,                false,               false,        false,               false,          true,               false,       false               ],
+    "Submit":      [false,            false,            false,                false,               true,         true,                true,           false,              false,       false               ],
+    "Error":       [false,            false,            false,                false,               false,        false,               false,          false,              true,        true                ]
 }

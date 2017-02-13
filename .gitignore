@@ -14,6 +14,11 @@ Assets/Prefabs/BigAssets/
 # Apk #
 # === #
 *.apk
+
+# ==== #
+# idea #
+# ==== #
+.idea/
 # ============== #
 # Unity packages #
 # ============== #
