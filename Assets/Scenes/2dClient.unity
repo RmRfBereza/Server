@@ -365,7 +365,7 @@ Prefab:
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 120.56752
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
@@ -375,7 +375,7 @@ Prefab:
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -170.04709
+      value: -347.2971
       objectReference: {fileID: 0}
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
@@ -468,7 +468,7 @@ Prefab:
     - target: {fileID: 114000012315319760, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
       propertyPath: m_FontData.m_MaxSize
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
@@ -479,6 +479,22 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013801043516, guid: d81c254154cea1d4e9d0e6292a277329,
+        type: 2}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012120474892, guid: d81c254154cea1d4e9d0e6292a277329,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0b6ced02ffb3efd42af18e4d5137bd97,
+        type: 3}
+    - target: {fileID: 114000012315319760, guid: d81c254154cea1d4e9d0e6292a277329,
+        type: 2}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000012527337784, guid: d81c254154cea1d4e9d0e6292a277329, type: 2}
@@ -1096,7 +1112,7 @@ Prefab:
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -169.94234
+      value: -347.15753
       objectReference: {fileID: 0}
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
@@ -1189,7 +1205,7 @@ Prefab:
     - target: {fileID: 114000012315319760, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
       propertyPath: m_FontData.m_MaxSize
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 224000011598620846, guid: d81c254154cea1d4e9d0e6292a277329,
         type: 2}
@@ -1200,6 +1216,17 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012120474892, guid: d81c254154cea1d4e9d0e6292a277329,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0b6ced02ffb3efd42af18e4d5137bd97,
+        type: 3}
+    - target: {fileID: 114000012315319760, guid: d81c254154cea1d4e9d0e6292a277329,
+        type: 2}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000012527337784, guid: d81c254154cea1d4e9d0e6292a277329, type: 2}
